@@ -39,10 +39,36 @@ class SignUp extends StatelessWidget {
                       color: Colors.orange,
                       fontSize: 20,
                     ),
+                  ),
+                ],
+              ),
+            ),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 50),
+              child: Column(
+                children: [
+                  SizedBox(height: 50,),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: "아이디",
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.orange)
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.orange)
+                      )
+                    ),
+                  ),
+                  SizedBox(height: 14,),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: "비밀번호"
+                    ),
                   )
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
