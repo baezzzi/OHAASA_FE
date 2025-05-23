@@ -13,30 +13,38 @@ class SignUp extends StatelessWidget {
                 Navigator.pop(context)
               }, icon: Icon(Icons.arrow_back_ios_new)),
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 50),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 100,),
-                  Text("create"),
-                  Text("your account"),
-                ]
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 112,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Colors.orange,
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(50)
+                )
               ),
-              SizedBox(height: 30,),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: "아이디",
-                  labelStyle: TextStyle(color: Colors.orange),
-                  focusColor: Colors.orange,
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: Column(
+                children: [
+                  SizedBox(height: 60),
+                  Text(
+                    "create\nyour account",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: Colors.orange,
+                      fontSize: 20,
+                    ),
                   )
-                ),
-            ],
-          ),
-        )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
