@@ -22,12 +22,7 @@ class SignUp extends StatelessWidget {
                     Container(
                       height: 150,
                       width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(50)
-                        )
-                      ),
+                      decoration: headerDecoration,
                     ),
                     Positioned(
                       top: 80,
@@ -118,7 +113,8 @@ class SignUp extends StatelessWidget {
 
                 GestureDetector(
                   onTap: () => {
-                    print("회원가입 완료!")
+                    print("회원가입 완료!"),
+                    Navigator.pop(context)
                   },
                   child: Center(
                     child: Container(

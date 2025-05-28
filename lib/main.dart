@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ohasa_front/signup.dart';
+import 'package:ohasa_front/signin.dart';
 
 void main() {
   runApp(const MaterialApp(home: MyApp()));
@@ -43,7 +44,15 @@ class MyApp extends StatelessWidget {
                    Navigator.push(
                      context,
                      MaterialPageRoute(builder: (_) => SignUp()))},
-                 child: Text("button"))
+                 child: Text("SIGN UP")
+             ),
+             ElevatedButton(
+                 onPressed: () => {
+                   Navigator.push(
+                     context,
+                     MaterialPageRoute(builder: (_) => Signin()))},
+                 child: Text("SIGN IN")
+             ),
            ],
          ),
        ),

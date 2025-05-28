@@ -10,3 +10,10 @@ const InputDecoration buttonDecoration = InputDecoration(
   ),
   hintStyle: TextStyle(color: Colors.orange),
 );
+
+const BoxDecoration headerDecoration = BoxDecoration(
+  color: Colors.orange,
+  borderRadius: BorderRadius.only(
+    bottomRight: Radius.circular(50)
+  )
+);
