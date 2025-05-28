@@ -14,45 +14,66 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
      home: Scaffold(
        appBar: AppBar(
-         title: const Text("Appbar"),
        ),
        body: Center(
          child: Column(
            children: [
+
+             Text("HI OHAASA"),
              SizedBox(
-               height: 100,
-               child: Row(
-                 mainAxisAlignment: MainAxisAlignment.center,
-                 children: [
-                   Text("코딩공부"),
-                   SizedBox(width: 30,),
-                   Text("2025"),
-                 ],
+               height: 300,
+             ),
+             GestureDetector(
+               onTap: () => {
+                 Navigator.push(
+                   context,
+                   MaterialPageRoute(builder: (_) => SignIn())
+                 ),
+               },
+               child: Container(
+                 width: 280,
+                 height: 50,
+                 alignment: Alignment.center,
+                 decoration: BoxDecoration(
+                   color: Colors.orange,
+                   borderRadius: BorderRadius.circular(20),
+                 ),
+                 child: Text(
+                   "로그인",
+                   style: TextStyle(
+                     color: Colors.white,
+                   ),
+                 ),
                ),
              ),
 
-             Text("hello"),
-             SizedBox(
-               height: 10,
-             ),
-             Text("data"),
-             SizedBox(height: 10,),
-             Icon(Icons.favorite),
-             SizedBox(height: 10,),
-             ElevatedButton(
-                 onPressed: () => {
-                   Navigator.push(
-                     context,
-                     MaterialPageRoute(builder: (_) => SignUp()))},
-                 child: Text("SIGN UP")
-             ),
-             ElevatedButton(
-                 onPressed: () => {
-                   Navigator.push(
-                     context,
-                     MaterialPageRoute(builder: (_) => Signin()))},
-                 child: Text("SIGN IN")
-             ),
+             SizedBox(height: 300,),
+
+             Row(
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+                 Text(
+                   "계정이 없다면",
+                   style: TextStyle(
+                     color: Colors.grey,
+                     fontSize: 15,
+                   ),
+                 ),
+                 TextButton(
+                     onPressed: () => Navigator.push(
+                         context,
+                       MaterialPageRoute(builder: (_) => SignUp())
+                         ),
+                     child: Text(
+                       "회원가입",
+                       style: TextStyle(
+                         color: Colors.orange,
+                         fontSize: 15,
+                       ),
+                     )
+                 ),
+               ],
+             )
            ],
          ),
        ),

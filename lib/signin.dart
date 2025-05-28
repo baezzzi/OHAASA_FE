@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ohasa_front/style.dart';
 
-class Signin extends StatelessWidget {
-  const Signin({super.key});
+import 'package:ohasa_front/home.dart';
+
+class SignIn extends StatelessWidget {
+  const SignIn({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +77,9 @@ class Signin extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     print("로그인 완료");
-                    Navigator.pop(context);
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => Home())
+                    );
                   },
                   child: Center(
                     child: Container(
