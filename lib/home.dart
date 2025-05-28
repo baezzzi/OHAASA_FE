@@ -59,6 +59,8 @@ class _HomeState extends State<Home> {
                     child: Column(
                       children: [
                         SizedBox(height: 90,),
+
+                        // 닉네임
                         Text(
                           "닉네임",
                           style: TextStyle(
@@ -75,6 +77,8 @@ class _HomeState extends State<Home> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: Center(
+
+                            // 별자리
                             child: Text(
                               "쌍둥이자리",
                               textAlign: TextAlign.center,
@@ -85,10 +89,121 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
+                        SizedBox(height: 25,),
+                        Text(
+                          "5월 29일 목요일",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 20
+                          ),
+                        ),
+                        SizedBox(height: 35),
+
+                        // 별자리 운세 내용
+                        Center(
+                          child: SizedBox(
+                            width: 300,
+                            height: 180,
+                            child: Stack(
+                              children: [
+                                Container(
+                                  width: 300,
+                                  height: 180,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(40),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withAlpha(102),
+                                        blurRadius: 8,
+                                        offset: Offset(4,4),
+                                      ),
+                                      BoxShadow(
+                                        color: Color(0xFFFF8282).withAlpha(102),
+                                        blurRadius: 8,
+                                        offset: Offset(-4,-4)
+                                      )
+                                    ]
+                                  ),
+                                ),
+
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(width: 30,),
+                                        SizedBox(height: 70,),
+                                        Container(
+                                          width: 30,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFFF8282),
+                                            borderRadius: BorderRadius.circular(100)
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "1",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          )
+                                        ),
+                                        SizedBox(width: 50,),
+                                        Text(
+                                          "쌍둥이자리",
+                                          style: TextStyle(
+                                            color: Color(0xFFFF8282),
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Center(
+                                      child: Text(
+                                        """동료에게 도움을 받을 예감\n가끔은 호의를 베풀어도 괜찮아""",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18
+                                        ),
+                                      )
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          )
+                        ),
+
+                        SizedBox(height: 50,),
+                        Center(
+                          child: SizedBox(
+                            width: 300,
+                            height: 100,
+                            child: Stack(
+                              children: [
+                                Container(
+                                  width: 300,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                  ),
+                                )
+                              ],
+                            )
+                          ),
+                        )
                       ],
                     ),
                   ),
                 ),
+
+                // 프로필 사진
                 Align(
                   alignment: Alignment(0, -.8),
                   child: GestureDetector(
@@ -116,6 +231,7 @@ class _HomeState extends State<Home> {
                     ),
                   )
                 ),
+
 
               ],
             ),
