@@ -89,17 +89,26 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 25,),
-                        Text(
-                          "5월 29일 목요일",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 20
-                          ),
-                        ),
-                        SizedBox(height: 35),
+                        SizedBox(height: 40,),
 
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.arrow_back_ios_new, color: Colors.black54,),
+                            SizedBox(width: 10,),
+                            Text(
+                              "5월 29일 목요일",
+                              style: TextStyle(
+                                color: Colors.black54,
+                                fontSize: 25
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Icon(Icons.arrow_forward_ios, color: Colors.black54,)
+                          ],
+                        ),
+
+                        SizedBox(height: 50,),
                         // 별자리 운세 내용
                         Center(
                           child: SizedBox(
@@ -112,7 +121,7 @@ class _HomeState extends State<Home> {
                                   height: 180,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(40),
+                                    borderRadius: BorderRadius.circular(30),
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.grey.withAlpha(102),
@@ -131,13 +140,13 @@ class _HomeState extends State<Home> {
                                 Column(
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        SizedBox(width: 30,),
+                                        // SizedBox(width: 30,),
                                         SizedBox(height: 70,),
                                         Container(
-                                          width: 30,
-                                          height: 30,
+                                          width: 20,
+                                          height: 20,
                                           decoration: BoxDecoration(
                                             color: Color(0xFFFF8282),
                                             borderRadius: BorderRadius.circular(100)
@@ -153,7 +162,7 @@ class _HomeState extends State<Home> {
                                             ),
                                           )
                                         ),
-                                        SizedBox(width: 50,),
+                                        SizedBox(width: 10,),
                                         Text(
                                           "쌍둥이자리",
                                           style: TextStyle(
@@ -169,7 +178,8 @@ class _HomeState extends State<Home> {
                                         """동료에게 도움을 받을 예감\n가끔은 호의를 베풀어도 괜찮아""",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          fontSize: 18
+                                          fontSize: 18,
+                                          color: Colors.black54
                                         ),
                                       )
                                     )
@@ -180,19 +190,52 @@ class _HomeState extends State<Home> {
                           )
                         ),
 
-                        SizedBox(height: 50,),
+                        SizedBox(height: 30,),
+                        // 행운 행동
                         Center(
                           child: SizedBox(
                             width: 300,
-                            height: 100,
+                            height: 60,
                             child: Stack(
                               children: [
                                 Container(
                                   width: 300,
-                                  height: 100,
+                                  height: 60,
                                   decoration: BoxDecoration(
-                                    color: Colors.black,
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color(0xFFFF8282).withAlpha(102),
+                                        blurRadius: 8,
+                                        offset: Offset(-4, -4)
+                                      ),
+                                      BoxShadow(
+                                        color: Colors.grey.withAlpha(102),
+                                        blurRadius: 8,
+                                        offset: Offset(4, 4)
+                                      )
+                                    ]
                                   ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(width: 20,),
+                                    Icon(Icons.stars_rounded, color: Color(0xFFFF8282),),
+                                    SizedBox(width: 15,),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "동서남북 일곱색깔 무지개 바닐라똥",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 14
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 )
                               ],
                             )
@@ -232,6 +275,7 @@ class _HomeState extends State<Home> {
                   )
                 ),
 
+                // 하단 메뉴바
 
               ],
             ),
