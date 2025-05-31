@@ -26,6 +26,40 @@ class _HomeState extends State<Home> {
     }
   }
 
+  // 순위에 따른 색 선택
+  final List<Color> colors = [
+    Color(0xFFFA8B8B), // 1등
+    Color(0xFFFFA069), // 2-4등
+    Color(0xFFB7FF9A), // 5-8등
+    Color(0xFF9AB7FF), // 9-11등
+    Color(0xFFCD9AFF), // 12등
+  ];
+
+  int colorIndex = 0;
+
+  Color getByColor(int ranking) {
+    switch (ranking) {
+      case 1 : return colors[0];
+      case 2:
+      case 3:
+      case 4:
+        return colors[1];
+      case 5:
+      case 6:
+      case 7:
+        return colors[2];
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+        return colors[3];
+      case 12:
+        return colors[4];
+      default:
+        return Colors.orange;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -276,7 +310,37 @@ class _HomeState extends State<Home> {
                 ),
 
                 // 하단 메뉴바
-
+                Positioned(
+                  bottom: 0,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Container(
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(60),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withAlpha(102),
+                            blurRadius: 10,
+                            offset: Offset(-4, -4)
+                          )
+                        ]
+                      ),
+                      child: Align(
+                        alignment: Alignment(0, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Icon(Icons.menu_rounded, color: Colors.pinkAccent, size: 50,),
+                            Icon(Icons.favorite_rounded, color: Colors.pinkAccent, size: 50,),
+                            Icon(Icons.extension_rounded, color: Colors.pinkAccent, size: 50,)
+                          ],
+                        ),
+                      )
+                    ),
+                  )
+                ),
               ],
             ),
           ),

@@ -1,9 +1,61 @@
 import 'package:flutter/material.dart';
 import 'style.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class SignUp extends StatelessWidget {
+import 'package:ohasa_front/signin.dart';
+
+class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  // TextField Controller 선언
+  final TextEditingController idController = TextEditingController();
+  final TextEditingController pwController = TextEditingController();
+  final TextEditingController pwcheckController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController nicknameController = TextEditingController();
+  final TextEditingController zodiacController = TextEditingController();
+
+  // post 요청 보내기
+  Future<void> signUp() async {
+    final response = await http.post(
+      Uri.parse("http://localhost:8080/users/sign-up"),
+      headers: {"Content-Type" : "application/json"},
+      body: jsonEncode({
+        "id": idController.text,
+        "pw" : pwController.text,
+        "checkpw" : pwcheckController.text,
+        "email" : emailController.text,
+        "nickname" : nicknameController.text,
+        "zodiac" : zodiacController.text,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      print("회원가입 성공!");
+      if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => SignIn()));
+    } else {
+      print("회원가입 실패 ${response.body}");
+    }
+  }
+
+  // 메모리 누수 방지 컨트롤러 해제
+  @override
+  void dispose() {
+    idController.dispose();
+    pwController.dispose();
+    pwcheckController.dispose();
+    emailController.dispose();
+    nicknameController.dispose();
+    super.dispose();
+  }
+
+  // UI 부분
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -63,6 +115,7 @@ class SignUp extends StatelessWidget {
                         children: [
                           // 아이디 입력
                           TextField(
+                            controller: idController,
                             decoration: buttonDecoration.copyWith(hintText: '아이디'),
                           ),
                           Positioned(
@@ -89,6 +142,7 @@ class SignUp extends StatelessWidget {
                       SizedBox(height: 14,),
                       // 비밀번호 입력
                       TextField(
+                        controller: pwController,
                         decoration: buttonDecoration.copyWith(hintText: '비밀번호'),
                         obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
@@ -96,6 +150,7 @@ class SignUp extends StatelessWidget {
                       SizedBox(height: 14,),
                       // 비밀번호 확인
                       TextField(
+                        controller: pwcheckController,
                         decoration: buttonDecoration.copyWith(hintText: '비밀번호 확인'),
                         obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
@@ -103,8 +158,18 @@ class SignUp extends StatelessWidget {
                       SizedBox(height: 14,),
                       // 이메일 입력
                       TextField(
+                        controller: emailController,
                         decoration: buttonDecoration.copyWith(hintText: '이메일'),
                         keyboardType: TextInputType.emailAddress,
+                      ),
+                      SizedBox(height: 14,),
+                      TextField(
+                        controller: nicknameController,
+                        decoration: buttonDecoration.copyWith(hintText: '닉네임'),
+                      ),
+                      TextField(
+                        controller: zodiacController,
+                        decoration: buttonDecoration.copyWith(hintText: '별자리'),
                       ),
                       SizedBox(height: 50,),
                     ],
@@ -112,10 +177,7 @@ class SignUp extends StatelessWidget {
                 ),
 
                 GestureDetector(
-                  onTap: () => {
-                    print("회원가입 완료!"),
-                    Navigator.pop(context)
-                  },
+                  onTap: signUp,
                   child: Center(
                     child: Container(
                       width: 330,
@@ -126,7 +188,7 @@ class SignUp extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Text(
-                          "계정생성하기",
+                          "계정 생성하기",
                         style: TextStyle(
                           color: Colors.white,
                         ),
