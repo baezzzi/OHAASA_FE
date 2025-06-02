@@ -13,13 +13,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // 닉네임 가져오기 메소드
-  // Future<void> handleNickname() async {
-  //   final respone = await http.get(
-  //     Uri.parse("http://localhost:/users")
-  //   )
+  
+  // Future<void> getNickname() async {
+  //   final response = await http.get(
+  //     Uri.parse("http://localhost:8080/users/find-nickname?id=${}"),
+  //     headers: {"Content-Type" : "application/json"},
+  //   );
   // }
-
+  
   // 이미지 변수 생성
   File? _imageFile;
 
