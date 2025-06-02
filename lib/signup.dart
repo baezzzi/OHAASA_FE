@@ -43,6 +43,18 @@ class _SignUpState extends State<SignUp> {
       print("회원가입 실패 ${response.body}");
     }
   }
+  
+  Future<void> checkId() async {
+    final response = await http.get(
+      Uri.parse("http://localhost:8080/users/check-id?id=${idController.text}"),
+      headers: {"Content-Type" : "application/json"}
+    );
+    if (response.statusCode == 200) {
+      print("내용 ${response.body}");
+    } else {
+      print("아이디 ${response.body}");
+    }
+  }
 
   // 메모리 누수 방지 컨트롤러 해제
   @override
@@ -121,18 +133,21 @@ class _SignUpState extends State<SignUp> {
                           Positioned(
                             top: 10,
                             right: 0,
-                            child: Container(
-                              width: 70,
-                              height: 30,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Colors.orange,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Text(
-                                "중복확인",
-                                style: TextStyle(
-                                  color: Colors.white,
+                            child: GestureDetector(
+                              onTap: checkId,
+                              child: Container(
+                                width: 70,
+                                height: 30,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Colors.orange,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  "중복확인",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
@@ -167,6 +182,7 @@ class _SignUpState extends State<SignUp> {
                         controller: nicknameController,
                         decoration: buttonDecoration.copyWith(hintText: '닉네임'),
                       ),
+                      SizedBox(height: 14,),
                       TextField(
                         controller: zodiacController,
                         decoration: buttonDecoration.copyWith(hintText: '별자리'),

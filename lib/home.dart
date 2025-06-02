@@ -2,6 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -10,6 +13,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // 닉네임 가져오기 메소드
+  // Future<void> handleNickname() async {
+  //   final respone = await http.get(
+  //     Uri.parse("http://localhost:/users")
+  //   )
+  // }
 
   // 이미지 변수 생성
   File? _imageFile;
