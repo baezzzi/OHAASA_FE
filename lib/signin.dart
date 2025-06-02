@@ -18,6 +18,9 @@ class _SignInState extends State<SignIn> {
   final TextEditingController idController = TextEditingController();
   final TextEditingController pwController = TextEditingController();
 
+  // failLogin message
+  String loginMessage = "";
+
   // post 요청 보내기
   Future<void> signIn() async {
     final response = await http.post(
@@ -33,7 +36,9 @@ class _SignInState extends State<SignIn> {
       print("로그인 성공");
       if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
     } else {
-      print("로그인 실패 :${response.body}");
+      setState(() {
+        loginMessage = response.body;
+      });
     }
   }
 
@@ -93,6 +98,15 @@ class _SignInState extends State<SignIn> {
                   child: Column(
                     children: [
                       SizedBox(height: 70,),
+                      Text(
+                        loginMessage,
+                        style: TextStyle(
+                          color: Colors.deepOrange,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       TextField(
                         controller: idController,
                         decoration: buttonDecoration.copyWith(hintText: "아이디"),

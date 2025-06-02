@@ -21,6 +21,9 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController nicknameController = TextEditingController();
   final TextEditingController zodiacController = TextEditingController();
 
+  // 아이디 사용 가능 여부
+  String checkIdMessage = "";
+
   // post 요청 보내기
   Future<void> signUp() async {
     final response = await http.post(
@@ -50,9 +53,15 @@ class _SignUpState extends State<SignUp> {
       headers: {"Content-Type" : "application/json"}
     );
     if (response.statusCode == 200) {
-      print("내용 ${response.body}");
+      setState(() {
+        checkIdMessage = response.body;
+      });
+      print("사용가능");
     } else {
-      print("아이디 ${response.body}");
+      setState(() {
+        checkIdMessage = response.body;
+      });
+      print(response.body);
     }
   }
 
@@ -105,7 +114,7 @@ class _SignUpState extends State<SignUp> {
                   padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: Column(
                     children: [
-                      SizedBox(height: 100),
+                      SizedBox(height: 80),
                       Text(
                         "create\nyour account",
                         textAlign: TextAlign.left,
@@ -116,6 +125,17 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ],
                   ),
+                ),
+
+                Center(
+                  child: Text(
+                    checkIdMessage,
+                    style: TextStyle(
+                      color: Colors.black54,
+
+                    ),
+                  ),
+
                 ),
 
                 Padding(

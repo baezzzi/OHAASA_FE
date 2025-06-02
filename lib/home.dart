@@ -13,7 +13,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  
+
+  // 닉네임 받아오는 거 할건데 fcm 구현한다음에 하는게 나을듯
   // Future<void> getNickname() async {
   //   final response = await http.get(
   //     Uri.parse("http://localhost:8080/users/find-nickname?id=${}"),
