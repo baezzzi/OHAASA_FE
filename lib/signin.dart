@@ -3,8 +3,39 @@ import 'package:ohasa_front/style.dart';
 
 import 'package:ohasa_front/home.dart';
 
-class SignIn extends StatelessWidget {
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class SignIn extends StatefulWidget {
   const SignIn({super.key});
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+
+  final TextEditingController idController = TextEditingController();
+  final TextEditingController pwController = TextEditingController();
+
+  // post 요청 보내기
+  Future<void> signIn() async {
+    final response = await http.post(
+      Uri.parse("http://localhost:8080/users/sign-in"),
+      headers: {"Content-Type" : "application/json"},
+      body: jsonEncode({
+        "id": idController.text,
+        "pw": pwController.text
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      print("로그인 성공");
+      if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
+    } else {
+      print("로그인 실패 :${response.body}");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +94,12 @@ class SignIn extends StatelessWidget {
                     children: [
                       SizedBox(height: 70,),
                       TextField(
+                        controller: idController,
                         decoration: buttonDecoration.copyWith(hintText: "아이디"),
                       ),
                       SizedBox(height: 20,),
                       TextField(
+                        controller: pwController,
                         decoration: buttonDecoration.copyWith(hintText: "비밀번호"),
                       ),
                       SizedBox(height: 50,)
@@ -75,12 +108,7 @@ class SignIn extends StatelessWidget {
                 ),
                 
                 GestureDetector(
-                  onTap: () {
-                    print("로그인 완료");
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => Home())
-                    );
-                  },
+                  onTap: signIn,
                   child: Center(
                     child: Container(
                       width: 330,
