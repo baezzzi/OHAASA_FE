@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -14,6 +16,17 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  // 날짜 표시 작업
+  late String formattedDate = "";
+
+  @override
+  void initState() {
+    super.initState();
+    DateTime now = DateTime.now();
+    formattedDate = DateFormat("M d EEEE").format(now);
+    print(formattedDate);
+  }
+
   // 닉네임 받아오는 거 할건데 fcm 구현한다음에 하는게 나을듯
   // Future<void> getNickname() async {
   //   final response = await http.get(
@@ -21,7 +34,7 @@ class _HomeState extends State<Home> {
   //     headers: {"Content-Type" : "application/json"},
   //   );
   // }
-  
+
   // 이미지 변수 생성
   File? _imageFile;
 
@@ -73,8 +86,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         body: SingleChildScrollView(
           child: SizedBox(
             width: double.infinity,
@@ -142,7 +154,7 @@ class _HomeState extends State<Home> {
                             Icon(Icons.arrow_back_ios_new, color: Colors.black54,),
                             SizedBox(width: 10,),
                             Text(
-                              "5월 29일 목요일",
+                              formattedDate,
                               style: TextStyle(
                                 color: Colors.black54,
                                 fontSize: 25
@@ -356,7 +368,6 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
