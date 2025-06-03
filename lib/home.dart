@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
 
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -23,7 +24,8 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     DateTime now = DateTime.now();
-    formattedDate = DateFormat("M d EEEE").format(now);
+    initializeDateFormatting();
+    formattedDate = DateFormat("M월 d일 EEEE", 'ko').format(now);
     print(formattedDate);
   }
 
