@@ -3,7 +3,7 @@ import 'style.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:ohasa_front/signin.dart';
+import 'package:OzO/signin.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -19,7 +19,6 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController pwcheckController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nicknameController = TextEditingController();
-  final TextEditingController zodiacController = TextEditingController();
 
   // 아이디 사용 가능 여부
   String checkIdMessage = "";
@@ -35,7 +34,6 @@ class _SignUpState extends State<SignUp> {
         "checkpw" : pwcheckController.text,
         "email" : emailController.text,
         "nickname" : nicknameController.text,
-        "zodiac" : zodiacController.text,
       }),
     );
 
@@ -56,7 +54,6 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         checkIdMessage = response.body;
       });
-      print("사용가능");
     } else {
       setState(() {
         checkIdMessage = response.body;
@@ -202,12 +199,7 @@ class _SignUpState extends State<SignUp> {
                         controller: nicknameController,
                         decoration: buttonDecoration.copyWith(hintText: '닉네임'),
                       ),
-                      SizedBox(height: 14,),
-                      TextField(
-                        controller: zodiacController,
-                        decoration: buttonDecoration.copyWith(hintText: '별자리'),
-                      ),
-                      SizedBox(height: 50,),
+                      SizedBox(height: 80,),
                     ],
                   ),
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ohasa_front/signup.dart';
-import 'package:ohasa_front/signin.dart';
-import 'package:ohasa_front/home.dart';
+import 'package:OzO/signup.dart';
+import 'package:OzO/signin.dart';
+import 'package:OzO/home.dart';
 
 void main() {
   runApp(const MaterialApp(home: MyApp()));

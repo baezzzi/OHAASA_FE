@@ -53,5 +53,21 @@
 
     <key>NSPhotoLibraryAddUsageDescription</key>
     <string>사진을 저장하려면 권한이 필요합니다.</string>
+
+    <!-- 갤러리(사진) 접근 권한 -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>사진 접근 권한이 필요합니다.</string>
+
+    <!-- 카메라 접근 권한 (필요시) -->
+    <key>NSCameraUsageDescription</key>
+    <string>카메라 사용 권한이 필요합니다.</string>
+
+    <!-- 푸시 알림 권한 -->
+    <key>NSUserNotificationUsageDescription</key>
+    <string>푸시 알림 권한이 필요합니다.</string>
+
+    <key>CFBundleDisplayName</key>
+    <string>OzO</string>
+
 </dict>
 </plist>

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ohasa_front/style.dart';
+import 'package:OzO/style.dart';
 
-import 'package:ohasa_front/home.dart';
+import 'package:OzO/auth.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -34,7 +34,7 @@ class _SignInState extends State<SignIn> {
 
     if (response.statusCode == 200) {
       print("로그인 성공");
-      if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
+      if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => Auth()));
     } else {
       setState(() {
         loginMessage = response.body;
@@ -122,7 +122,9 @@ class _SignInState extends State<SignIn> {
                 ),
                 
                 GestureDetector(
-                  onTap: signIn,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => Auth()));
+                  },
                   child: Center(
                     child: Container(
                       width: 330,
