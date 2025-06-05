@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:OzO/style.dart';
+
+import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 class ZodiacSetting extends StatefulWidget {
   const ZodiacSetting({super.key});
@@ -11,48 +12,53 @@ class ZodiacSetting extends StatefulWidget {
 
 class _ZodiacSettingState extends State<ZodiacSetting> {
 
-  // 생일 선택하는 거
-  DateTime? selectedDate;
+  // 생일 선택 함수
+  DateTime _selectedDate = DateTime.now();
 
 
 
-  // Future<void> _pickDate() async {
-  //   DateTime now = DateTime.now();
-  //   final DateTime? picked = await DatePicker(
-  //     context: context,
-  //     initialDate: selectedDate ?? now,
-  //     firstDate: DateTime(1950),
-  //     lastDate: DateTime(2025),
-  //     locale: const Locale('ko', 'KR')
-  //   ).datePikcer;
-  //   if (picked != null ) {
-  //     setState(() {
-  //       selectedDate = picked;
-  //     });
-  //   }
-  // }
-
-  void _showDatePicker(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (_) {
-        final now = DateTime.now();
-        return SizedBox(
-          height: 250,
-          child: CupertinoDatePicker(
-            mode: CupertinoDatePickerMode.date,
-            initialDateTime: now,
-            maximumDate: now, // 오늘까지 가능
-            onDateTimeChanged: (DateTime newDate) {
+  Widget buildDatePickerSection() {
+    return Column(
+      children: [
+        Container(
+          height: 100.0,
+          alignment: Alignment.center,
+          child: Text(
+            "$_selectedDate",
+            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
+          ),
+        ),
+        Container(
+          alignment: Alignment.centerRight,
+          padding: const EdgeInsets.only(right: 48),
+          child: TextButton(
+            onPressed: () {
               setState(() {
-                selectedDate = newDate;
+                _selectedDate = DateTime.now();
+              });
+            },
+            child: Text(
+              "TODAY",
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 250,
+          child: ScrollDatePicker(
+            selectedDate: _selectedDate,
+            locale: Locale('en'),
+            onDateTimeChanged: (DateTime value) {
+              setState(() {
+                _selectedDate = value;
               });
             },
           ),
-        );
-      },
+        ),
+      ],
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -90,25 +96,43 @@ class _ZodiacSettingState extends State<ZodiacSetting> {
                       ),
                     ),
 
-                    Text(
-                      selectedDate == null
-                          ? "생일을 선택하시오"
-                          : "${selectedDate!.year}년 ${selectedDate!.month}월 ${selectedDate!.day}일 "
-                    ),
-                    Text(
-                      "${selectedDate!.year}-${selectedDate!.month}-${selectedDate!.day}",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () => _showDatePicker(context),
-                      child: Text("날짜 선택하기"),
-                    ),
+                    SizedBox(height: 60,),
+                    Container(
+                      width: double.infinity,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Colors.orange,
+                            width: 2,
+                          ),
+                        )
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "${_selectedDate.year}년 ${_selectedDate.month}월 ${_selectedDate.day}일",
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 25,
+                            ),
+                          ),
+
+                          IconButton(
+                            onPressed: ScrollDatePicker(),
+                            icon: Icon(Icons.calendar_today_rounded), color: Colors.orange,
+                          )
+                        ],
+                      )
+                    )
                   ],
                 ),
-              )
+
+              ),
+              // buildDatePickerSection(),
             ],
-          )
+          ),
         ],
       ),
     );
