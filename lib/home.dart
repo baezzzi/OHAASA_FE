@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
-import 'package:intl/intl.dart';
 
 
 class Home extends StatefulWidget {
@@ -317,35 +315,38 @@ class _HomeState extends State<Home> {
                 ),
 
                 // 하단 메뉴바
-                Positioned(
-                  bottom: 0,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(60),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withAlpha(102),
-                            blurRadius: 10,
-                            offset: Offset(-4, -4)
-                          )
-                        ]
-                      ),
-                      child: Align(
-                        alignment: Alignment(0, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(Icons.menu_rounded, color: Colors.pinkAccent, size: 50,),
-                            Icon(Icons.favorite_rounded, color: Colors.pinkAccent, size: 50,),
-                            Icon(Icons.extension_rounded, color: Colors.pinkAccent, size: 50,)
-                          ],
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 100),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Container(
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(60),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withAlpha(102),
+                              blurRadius: 10,
+                              offset: Offset(-4, -4)
+                            )
+                          ]
                         ),
-                      )
-                    ),
+                        child: Align(
+                          alignment: Alignment(0, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(Icons.menu_rounded, color: Colors.pinkAccent, size: 50,),
+                              Icon(Icons.favorite_rounded, color: Colors.pinkAccent, size: 50,),
+                              Icon(Icons.extension_rounded, color: Colors.pinkAccent, size: 50,)
+                            ],
+                          ),
+                        )
+                      ),
+                    )
                   )
                 ),
               ],

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "725272490940",
+    "project_id": "ozoozo-2b32f",
+    "storage_bucket": "ozoozo-2b32f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725272490940:android:8d801fc41f20956925b1b9",
+        "android_client_info": {
+          "package_name": "com.example.ohasa_front"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9yOf3F2_kqLi6rqdAaT2LGkSK-wazKOg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

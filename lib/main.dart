@@ -1,8 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
 import 'package:OzO/signup.dart';
 import 'package:OzO/signin.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MaterialApp(home: MyApp()));
 }
 
@@ -13,53 +21,58 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
      home: Scaffold(
-       appBar: AppBar(
-       ),
-       body: Center(
-         child: Column(
-           children: [
-
-             Text("HI OHAASA"),
-             SizedBox(
-               height: 300,
-             ),
-             GestureDetector(
-               onTap: () => {
-                 Navigator.push(
-                   context,
-                   MaterialPageRoute(builder: (_) => SignIn())
-                 ),
-               },
-               child: Container(
-                 width: 280,
-                 height: 50,
-                 alignment: Alignment.center,
-                 decoration: BoxDecoration(
-                   color: Colors.orange,
-                   borderRadius: BorderRadius.circular(20),
-                 ),
-                 child: Text(
-                   "로그인",
-                   style: TextStyle(
-                     color: Colors.white,
-                   ),
-                 ),
-               ),
-             ),
-
-             SizedBox(height: 300,),
-
-             Row(
-               mainAxisAlignment: MainAxisAlignment.center,
+       body: Stack(
+         children: [
+           Center(
+             child: Column(
                children: [
-                 Text(
-                   "계정이 없다면",
-                   style: TextStyle(
-                     color: Colors.grey,
-                     fontSize: 15,
+
+                 SizedBox(height: 300,),
+                 Text("HI OHAASA"),
+                 SizedBox(
+                   height: 100,
+                 ),
+                 GestureDetector(
+                   onTap: () => {
+                     Navigator.push(
+                       context,
+                       MaterialPageRoute(builder: (_) => SignIn())
+                     ),
+                   },
+                   child: Container(
+                     width: 280,
+                     height: 50,
+                     alignment: Alignment.center,
+                     decoration: BoxDecoration(
+                       color: Colors.orange,
+                       borderRadius: BorderRadius.circular(20),
+                     ),
+                     child: Text(
+                       "로그인",
+                       style: TextStyle(
+                         color: Colors.white,
+                       ),
+                     ),
                    ),
                  ),
-                 TextButton(
+               ],
+             ),
+           ),
+           Align(
+             alignment: Alignment.bottomCenter,
+             child:  Padding(
+               padding: EdgeInsets.only(bottom: 100),
+               child: Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
+                   Text(
+                     "계정이 없다면",
+                     style: TextStyle(
+                       color: Colors.grey,
+                       fontSize: 15,
+                     ),
+                   ),
+                   TextButton(
                      onPressed: () => Navigator.push(
                          context,
                        MaterialPageRoute(builder: (_) => SignUp())
@@ -71,11 +84,12 @@ class MyApp extends StatelessWidget {
                          fontSize: 15,
                        ),
                      )
-                 ),
-               ],
+                   ),
+                 ],
+               )
              )
-           ],
-         ),
+           )
+         ],
        ),
      ),
     );

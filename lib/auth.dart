@@ -91,7 +91,7 @@ class _AuthState extends State<Auth> {
                     ),
                     SizedBox(height: 50,),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           width: 60,
@@ -107,29 +107,31 @@ class _AuthState extends State<Auth> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 30,),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "알림",
-                              style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w800,
+                        SizedBox(
+                          width: 150,
+                          height: 60,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "알림",
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w800,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "매일 아침 운세 제공",
-                              style: TextStyle(
-                                color: Colors.black54,
-                              ),
-                            )
-                          ],
+                              Text(
+                                "매일 아침 운세 제공",
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                        SizedBox(width: 80,),
                         Align(
-                          alignment: Alignment(1, 0),
+                          alignment: Alignment(.3, 0),
                           child: GestureDetector(
                             onTap: () {
                               permissionAlarm();
@@ -156,7 +158,7 @@ class _AuthState extends State<Auth> {
                     ),
                     SizedBox(height: 30,),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           width: 60,
@@ -172,29 +174,31 @@ class _AuthState extends State<Auth> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 30,),
-                        Column(
+                        SizedBox(
+                          width: 150,
+                          height: 60,
+                          child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "갤러리",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w800,
-                                color: Colors.black54,
+                            children: [
+                              Text(
+                                "갤러리",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.black54,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "프로필 사진 첨부",
-                              style: TextStyle(
-                                color: Colors.black54,
-                              ),
-                            )
-                          ],
+                              Text(
+                                "프로필 사진 첨부",
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                        SizedBox(width: 100,),
                         Align(
-                          alignment: Alignment(1, 0),
+                          alignment: Alignment(.3, 0),
                           child: GestureDetector(
                             onTap: () {
                               permissionGallery();
