@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:OzO/style.dart';
 import 'package:OzO/datepicker.dart';
+import 'package:OzO/home.dart';
+import 'package:OzO/zodiacpicker.dart';
 
 class ZodiacSetting extends StatefulWidget {
   const ZodiacSetting({super.key});
@@ -10,7 +12,6 @@ class ZodiacSetting extends StatefulWidget {
 }
 
 class _ZodiacSettingState extends State<ZodiacSetting> {
-
   // 생일 선택 함수
   DateTime _selectedDate = DateTime.now();
 
@@ -32,6 +33,7 @@ class _ZodiacSettingState extends State<ZodiacSetting> {
 
   @override
   Widget build(BuildContext context) {
+    String zodiacName = getZodiacName(_selectedDate);
     return Scaffold(
       body: Stack(
         children: [
@@ -95,13 +97,76 @@ class _ZodiacSettingState extends State<ZodiacSetting> {
                           )
                         ],
                       )
+                    ),
+                    SizedBox(height: 40,),
+                    Center(
+                      child: Container(
+                        width: double.infinity,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Colors.orange,
+                              width: 2,
+                            )
+                          )
+                        ),
+                        child: Center(
+                          child: Text(
+                            zodiacName,
+                            style: TextStyle(
+                              fontSize: 30
+                            ),
+                          ),
+                        )
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Center(
+                        child: Text(
+                          "별자리가 틀렸어요!",
+                          style: TextStyle(
+                            color: Colors.grey
+                          )
+                        ),
+                      ),
                     )
                   ],
                 ),
               ),
-              // buildDatePickerSection(),
             ],
           ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 40),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
+                },
+                child: Container(
+                  width: 350,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "다음",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

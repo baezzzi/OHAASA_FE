@@ -15,17 +15,17 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  // 날짜 표시 작업
-  late String formattedDate = "";
-
-  @override
-  void initState() {
-    super.initState();
-    DateTime now = DateTime.now();
-    initializeDateFormatting();
-    formattedDate = DateFormat("M월 d일 EEEE", 'ko').format(now);
-    print(formattedDate);
-  }
+  // // 날짜 표시 작업
+  // late String formattedDate = "";
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   DateTime now = DateTime.now();
+  //   initializeDateFormatting();
+  //   formattedDate = DateFormat("M월 d일 EEEE", 'ko').format(now);
+  //   print(formattedDate);
+  // }
 
   // 닉네임 받아오는 거 할건데 fcm 구현한다음에 하는게 나을듯
   // Future<void> getNickname() async {
@@ -148,22 +148,6 @@ class _HomeState extends State<Home> {
                         ),
                         SizedBox(height: 40,),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.arrow_back_ios_new, color: Colors.black54,),
-                            SizedBox(width: 10,),
-                            Text(
-                              formattedDate,
-                              style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 25
-                              ),
-                            ),
-                            SizedBox(width: 10,),
-                            Icon(Icons.arrow_forward_ios, color: Colors.black54,)
-                          ],
-                        ),
 
                         SizedBox(height: 50,),
                         // 별자리 운세 내용

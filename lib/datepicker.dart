@@ -6,10 +6,10 @@ class DatePicker extends StatefulWidget {
   final void Function(DateTime) onDateSelected;
 
   const DatePicker({
-    Key? key,
+    super.key,
     required this.initialDate,
     required this.onDateSelected,
-  }) : super(key: key);
+  });
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -46,37 +46,52 @@ class _DatePickerState extends State<DatePicker> {
     dayController.dispose();
     super.dispose();
   }
+  
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 400,
+      height: 350,
       child: Column(
         children: [
-          SizedBox(height: 20,),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                widget.onDateSelected(DateTime(tempYear, tempMonth, tempDay));
-              });
-              Navigator.pop(context);
-            },
-            child: Align(
-              alignment: Alignment(.8, 0),
-              child: Text(
-                "done",
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700
+          SizedBox(height: 25,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Text(
+                  "cancle",
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700
+                  ),
                 ),
               ),
-            ),
+              SizedBox(width: 200,),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    widget.onDateSelected(DateTime(tempYear, tempMonth, tempDay));
+                  });
+                  Navigator.pop(context);
+                },
+                child:Text(
+                  "done",
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700
+                  ),
+                ),
+              ),
+            ]
           ),
 
           SizedBox(height: 10,),
           SizedBox(
-            height: 300,
+            height: 250,
             child: SizedBox(
               width: double.infinity,
               height: 300,
@@ -86,9 +101,9 @@ class _DatePickerState extends State<DatePicker> {
                     child: Center(
                       child: Container(
                         width: double.infinity,
-                        height: 42,
+                        height: 50,
                         decoration: BoxDecoration(
-                          color: Color(0xFFDDDDDD),
+                          color: Color(0xFFE6E3ED),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
@@ -117,7 +132,7 @@ class _DatePickerState extends State<DatePicker> {
                                 child: Text(
                                   "${1950 + index}년",
                                   style: TextStyle(
-                                    fontSize: 20
+                                    fontSize: 28
                                   ),
                                 ),
                               );
@@ -148,7 +163,7 @@ class _DatePickerState extends State<DatePicker> {
                                 child: Text(
                                   "${index + 1}월",
                                   style: TextStyle(
-                                    fontSize: 20
+                                    fontSize: 30
                                   ),
                                 )
                               );
@@ -178,7 +193,7 @@ class _DatePickerState extends State<DatePicker> {
                                 child: Text(
                                   "${index + 1}일",
                                   style: TextStyle(
-                                    fontSize: 20
+                                    fontSize: 30
                                   ),
                                 ),
                               );
