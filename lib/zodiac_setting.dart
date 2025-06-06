@@ -33,6 +33,7 @@ class _ZodiacSettingState extends State<ZodiacSetting> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     String zodiacName = getZodiacName(_selectedDate);
     return Scaffold(
       body: Stack(
@@ -143,7 +144,7 @@ class _ZodiacSettingState extends State<ZodiacSetting> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 40),
+              padding: EdgeInsets.only(bottom: screenHeight * 0.05),
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));

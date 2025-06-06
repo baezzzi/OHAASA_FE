@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return MaterialApp(
      home: Scaffold(
        body: Stack(
@@ -60,8 +61,8 @@ class MyApp extends StatelessWidget {
            ),
            Align(
              alignment: Alignment.bottomCenter,
-             child:  Padding(
-               padding: EdgeInsets.only(bottom: 100),
+             child: Padding(
+               padding: EdgeInsets.only(bottom: screenHeight * .1),
                child: Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: [
