@@ -14,11 +14,9 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   // TextField Controller 선언
-  final TextEditingController idController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController pwController = TextEditingController();
   final TextEditingController pwcheckController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController nicknameController = TextEditingController();
 
   // 아이디 사용 가능 여부
   String checkIdMessage = "";
@@ -29,11 +27,9 @@ class _SignUpState extends State<SignUp> {
       Uri.parse("http://localhost:8080/users/sign-up"),
       headers: {"Content-Type" : "application/json"},
       body: jsonEncode({
-        "id": idController.text,
+        "email" : emailController.text,
         "pw" : pwController.text,
         "checkpw" : pwcheckController.text,
-        "email" : emailController.text,
-        "nickname" : nicknameController.text,
       }),
     );
 
@@ -44,10 +40,11 @@ class _SignUpState extends State<SignUp> {
       print("회원가입 실패 ${response.body}");
     }
   }
-  
+
+  // 이메일 사용 가능한지 여부
   Future<void> checkId() async {
     final response = await http.get(
-      Uri.parse("http://localhost:8080/users/check-id?id=${idController.text}"),
+      Uri.parse("http://localhost:8080/users/check-id?"),
       headers: {"Content-Type" : "application/json"}
     );
     if (response.statusCode == 200) {
@@ -62,14 +59,26 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
+  // 비밀번호 같은지 확인
+  String checkPwMessage = "";
+  void checkPw() {
+    if (pwController.text != pwcheckController.text) {
+      setState(() {
+        checkPwMessage = "비밀번호가 일치하지 않습니다.";
+      });
+    } else {
+      setState(() {
+        checkPwMessage = "";
+      });
+    }
+  }
+
   // 메모리 누수 방지 컨트롤러 해제
   @override
   void dispose() {
-    idController.dispose();
+    emailController.dispose();
     pwController.dispose();
     pwcheckController.dispose();
-    emailController.dispose();
-    nicknameController.dispose();
     super.dispose();
   }
 
@@ -124,52 +133,16 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
 
-                Center(
-                  child: Text(
-                    checkIdMessage,
-                    style: TextStyle(
-                      color: Colors.black54,
-
-                    ),
-                  ),
-
-                ),
 
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 50),
                   child: Column(
                     children: [
-                      SizedBox(height: 50,),
-                      Stack(
-                        children: [
-                          // 아이디 입력
-                          TextField(
-                            controller: idController,
-                            decoration: buttonDecoration.copyWith(hintText: '아이디'),
-                          ),
-                          Positioned(
-                            top: 10,
-                            right: 0,
-                            child: GestureDetector(
-                              onTap: checkId,
-                              child: Container(
-                                width: 70,
-                                height: 30,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: Colors.orange,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Text(
-                                  "중복확인",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
+                      SizedBox(height: 70,),
+                      TextField(
+                        controller: emailController,
+                        decoration: buttonDecoration.copyWith(hintText: '이메일'),
+                        keyboardType: TextInputType.emailAddress,
                       ),
                       SizedBox(height: 14,),
                       // 비밀번호 입력
@@ -186,20 +159,22 @@ class _SignUpState extends State<SignUp> {
                         decoration: buttonDecoration.copyWith(hintText: '비밀번호 확인'),
                         obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
+                        onChanged: (value) => checkPw(),
                       ),
-                      SizedBox(height: 14,),
+                      SizedBox(height: 10,),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          checkPwMessage,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 13
+                          ),
+                        ),
+                      ),
                       // 이메일 입력
-                      TextField(
-                        controller: emailController,
-                        decoration: buttonDecoration.copyWith(hintText: '이메일'),
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                      SizedBox(height: 14,),
-                      TextField(
-                        controller: nicknameController,
-                        decoration: buttonDecoration.copyWith(hintText: '닉네임'),
-                      ),
-                      SizedBox(height: 80,),
+                      SizedBox(height: 30,),
+
                     ],
                   ),
                 ),

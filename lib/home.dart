@@ -331,7 +331,7 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Container(
-          height: screenHeight * 0.12,
+          height: 100,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(60),
