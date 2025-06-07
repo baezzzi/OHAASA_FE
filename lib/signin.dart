@@ -15,7 +15,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
 
-  final TextEditingController idController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController pwController = TextEditingController();
 
   // failLogin message
@@ -27,7 +27,7 @@ class _SignInState extends State<SignIn> {
       Uri.parse("http://localhost:8080/users/sign-in"),
       headers: {"Content-Type" : "application/json"},
       body: jsonEncode({
-        "id": idController.text,
+        "id": emailController.text,
         "pw": pwController.text
       }),
     );
@@ -108,8 +108,8 @@ class _SignInState extends State<SignIn> {
                         height: 10,
                       ),
                       TextField(
-                        controller: idController,
-                        decoration: buttonDecoration.copyWith(hintText: "아이디"),
+                        controller: emailController,
+                        decoration: buttonDecoration.copyWith(hintText: "이메일"),
                       ),
                       SizedBox(height: 20,),
                       TextField(

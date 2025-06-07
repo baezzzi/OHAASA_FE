@@ -41,10 +41,24 @@ class _ZodiacSettingState extends State<ZodiacSetting> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: double.infinity,
-                height: 150,
-                decoration: headerDecoration,
+              Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 150,
+                    decoration: headerDecoration,
+                  ),
+                  Positioned(
+                    top: 80,
+                    left: 15,
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 70,),
               Padding(
@@ -112,30 +126,16 @@ class _ZodiacSettingState extends State<ZodiacSetting> {
                             )
                           )
                         ),
-                        child: Center(
-                          child: Text(
-                            zodiacName,
-                            style: TextStyle(
-                              fontSize: 30
-                            ),
+                        child: Text(
+                          zodiacName,
+                          style: TextStyle(
+                            fontSize: 30
                           ),
                         )
                       ),
                     ),
                     SizedBox(height: 20,),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Center(
-                        child: Text(
-                          "별자리가 틀렸어요!",
-                          style: TextStyle(
-                            color: Colors.grey
-                          )
-                        ),
-                      ),
-                    )
+
                   ],
                 ),
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:OzO/style.dart';
 import 'package:OzO/zodiac_setting.dart';
+import 'package:OzO/main.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 
@@ -55,16 +56,31 @@ class _AuthState extends State<Auth> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: double.infinity,
-                height: 150,
-                decoration: headerDecoration,
+              Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 150,
+                    decoration: headerDecoration,
+                  ),
+                  Positioned(
+                    top: 80,
+                    left: 15,
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => MyApp()));
+                      },
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 70,),
               Padding(
@@ -231,7 +247,7 @@ class _AuthState extends State<Auth> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 40),
+              padding: EdgeInsets.only(bottom: screenHeight * 0.05),
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (_) => ZodiacSetting()));

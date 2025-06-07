@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'style.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:OzO/signin.dart';
 
@@ -20,44 +21,70 @@ class _SignUpState extends State<SignUp> {
 
   // 아이디 사용 가능 여부
   String checkIdMessage = "";
+  String signUpMessage = "";
+
+  // firebase auth 요청
+  Future<void> signUp() async {
+    print("함수실행");
+    try {
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: pwController.text.trim()
+      );
+      print("회원가입 id : ${emailController.text}, pw : ${pwController.text}");
+      if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => SignIn()));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        signUpMessage = "이미 사용 중인 이메일입니다.";
+        print("사요웆ㅇ");
+      } else if (e.code == 'weak-password') {
+        signUpMessage = "비밀번호가 너무 약합니다";
+      } else {
+        print("회원가입 실패 ${e.message}");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
 
   // post 요청 보내기
-  Future<void> signUp() async {
-    final response = await http.post(
-      Uri.parse("http://localhost:8080/users/sign-up"),
-      headers: {"Content-Type" : "application/json"},
-      body: jsonEncode({
-        "email" : emailController.text,
-        "pw" : pwController.text,
-        "checkpw" : pwcheckController.text,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      print("회원가입 성공!");
-      if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => SignIn()));
-    } else {
-      print("회원가입 실패 ${response.body}");
-    }
-  }
-
-  // 이메일 사용 가능한지 여부
-  Future<void> checkId() async {
-    final response = await http.get(
-      Uri.parse("http://localhost:8080/users/check-id?"),
-      headers: {"Content-Type" : "application/json"}
-    );
-    if (response.statusCode == 200) {
-      setState(() {
-        checkIdMessage = response.body;
-      });
-    } else {
-      setState(() {
-        checkIdMessage = response.body;
-      });
-      print(response.body);
-    }
-  }
+  // Future<void> signUp() async {
+  //   final response = await http.post(
+  //     Uri.parse("http://localhost:8080/users/sign-up"),
+  //     headers: {"Content-Type" : "application/json"},
+  //     body: jsonEncode({
+  //       "email" : emailController.text,
+  //       "pw" : pwController.text,
+  //       "checkpw" : pwcheckController.text,
+  //     }),
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     print("회원가입 성공!");
+  //     if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => SignIn()));
+  //   } else {
+  //     print("회원가입 실패 ${response.body}");
+  //   }
+  // }
+  //
+  // // 이메일 사용 가능한지 여부
+  // Future<void> checkId() async {
+  //   final response = await http.get(
+  //     Uri.parse("http://localhost:8080/users/check-id?"),
+  //     headers: {"Content-Type" : "application/json"}
+  //   );
+  //   if (response.statusCode == 200) {
+  //     setState(() {
+  //       checkIdMessage = response.body;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       checkIdMessage = response.body;
+  //     });
+  //     print(response.body);
+  //   }
+  // }
 
   // 비밀번호 같은지 확인
   String checkPwMessage = "";
@@ -72,6 +99,9 @@ class _SignUpState extends State<SignUp> {
       });
     }
   }
+
+  // firebase auth token
+
 
   // 메모리 누수 방지 컨트롤러 해제
   @override
