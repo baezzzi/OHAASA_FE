@@ -1,7 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'style.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:OzO/signin.dart';
@@ -32,13 +33,31 @@ class _SignUpState extends State<SignUp> {
           password: pwController.text.trim()
       );
       print("회원가입 id : ${emailController.text}, pw : ${pwController.text}");
+
+      final response = await http.post(
+        Uri.parse("http://localhost:8080/users/sign-up"),
+        headers: {"Content-Type" : "application/json"},
+        body: jsonEncode({
+          "email" : emailController.text,
+          "uid" : credential.user?.uid
+        })
+      );
+
+      if (response.statusCode == 200) {
+        print("DB 저장 완료");
+        print("${credential.user?.uid}");
+      }
       if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => SignIn()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
-        signUpMessage = "이미 사용 중인 이메일입니다.";
+        setState(() {
+          signUpMessage = "이미 사용 중인 이메일입니다.";
+        });
         print("사요웆ㅇ");
       } else if (e.code == 'weak-password') {
-        signUpMessage = "비밀번호가 너무 약합니다";
+        setState(() {
+          signUpMessage = "비밀번호가 너무 약합니다";
+        });
       } else {
         print("회원가입 실패 ${e.message}");
       }

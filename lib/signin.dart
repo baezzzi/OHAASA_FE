@@ -21,27 +21,50 @@ class _SignInState extends State<SignIn> {
   // failLogin message
   String loginMessage = "";
 
-  // post 요청 보내기
   Future<void> signIn() async {
-    final response = await http.post(
-      Uri.parse("http://localhost:8080/users/sign-in"),
-      headers: {"Content-Type" : "application/json"},
-      body: jsonEncode({
-        "id": emailController.text,
-        "pw": pwController.text
-      }),
-    );
+    print("로그인 실행");
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: pwController.text.trim()
+      );
 
-    if (response.statusCode == 200) {
-      print("로그인 성공");
-      if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => Auth()));
-    } else {
+      if (mounted) {
+        print("로그인 성공");
+        Navigator.push(context, MaterialPageRoute(builder: (_) => Auth()));
+      }
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
       setState(() {
-        loginMessage = response.body;
-      });
-    }
+        loginMessage = "${e.message}";
 
+      });
+    } catch (e) {
+      print(e);
+    }
   }
+
+  // post 요청 보내기
+  // Future<void> signIn() async {
+  //   final response = await http.post(
+  //     Uri.parse("http://localhost:8080/users/sign-in"),
+  //     headers: {"Content-Type" : "application/json"},
+  //     body: jsonEncode({
+  //       "id": emailController.text,
+  //       "pw": pwController.text
+  //     }),
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     print("로그인 성공");
+  //     if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => Auth()));
+  //   } else {
+  //     setState(() {
+  //       loginMessage = response.body;
+  //     });
+  //   }
+  //
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +77,6 @@ class _SignInState extends State<SignIn> {
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-
               children: [
                 Stack(
                   children: [
@@ -123,9 +145,7 @@ class _SignInState extends State<SignIn> {
                 ),
                 
                 GestureDetector(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => Auth()));
-                  },
+                  onTap: signIn,
                   child: Center(
                     child: Container(
                       width: 330,
