@@ -1,3 +1,4 @@
+import 'package:OzO/home.dart';
 import 'package:flutter/material.dart';
 import 'package:OzO/style.dart';
 import 'package:OzO/auth.dart';
@@ -31,7 +32,7 @@ class _SignInState extends State<SignIn> {
 
       if (mounted) {
         print("로그인 성공");
-        Navigator.push(context, MaterialPageRoute(builder: (_) => Auth()));
+        checkFirstLogin();
       }
     } on FirebaseAuthException catch (e) {
       print(e.message);
@@ -44,6 +45,29 @@ class _SignInState extends State<SignIn> {
     }
   }
 
+  // tutorial t/f
+  Future<void> checkFirstLogin() async {
+    final userEmail = FirebaseAuth.instance.currentUser?.email;
+
+    final response = await http.post(
+      Uri.parse("http://localhost:8080/users/is-first-login?email=$userEmail"),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final isFirst = data['firstLogin'];
+
+      print(isFirst);
+
+      if (isFirst == true) {
+        Navigator.push(context, MaterialPageRoute(builder: (_) => Auth()));
+      } else {
+        Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
+      }
+    } else {
+      print("서버 오류 ${response.statusCode}");
+    }
+  }
   // post 요청 보내기
   // Future<void> signIn() async {
   //   final response = await http.post(

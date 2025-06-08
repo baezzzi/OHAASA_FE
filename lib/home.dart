@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-
+import 'package:OzO/rank.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -350,7 +350,12 @@ class _HomeState extends State<Home> {
               children: [
                 Icon(Icons.menu_rounded, color: Colors.pinkAccent, size: 50,),
                 Icon(Icons.favorite_rounded, color: Colors.pinkAccent, size: 50,),
-                Icon(Icons.extension_rounded, color: Colors.pinkAccent, size: 50,)
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => Rank()));
+                  },
+                  child: Icon(Icons.extension_rounded, color: Colors.pinkAccent, size: 50,)
+                )
               ],
             ),
           )
