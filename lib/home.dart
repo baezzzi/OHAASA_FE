@@ -199,7 +199,7 @@ class _HomeState extends State<Home> {
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                    "1",
+                                                    "4",
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       color: Colors.white,
@@ -210,7 +210,7 @@ class _HomeState extends State<Home> {
                                               ),
                                               SizedBox(width: 10,),
                                               Text(
-                                                "쌍둥이자리",
+                                                "쌍둥이",
                                                 style: TextStyle(
                                                   color: Color(0xFFFF8282),
                                                   fontSize: 18,
