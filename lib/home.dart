@@ -14,7 +14,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
 
-  // // 날짜 표시 작업
+  // 날짜 표시 작업
   // late String formattedDate = "";
   //
   // @override

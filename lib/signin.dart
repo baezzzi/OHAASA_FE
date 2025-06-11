@@ -60,9 +60,9 @@ class _SignInState extends State<SignIn> {
       print(isFirst);
 
       if (isFirst == true) {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => Auth()));
+        if(mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => Auth()));
       } else {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
+        if(mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
       }
     } else {
       print("서버 오류 ${response.statusCode}");

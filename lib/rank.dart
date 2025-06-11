@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:OzO/bottommenu.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 class Rank extends StatefulWidget {
   const Rank({super.key});
@@ -13,12 +15,19 @@ class Rank extends StatefulWidget {
 
 class _RankState extends State<Rank> {
 
+  late String date = "";
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    initializeDateFormatting("ko", "");
+    DateTime now = DateTime.now();
+    date = DateFormat('M월 d일 EEEE', 'ko').format(now);
     getZodiac();
+    print(date);
   }
+
   Map<String, dynamic> rankMap = {};
 
   Future<void> getZodiac() async {
@@ -42,6 +51,7 @@ class _RankState extends State<Rank> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,9 +62,42 @@ class _RankState extends State<Rank> {
             height: 300,
             color: Colors.orange,
           ),
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.1,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "✨",
+                    style: TextStyle(
+                      fontSize: 15
+                    ),
+                  ),
+                  Text(
+                    date,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600
+                    ),
+                  ),
+                  Text(
+                    "별자리 운세 순위",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
           Column(
             children: [
-
+              SizedBox(height: MediaQuery.of(context).size.height * 0.2,),
               Expanded(
                 child: Container(
                   width: double.infinity,
@@ -111,7 +154,7 @@ class _RankState extends State<Rank> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 30),
+              padding: EdgeInsets.only(bottom: 20),
               child: BottomMenu(),
             ),
           ),

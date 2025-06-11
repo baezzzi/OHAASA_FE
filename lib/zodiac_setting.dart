@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:OzO/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:OzO/style.dart';
 import 'package:OzO/datepicker.dart';
-import 'package:OzO/home.dart';
 import 'package:OzO/zodiacpicker.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,7 +55,7 @@ class _ZodiacSettingState extends State<ZodiacSetting> {
 
     if (response.statusCode == 200) {
       print("DB 저장 완료");
-      Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
+      if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => Welcome()));
     } else {
       print(response.body);
     }
