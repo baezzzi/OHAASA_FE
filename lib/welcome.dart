@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:OzO/nextbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
@@ -66,23 +67,7 @@ class Welcome extends StatelessWidget {
               padding: EdgeInsets.only(bottom: screenHeight * 0.05),
               child: GestureDetector(
                 onTap: () => handleTutorial(context),
-                child: Container(
-                  width: 350,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "완료",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
+                child: NextButton(text: "완료")
               )
             )
           )

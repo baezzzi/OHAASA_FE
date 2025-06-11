@@ -137,6 +137,14 @@ int getZodiacNum(DateTime selectedDate) {
   return 0;
 }
 
+String getNameByNum(String num) {
+  for (var zodiac in zodiacList) {
+    String name = zodiac['name'];
+    String zonum = zodiac['num'].toString();
+    if (zonum == num) return name;
+  }
+  return "해당 없음";
+}
 
 class _ZodiacPickerState extends State<ZodiacPicker> {
   @override

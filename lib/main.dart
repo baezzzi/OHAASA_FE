@@ -1,3 +1,4 @@
+import 'package:OzO/nick_setting.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,6 +6,7 @@ import 'firebase_options.dart';
 
 import 'package:OzO/signup.dart';
 import 'package:OzO/signin.dart';
+import 'package:OzO/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +34,7 @@ class _MyAppState extends State<MyApp> {
            if (snapshot.connectionState == ConnectionState.waiting) {
              return const Center(child: CircularProgressIndicator());
            } else if (snapshot.hasData && snapshot.data != null) {
-             return SignIn();
+             return Home();
            }
            return Scaffold(
              body: Stack(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:OzO/nextbutton.dart';
 import 'package:OzO/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:OzO/style.dart';
@@ -121,7 +122,7 @@ class _ZodiacSettingState extends State<ZodiacSetting> {
                         border: Border(
                           bottom: BorderSide(
                             color: Colors.orange,
-                            width: 2,
+                            width: 1,
                           ),
                         )
                       ),
@@ -132,7 +133,7 @@ class _ZodiacSettingState extends State<ZodiacSetting> {
                             "${_selectedDate.year}년 ${_selectedDate.month}월 ${_selectedDate.day}일",
                             style: TextStyle(
                               color: Colors.black54,
-                              fontSize: 25,
+                              fontSize: 20,
                             ),
                           ),
 
@@ -144,25 +145,24 @@ class _ZodiacSettingState extends State<ZodiacSetting> {
                       )
                     ),
                     SizedBox(height: 40,),
-                    Center(
-                      child: Container(
-                        width: double.infinity,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Colors.orange,
-                              width: 2,
-                            )
+                    Container(
+                      width: double.infinity,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Colors.orange,
+                            width: 1,
                           )
-                        ),
-                        child: Text(
-                          zodiacName,
-                          style: TextStyle(
-                            fontSize: 30
-                          ),
                         )
                       ),
+                      child: Text(
+                        zodiacName,
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black54
+                        ),
+                      )
                     ),
                     SizedBox(height: 20,),
 
@@ -177,22 +177,7 @@ class _ZodiacSettingState extends State<ZodiacSetting> {
               padding: EdgeInsets.only(bottom: screenHeight * 0.05),
               child: GestureDetector(
                 onTap: saveZodiac,
-                child: Container(
-                  width: 350,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "다음",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
-                ),
+                child: NextButton(text: "다음")
               ),
             ),
           )

@@ -1,7 +1,9 @@
+import 'package:OzO/nick_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:OzO/style.dart';
 import 'package:OzO/zodiac_setting.dart';
 import 'package:OzO/main.dart';
+import 'package:OzO/nextbutton.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 
@@ -250,25 +252,9 @@ class _AuthState extends State<Auth> {
               padding: EdgeInsets.only(bottom: screenHeight * 0.05),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => ZodiacSetting()));
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => NickSetting()));
                 },
-                child: Container(
-                  width: 350,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "다음",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
+                child: NextButton(text: "다음")
               )
             )
           )

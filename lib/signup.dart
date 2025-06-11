@@ -146,7 +146,6 @@ class _SignUpState extends State<SignUp> {
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-
               children: [
                 Stack(
                   children: [

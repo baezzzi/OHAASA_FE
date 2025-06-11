@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'package:OzO/zodiacpicker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:OzO/bottommenu.dart';
 
@@ -12,22 +15,50 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
-
-  // 날짜 표시 작업
-  // late String formattedDate = "";
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   DateTime now = DateTime.now();
-  //   initializeDateFormatting();
-  //   formattedDate = DateFormat("M월 d일 EEEE", 'ko').format(now);
-  //   print(formattedDate);
-  // }
-
-  // 이미지 변수 생성
+  late String nickname = "";
+  late String zodiacName = "";
   File? _imageFile;
+  int colorIndex = 0;
+
+  // 페이지 첫 렌딩
+  @override
+  void initState() {
+    super.initState();
+    getNickname();
+    getZodiac();
+  }
+
+  // 닉네임 가져오기
+  Future<void> getNickname() async {
+    final userEmail = FirebaseAuth.instance.currentUser?.email;
+    final response = await http.get(
+      Uri.parse("http://localhost:8080/users/find-nickname?email=$userEmail"),
+      headers: {"Cotent-Type" : "application/json"}
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        nickname = response.body;
+        print(nickname);
+      });
+    }
+  }
+
+  // 별자리 가져오기
+  Future<void> getZodiac() async {
+    final userEmail = FirebaseAuth.instance.currentUser?.email;
+    final response = await http.get(
+      Uri.parse("http://localhost:8080/users/find-zodiac?email=$userEmail"),
+      headers: { "Content-Type" : "application/json"}
+    );
+    if (response.statusCode == 200) {
+      final String num = response.body;
+      setState(() {
+        zodiacName = getNameByNum(num);
+        print(zodiacName);
+      });
+    }
+  }
 
   // 이미지 선택 함수
   Future<void> _pickImage() async {
@@ -49,8 +80,6 @@ class _HomeState extends State<Home> {
     Color(0xFF9AB7FF), // 9-11등
     Color(0xFFCD9AFF), // 12등
   ];
-
-  int colorIndex = 0;
 
   Color getByColor(int ranking) {
     switch (ranking) {
@@ -104,7 +133,7 @@ class _HomeState extends State<Home> {
                       SizedBox(height: 100,),
                       // 닉네임
                       Text(
-                        "닉네임",
+                        nickname,
                         style: TextStyle(
                           color: Colors.black54,
                           fontSize: 25,
@@ -121,7 +150,7 @@ class _HomeState extends State<Home> {
                         child: Center(
                           // 별자리
                           child: Text(
-                            "쌍둥이자리",
+                            zodiacName,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,

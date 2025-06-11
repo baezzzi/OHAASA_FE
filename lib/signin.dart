@@ -48,9 +48,11 @@ class _SignInState extends State<SignIn> {
   // tutorial t/f
   Future<void> checkFirstLogin() async {
     final userEmail = FirebaseAuth.instance.currentUser?.email;
+    print(userEmail);
 
-    final response = await http.post(
+    final response = await http.get(
       Uri.parse("http://localhost:8080/users/is-first-login?email=$userEmail"),
+      headers: {"Content-Type" : "application/json"}
     );
 
     if (response.statusCode == 200) {
