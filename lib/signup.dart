@@ -27,42 +27,45 @@ class _SignUpState extends State<SignUp> {
   // firebase auth 요청
   Future<void> signUp() async {
     print("함수실행");
-    try {
-      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: pwController.text.trim()
-      );
-      print("회원가입 id : ${emailController.text}, pw : ${pwController.text}");
+    if (pwController.text == pwcheckController.text) {
 
-      final response = await http.post(
-        Uri.parse("http://localhost:8080/users/sign-up"),
-        headers: {"Content-Type" : "application/json"},
-        body: jsonEncode({
-          "email" : emailController.text,
-          "uid" : credential.user?.uid
-        })
-      );
+      try {
+        final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailController.text.trim(),
+            password: pwController.text.trim()
+        );
+        print("회원가입 id : ${emailController.text}, pw : ${pwController.text}");
 
-      if (response.statusCode == 200) {
-        print("DB 저장 완료");
-        print("${credential.user?.uid}");
+        final response = await http.post(
+          Uri.parse("http://localhost:8080/users/sign-up"),
+          headers: {"Content-Type" : "application/json"},
+          body: jsonEncode({
+            "email" : emailController.text,
+            "uid" : credential.user?.uid
+          })
+        );
+
+        if (response.statusCode == 200) {
+          print("DB 저장 완료");
+          print("${credential.user?.uid}");
+        }
+        if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => SignIn()));
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'email-already-in-use') {
+          setState(() {
+            signUpMessage = "이미 사용 중인 이메일입니다.";
+          });
+          print("사요웆ㅇ");
+        } else if (e.code == 'weak-password') {
+          setState(() {
+            signUpMessage = "비밀번호가 너무 약합니다";
+          });
+        } else {
+          print("회원가입 실패 ${e.message}");
+        }
+      } catch (e) {
+        print(e);
       }
-      if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => SignIn()));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        setState(() {
-          signUpMessage = "이미 사용 중인 이메일입니다.";
-        });
-        print("사요웆ㅇ");
-      } else if (e.code == 'weak-password') {
-        setState(() {
-          signUpMessage = "비밀번호가 너무 약합니다";
-        });
-      } else {
-        print("회원가입 실패 ${e.message}");
-      }
-    } catch (e) {
-      print(e);
     }
   }
 
@@ -197,7 +200,7 @@ class _SignUpState extends State<SignUp> {
                       // 비밀번호 입력
                       TextField(
                         controller: pwController,
-                        decoration: buttonDecoration.copyWith(hintText: '비밀번호'),
+                        decoration: buttonDecoration.copyWith(hintText: '비밀번호 (6자 이상)'),
                         obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
                       ),

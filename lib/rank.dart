@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-
 import 'package:http/http.dart' as http;
-import 'package:scroll_date_picker/scroll_date_picker.dart';
+
+import 'package:OzO/bottommenu.dart';
 
 class Rank extends StatefulWidget {
   const Rank({super.key});
@@ -44,97 +44,79 @@ class _RankState extends State<Rank> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              height: 930,
-              child: Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 300,
-                    decoration: BoxDecoration(
-                      color: Colors.orange,
+      body: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            height: 300,
+            color: Colors.orange,
+          ),
+          Column(
+            children: [
+
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  height: 900,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(60),
+                      topLeft: Radius.circular(60),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment(0, 1),
-                    child: Container(
-                      width: double.infinity,
-                      height: 800,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(60),
-                          topLeft: Radius.circular(60)
-                        )
-                      ),
-                      child: Column(
-                        children: [
-                          if(rankMap.isNotEmpty)
-                            for (int i = 1; i <= 12; i++)
-                              if (rankMap.containsKey(i.toString()))
-                                Column(
-                                  children: [
-                                    Container(
-                                      width: 200,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                        color: Colors.black54,
+                  child: SingleChildScrollView(
+                    child: SizedBox(
+                      height: 880,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 50),
+                            if (rankMap.isNotEmpty)
+                              for (int i = 1; i <= 12; i++)
+                                if (rankMap.containsKey(i.toString()))
+                                  Column(
+                                    children: [
+                                      Container(
+                                        width: 300,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          color: Colors.black54,
+                                          borderRadius: BorderRadius.circular(20),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            '${rankMap[i.toString()]['name']}',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      child: Text('Rank $i: ${rankMap[i.toString()]['name']}',
-                                      style: TextStyle(color: Colors.white),),
-                                    ),
-                                    SizedBox(height: 20),
-                                  ],
-                                )
-                        ],
+                                      SizedBox(height: 20),
+                                    ],
+                                  ),
+                          ],
+                        ),
                       ),
-                    ),
+                    )
                   )
-                ],
+                ),
               ),
-            )
-          ],
-        ),
-      ),
-      bottomNavigationBar: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Container(
-            height: 100,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(60),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey.withAlpha(102),
-                      blurRadius: 10,
-                      offset: Offset(-4, -4)
-                  )
-                ]
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 30),
+              child: BottomMenu(),
             ),
-            child: Align(
-              alignment: Alignment(0, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Icon(Icons.menu_rounded, color: Colors.pinkAccent, size: 50,),
-                  Icon(Icons.favorite_rounded, color: Colors.pinkAccent, size: 50,),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (_) => Rank()));
-                      },
-                      child: Icon(Icons.extension_rounded, color: Colors.pinkAccent, size: 50,)
-                  )
-                ],
-              ),
-            )
-        ),
-      )
+          ),
+        ],
+      ),
     );
   }
 }
