@@ -1,9 +1,8 @@
-import 'package:OzO/nick_setting.dart';
+import 'package:OzO/tutorial/nick_setting.dart';
 import 'package:flutter/material.dart';
-import 'package:OzO/style.dart';
-import 'package:OzO/zodiac_setting.dart';
+import 'package:OzO/layout/style.dart';
 import 'package:OzO/main.dart';
-import 'package:OzO/nextbutton.dart';
+import 'package:OzO/layout/nextbutton.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 

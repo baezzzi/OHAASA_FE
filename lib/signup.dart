@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'style.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:OzO/layout/style.dart';
 import 'package:OzO/signin.dart';
 
 class SignUp extends StatefulWidget {

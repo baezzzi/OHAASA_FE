@@ -30,6 +30,16 @@ class _BottomMenuState extends State<BottomMenu> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          Builder(
+            builder: (BuildContext scaffoldContext) {
+              return GestureDetector(
+                onTap: () {
+                  Scaffold.of(scaffoldContext).openDrawer();
+                },
+                child: Icon(Icons.menu_rounded, color: Colors.black54),
+              );
+            },
+          ),
           GestureDetector(
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => Home())),
             child: Icon(Icons.favorite_rounded, color: Colors.black54,),

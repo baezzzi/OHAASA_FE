@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:OzO/style.dart';
-import 'package:OzO/nextbutton.dart';
-import 'package:OzO/zodiac_setting.dart';
+import 'package:OzO/layout/style.dart';
+import 'package:OzO/layout/nextbutton.dart';
+import 'package:OzO/tutorial/zodiac_setting.dart';
 
 class NickSetting extends StatefulWidget {
   const NickSetting({super.key});

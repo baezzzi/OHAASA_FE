@@ -1,7 +1,7 @@
 import 'package:OzO/home.dart';
 import 'package:flutter/material.dart';
-import 'package:OzO/style.dart';
-import 'package:OzO/auth.dart';
+import 'package:OzO/layout/style.dart';
+import 'package:OzO/tutorial/auth.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -70,27 +70,6 @@ class _SignInState extends State<SignIn> {
       print("서버 오류 ${response.statusCode}");
     }
   }
-  // post 요청 보내기
-  // Future<void> signIn() async {
-  //   final response = await http.post(
-  //     Uri.parse("http://localhost:8080/users/sign-in"),
-  //     headers: {"Content-Type" : "application/json"},
-  //     body: jsonEncode({
-  //       "id": emailController.text,
-  //       "pw": pwController.text
-  //     }),
-  //   );
-  //
-  //   if (response.statusCode == 200) {
-  //     print("로그인 성공");
-  //     if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => Auth()));
-  //   } else {
-  //     setState(() {
-  //       loginMessage = response.body;
-  //     });
-  //   }
-  //
-  // }
 
   @override
   Widget build(BuildContext context) {

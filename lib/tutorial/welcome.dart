@@ -1,11 +1,10 @@
 import 'dart:convert';
-
-import 'package:OzO/nextbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:OzO/style.dart';
+import 'package:OzO/layout/nextbutton.dart';
+import 'package:OzO/layout/style.dart';
 import 'package:OzO/home.dart';
 
 class Welcome extends StatelessWidget {

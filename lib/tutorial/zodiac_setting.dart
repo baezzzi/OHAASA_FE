@@ -1,15 +1,14 @@
 import 'dart:convert';
-
-import 'package:OzO/nextbutton.dart';
-import 'package:OzO/welcome.dart';
-import 'package:flutter/material.dart';
-import 'package:OzO/style.dart';
-import 'package:OzO/datepicker.dart';
-import 'package:OzO/zodiacpicker.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+
+import 'package:OzO/layout/nextbutton.dart';
+import 'package:OzO/tutorial/welcome.dart';
+import 'package:flutter/material.dart';
+import 'package:OzO/layout/style.dart';
+import 'package:OzO/picker/datepicker.dart';
+import 'package:OzO/picker/zodiacpicker.dart';
 
 class ZodiacSetting extends StatefulWidget {
   const ZodiacSetting({super.key});

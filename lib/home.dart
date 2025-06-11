@@ -1,11 +1,12 @@
 import 'dart:io';
-import 'package:OzO/zodiacpicker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:OzO/bottommenu.dart';
+import 'package:OzO/layout/bottommenu.dart';
+import 'package:OzO/picker/zodiacpicker.dart';
+import 'package:OzO/sidemenu/sidepopup.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -107,6 +108,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SidePopup(), // 또는 Drawer 위젯
+
       body: Stack(
         children: [
           Container(
