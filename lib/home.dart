@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,6 +19,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   late String nickname = "";
   late String zodiacName = "";
+  late String zodiacEnName = "";
+  late String content = "";
+  late String lucky = "";
+  late String ranking = "";
   File? _imageFile;
   int colorIndex = 0;
 
@@ -54,10 +59,42 @@ class _HomeState extends State<Home> {
     );
     if (response.statusCode == 200) {
       final String num = response.body;
-      setState(() {
-        zodiacName = getNameByNum(num);
-        print(zodiacName);
-      });
+      if (mounted) {
+        setState(() {
+          zodiacName = getNameByNum(num);
+          zodiacEnName = getEnName(num);
+          print(zodiacName);
+          print(zodiacEnName);
+        });
+      }
+      getContentLucky();
+    }
+  }
+  
+  // 별자리 내용 and ranking 가져오기
+  Future<void> getContentLucky() async {
+    final response = await http.get(
+      Uri.parse("http://localhost:8080/crawl/content-lucky?name=$zodiacEnName"),
+      headers: { "Content-Type" : "application/json" }
+    );
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body) as List<dynamic>;
+      if (data.isNotEmpty) {
+        final result = data[0] as Map<String, dynamic>;
+        String lucky = result['lucky'] ?? '';
+        String content = result['content'] ?? '';
+        String ranking = result['rank'] ?? '';
+        if (mounted) {
+          setState(() {
+            this.lucky = lucky;
+            this.content = content;
+            this.ranking = ranking;
+          });
+        }
+
+      }
+    } else {
+      print(response.body);
     }
   }
 
@@ -82,23 +119,23 @@ class _HomeState extends State<Home> {
     Color(0xFFCD9AFF), // 12등
   ];
 
-  Color getByColor(int ranking) {
+  Color getByColor(String ranking) {
     switch (ranking) {
-      case 1 : return colors[0];
-      case 2:
-      case 3:
-      case 4:
+      case "1" : return colors[0];
+      case "2":
+      case "3":
+      case "4":
         return colors[1];
-      case 5:
-      case 6:
-      case 7:
+      case "5":
+      case "6":
+      case "7":
         return colors[2];
-      case 8:
-      case 9:
-      case 10:
-      case 11:
+      case "8":
+      case "9":
+      case "10":
+      case "11":
         return colors[3];
-      case 12:
+      case "12":
         return colors[4];
       default:
         return Colors.orange;
@@ -115,7 +152,7 @@ class _HomeState extends State<Home> {
           Container(
             width: double.infinity,
             height: 300,
-            color: Colors.orange,
+            color: getByColor(ranking),
           ),
           Column(
             children: [
@@ -147,7 +184,7 @@ class _HomeState extends State<Home> {
                         width: 120,
                         height: 30,
                         decoration: BoxDecoration(
-                          color: Colors.orange,
+                          color: getByColor(ranking),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Center(
@@ -179,7 +216,7 @@ class _HomeState extends State<Home> {
                                       children: [
                                         Container(
                                           width: 300,
-                                          height: 180,
+                                          height: 150,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
                                             borderRadius: BorderRadius.circular(30),
@@ -190,7 +227,7 @@ class _HomeState extends State<Home> {
                                                 offset: Offset(4,4),
                                               ),
                                               BoxShadow(
-                                                color: Color(0xFFFF8282).withAlpha(102),
+                                                color: getByColor(ranking).withAlpha(102),
                                                 blurRadius: 8,
                                                 offset: Offset(-4,-4)
                                               )
@@ -199,7 +236,7 @@ class _HomeState extends State<Home> {
 
                                           child: Center(
                                               child: Text(
-                                                """동료에게 도움을 받을 예감\n가끔은 호의를 베풀어도 괜찮아""",
+                                                content,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     fontSize: 18,
@@ -212,7 +249,7 @@ class _HomeState extends State<Home> {
                                     )
                                   )
                                 ),
-                                SizedBox(height: 30),
+                                SizedBox(height: 15),
                                 // 행운 행동
                                 Center(
                                   child: SizedBox(
@@ -228,7 +265,7 @@ class _HomeState extends State<Home> {
                                             borderRadius: BorderRadius.circular(20),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Color(0xFFFF8282).withAlpha(102),
+                                                color: getByColor(ranking).withAlpha(102),
                                                 blurRadius: 8,
                                                 offset: Offset(-4, -4)
                                               ),
@@ -249,7 +286,7 @@ class _HomeState extends State<Home> {
                                             Align(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                "동서남북 일곱색깔 무지개 바닐라똥",
+                                                lucky,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Colors.black54,

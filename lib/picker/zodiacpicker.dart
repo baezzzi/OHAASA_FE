@@ -5,73 +5,85 @@ final List<Map<String, dynamic>> zodiacList = [
     "name" : "염소자리",
     "start" : DateTime(0, 12, 25),
     "end" : DateTime(0, 1, 19),
-    "num" : 1
+    "num" : 1,
+    "en" : "capricorn"
   },
   {
     "name" : "물병자리",
     "start" : DateTime(0, 1, 20),
     "end" : DateTime(0, 2, 18),
-    "num" : 2
+    "num" : 2,
+    "en" : "aquarius"
   },
   {
     "name" : "물고기자리",
     "start" : DateTime(0, 2, 19),
     "end" : DateTime(0, 3, 20),
-    "num" : 3
+    "num" : 3,
+    "en" : "pisces"
   },
   {
     "name" : "양자리",
     "start" : DateTime(0, 3, 21),
     "end" : DateTime(0, 4, 20),
-    "num" : 4
+    "num" : 4,
+    "en" : "aries"
   },
   {
     "name" : "황소자리",
     "start" : DateTime(0, 4, 21),
     "end" : DateTime(0, 5, 20),
-    "num" : 5
+    "num" : 5,
+    "en" : "taurus"
   },
   {
     "name" : "쌍둥이자리",
     "start" : DateTime(0, 5, 21),
     "end" : DateTime(0, 6, 21),
-    "num" : 6
+    "num" : 6,
+    "en" : "gemini"
   },
   {
     "name" : "게자리",
     "start" : DateTime(0, 6, 22),
     "end" : DateTime(0, 7, 22),
-    "num" : 7
+    "num" : 7,
+    "en" : "cancer"
   },
   {
     "name" : "사자자리",
     "start" : DateTime(0, 7, 23),
     "end" : DateTime(0, 8, 22),
-    "num" : 8
+    "num" : 8,
+    "en" : "leo"
   },
   {
     "name" : "처녀자리",
     "start" : DateTime(0, 8, 23),
     "end" : DateTime(0, 9, 23),
-    "num" : 9
+    "num" : 9,
+    "en" : "virgo"
   },
   {
     "name" : "천칭자리",
     "start" : DateTime(0, 9, 24),
     "end" : DateTime(0, 10, 22),
-    "num" : 10
+    "num" : 10,
+    "en" : "libra"
   },
   {
     "name" : "전갈자리",
     "start" : DateTime(0, 10, 23),
     "end" : DateTime(0, 11, 22),
-    "num" : 11
+    "num" : 11,
+    "en" : "scorpio"
   },
   {
     "name" : "사수자리",
     "start" : DateTime(0, 11, 23),
     "end" : DateTime(0, 12, 24),
-    "num" : 12
+    "num" : 12,
+    "en" : "sagittarius"
   }
 ];
 class ZodiacPicker extends StatefulWidget {
@@ -142,6 +154,18 @@ String getNameByNum(String num) {
     String name = zodiac['name'];
     String zonum = zodiac['num'].toString();
     if (zonum == num) return name;
+  }
+  return "해당 없음";
+}
+
+String getEnName(String num) {
+  for (var zodiac in zodiacList) {
+    String en = zodiac['en'];
+    String zonum = zodiac['num'].toString();
+
+    if (zonum == num) {
+      return en;
+    }
   }
   return "해당 없음";
 }
