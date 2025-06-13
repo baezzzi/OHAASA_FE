@@ -110,13 +110,14 @@ class _HomeState extends State<Home> {
     }
   }
 
-  // 순위에 따른 색 선택
+  // 순위에 따른 색
   final List<Color> colors = [
     Color(0xFFFA8B8B), // 1등
     Color(0xFFFFA069), // 2-4등
-    Color(0xFFB7FF9A), // 5-8등
-    Color(0xFF9AB7FF), // 9-11등
-    Color(0xFFCD9AFF), // 12등
+    Color(0xFF9AD389), // 5-8등
+    Color(0xFF8CA8EA), // 9-11등
+    Color(0xFF313857), // 12등
+
   ];
 
   Color getByColor(String ranking) {
@@ -146,7 +147,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: SidePopup(), // 또는 Drawer 위젯
-
       body: Stack(
         children: [
           Container(
@@ -239,7 +239,7 @@ class _HomeState extends State<Home> {
                                                 content,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                    fontSize: 18,
+                                                    fontSize: 16,
                                                     color: Colors.black54
                                                 ),
                                               )
