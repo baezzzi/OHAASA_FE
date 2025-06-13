@@ -22,49 +22,88 @@ class _SidePopupState extends State<SidePopup> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white
-        ),
-        child: Stack(
-          children: [
-            ListView(
+      child: Stack(
+        children: [
+          Container(
+            color: Colors.white,
+            child: Column(
               children: [
                 Container(
-                  height: 150,
-                  decoration: BoxDecoration(
-                    color: Colors.blueAccent
-                  ),
-                  child: Text("안녕띠"),
+                  height: 200,
+                  color: Colors.blueAccent,
+                    child: Center(
+                      child: Text(
+                        "OzO",
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                      ),
+                    ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        onTap: () => Navigator.pop(context),
-                        title: Text("닉네임 변경하기"),
-                      ),
-                      ListTile(
-                        onTap: () => Navigator.pop(context),
-                        title: Text("비밀번호 변경하기"),
-                      ),
-                    ],
+                SizedBox(height: 20),
+                SizedBox(
+                  width: 280,
+                  height: 300,
+                  child: SingleChildScrollView(
+                    child: SizedBox(
+                      height: 800,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              title: Text("닉네임 변경"),
+                            ),
+                            ListTile(
+                              title: Text("비밀번호 변경"),
+                            ),
+
+                          ],
+                        ),
+                      )
+                    )
                   )
                 ),
               ],
             ),
-            Positioned(
-              bottom: 50,
-              left: 100,
-              child: GestureDetector(
-                onTap: logout,
-                child: Text("로그아웃"),
+          ),
+          Positioned(
+            bottom: 40,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 220,
+                    height: 10,
+                    decoration:BoxDecoration(
+                        border : Border(
+                            bottom: BorderSide(
+                                color: Colors.black12,
+                                width: 1
+                            )
+                        )
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  GestureDetector(
+                    onTap: logout,
+                    child: Row(
+                      children: [
+                        Icon(Icons.login_rounded),
+                        SizedBox(width: 20,),
+                        Text("로그아웃"),
+                      ],
+                    )
+                  )
+
+                ],
               )
             )
-          ],
-        )
-      ),
+          )
+        ],
+      )
     );
   }
 }

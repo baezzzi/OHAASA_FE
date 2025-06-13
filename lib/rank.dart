@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'package:OzO/picker/colorpicker.dart';
+import 'package:OzO/sidemenu/sidepopup.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:OzO/layout/bottommenu.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+
+import 'package:OzO/layout/bottommenu.dart';
+import 'package:OzO/picker/zodiacpicker.dart';
 
 class Rank extends StatefulWidget {
   const Rank({super.key});
@@ -16,6 +19,7 @@ class Rank extends StatefulWidget {
 class _RankState extends State<Rank> {
 
   late String date = "";
+  Map<String, dynamic> rankMap = {};
 
   @override
   void initState() {
@@ -25,15 +29,12 @@ class _RankState extends State<Rank> {
     DateTime now = DateTime.now();
     date = DateFormat('M월 d일 EEEE', 'ko').format(now);
     getZodiac();
-    print(date);
   }
-
-  Map<String, dynamic> rankMap = {};
 
   Future<void> getZodiac() async {
     final response = await http.get(
-      Uri.parse("http://localhost:8080/crawl/horoscope/ranking"),
-      headers: { "Content-Type" : "application/json"}
+        Uri.parse("http://localhost:8080/crawl/horoscope/ranking"),
+        headers: { "Content-Type" : "application/json"}
     );
 
     if (response.statusCode == 200) {
@@ -51,10 +52,10 @@ class _RankState extends State<Rank> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SidePopup(),
       body: Stack(
         children: [
           Container(
@@ -126,17 +127,58 @@ class _RankState extends State<Rank> {
                                         width: 300,
                                         height: 40,
                                         decoration: BoxDecoration(
-                                          color: Colors.black54,
+                                          color: Colors.white,
                                           borderRadius: BorderRadius.circular(20),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: getByColor("$i"),
+                                              blurRadius: 5,
+                                              offset: Offset(0,0)
+                                            )
+                                          ]
                                         ),
-                                        child: Center(
-                                          child: Text(
-                                            '${rankMap[i.toString()]['name']}',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: 200,
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children: [
+                                                  SizedBox(
+                                                    width: 30,
+                                                    child: Text(
+                                                      "$i",
+                                                      style: TextStyle(
+                                                        color: Colors.black54,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 100,
+                                                    child: Text(
+                                                      changeEnToKo(rankMap[i.toString()]['name']),
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                        color: Colors.black54,
+                                                        fontSize: 15,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          ),
+                                            Container(
+                                              width: 100,
+                                              decoration: BoxDecoration(
+                                                color: getByColor("$i"),
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(20),
+                                                  bottomRight: Radius.circular(20)
+                                                )
+                                              ),
+                                            )
+                                          ]
                                         ),
                                       ),
                                       SizedBox(height: 20),
@@ -162,4 +204,5 @@ class _RankState extends State<Rank> {
       ),
     );
   }
+
 }

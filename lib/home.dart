@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:OzO/layout/bottommenu.dart';
 import 'package:OzO/picker/zodiacpicker.dart';
 import 'package:OzO/sidemenu/sidepopup.dart';
+import 'package:OzO/picker/colorpicker.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -24,7 +25,6 @@ class _HomeState extends State<Home> {
   late String lucky = "";
   late String ranking = "";
   File? _imageFile;
-  int colorIndex = 0;
 
   // 페이지 첫 렌딩
   @override
@@ -45,7 +45,6 @@ class _HomeState extends State<Home> {
     if (response.statusCode == 200) {
       setState(() {
         nickname = response.body;
-        print(nickname);
       });
     }
   }
@@ -63,8 +62,6 @@ class _HomeState extends State<Home> {
         setState(() {
           zodiacName = getNameByNum(num);
           zodiacEnName = getEnName(num);
-          print(zodiacName);
-          print(zodiacEnName);
         });
       }
       getContentLucky();
@@ -110,43 +107,10 @@ class _HomeState extends State<Home> {
     }
   }
 
-  // 순위에 따른 색
-  final List<Color> colors = [
-    Color(0xFFFA8B8B), // 1등
-    Color(0xFFFFA069), // 2-4등
-    Color(0xFF9AD389), // 5-8등
-    Color(0xFF8CA8EA), // 9-11등
-    Color(0xFF313857), // 12등
-
-  ];
-
-  Color getByColor(String ranking) {
-    switch (ranking) {
-      case "1" : return colors[0];
-      case "2":
-      case "3":
-      case "4":
-        return colors[1];
-      case "5":
-      case "6":
-      case "7":
-        return colors[2];
-      case "8":
-      case "9":
-      case "10":
-      case "11":
-        return colors[3];
-      case "12":
-        return colors[4];
-      default:
-        return Colors.orange;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SidePopup(), // 또는 Drawer 위젯
+      drawer: SidePopup(),
       body: Stack(
         children: [
           Container(
@@ -236,14 +200,14 @@ class _HomeState extends State<Home> {
                                           ),
 
                                           child: Center(
-                                              child: Text(
-                                                content,
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: Colors.black54
-                                                ),
-                                              )
+                                            child: Text(
+                                              content,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.black54
+                                              ),
+                                            )
                                           ),
                                         ),
                                       ]
@@ -327,7 +291,7 @@ class _HomeState extends State<Home> {
                     width: 130,
                     height: 130,
                     decoration: BoxDecoration(
-                      color: Colors.orange,
+                      color: Colors.deepPurpleAccent,
                       borderRadius: BorderRadius.circular(100),
                       border: Border.all(
                         width: 8,
@@ -351,7 +315,7 @@ class _HomeState extends State<Home> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding : EdgeInsets.only(bottom: 30),
+              padding : EdgeInsets.only(bottom: 20),
               child: BottomMenu(),
             ),
           )

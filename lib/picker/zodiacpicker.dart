@@ -170,6 +170,17 @@ String getEnName(String num) {
   return "해당 없음";
 }
 
+String changeEnToKo(String enName) {
+  for (var zodiac in zodiacList) {
+    String en = zodiac['en'];
+    String ko = zodiac['name'];
+    if (en == enName) {
+      return ko;
+    }
+  }
+  return "해당 없음";
+}
+
 class _ZodiacPickerState extends State<ZodiacPicker> {
   @override
   Widget build(BuildContext context) {
