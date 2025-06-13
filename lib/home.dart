@@ -177,6 +177,7 @@ class _HomeState extends State<Home> {
                         style: TextStyle(
                           color: Colors.black54,
                           fontSize: 25,
+                          fontWeight: FontWeight.w400
                         ),
                       ),
                       SizedBox(height: 5,),
@@ -194,7 +195,7 @@ class _HomeState extends State<Home> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
-                              fontWeight: FontWeight.w800,
+                              fontWeight: FontWeight.w900,
                             ),
                           ),
                         ),
@@ -277,24 +278,26 @@ class _HomeState extends State<Home> {
                                             ]
                                           ),
                                         ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            SizedBox(width: 20,),
-                                            Icon(Icons.stars_rounded, color: Color(0xFFFF8282),),
-                                            SizedBox(width: 15,),
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                lucky,
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: Colors.black54,
-                                                    fontSize: 14
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(horizontal: 20),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Icon(Icons.stars_rounded, color: getByColor(ranking)),
+                                              SizedBox(width: 20),
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  lucky,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.black54,
+                                                      fontSize: 14
+                                                  ),
                                                 ),
-                                              ),
-                                            )
-                                          ],
+                                              )
+                                            ],
+                                          )
                                         )
                                       ],
                                     )
