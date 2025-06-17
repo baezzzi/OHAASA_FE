@@ -3,8 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 import 'package:OzO/home.dart';
+import 'package:OzO/picker/datepicker.dart';
+import 'package:OzO/picker/zodiacpicker.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -15,6 +18,11 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   late String nickname = "";
+  DateTime birth = DateTime.now();
+  var nickChange = false;
+  var birthChange = false;
+  DateTime newBirth = DateTime.now();
+
 
   TextEditingController nicknameController = TextEditingController();
 
@@ -23,8 +31,9 @@ class _ProfileState extends State<Profile> {
     // TODO: implement initState
     super.initState();
     getNickname();
+    getBirth();
   }
-
+  
   // 닉네임 가져오기
   Future<void> getNickname() async {
     final userEmail = FirebaseAuth.instance.currentUser?.email;
@@ -48,14 +57,86 @@ class _ProfileState extends State<Profile> {
       headers: { "Content-Type" : "application/json" },
       body: jsonEncode({
         "email" : userEmail,
-        "nickname" : nicknameController.text.trim()
+        "nickname" : nicknameController.text
       })
     );
 
     if (response.statusCode == 200) {
       print("닉네임 업데이트 완료");
-      if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
+      print(nicknameController.text);
     }
+  }
+  
+  // 생일 가져오기
+  Future<void> getBirth() async {
+    final userEmail = FirebaseAuth.instance.currentUser?.email;
+    final response = await http.get(
+      Uri.parse("http://localhost:8080/users/find-birth?email=$userEmail"),
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        birth = DateTime.parse(jsonDecode(response.body));
+        print(birth);
+      });
+    }
+  }
+
+  // 생일 선택 함수ㅜ
+  Future<void> _showDatePicker() async {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return DatePicker(
+          initialDate : birth,
+          onDateSelected : (pickedDate) {
+            setState(() {
+              newBirth = pickedDate;
+              birth = newBirth;
+              birthChange = true;
+              print(newBirth);
+              print(getZodiacNum(newBirth));
+            });
+          }
+        );
+      }
+    );
+  }
+
+  // 생일 업데이트
+  Future<void> updateBirth() async {
+    final userEmail = FirebaseAuth.instance.currentUser?.email;
+    final response = await http.post(
+      Uri.parse("http://localhost:8080/users/birth?email=$userEmail"),
+      headers: { "Content-Type" : "application/json" },
+      body: jsonEncode({
+        "birth": DateFormat('yyyy-MM-dd').format(newBirth),
+        "zodiac" : getZodiacNum(newBirth)
+      })
+    );
+
+    if (response.statusCode == 200) {
+      print("생일 업데이트");
+      print(DateFormat('yyyy-MM-dd').format(newBirth));
+    }
+  }
+
+  Future<void> updateProfile() async {
+    if (nicknameController.text.isNotEmpty) nickChange = true;
+    print(nickChange);
+    nickChange ? updateNick() : print("nickchange");
+    birthChange ? updateBirth() : print("birthchange");
+    print("완료");
+    if (mounted) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => Home(),
+        ),
+      );
+
+    }
+
   }
 
   @override
@@ -85,7 +166,7 @@ class _ProfileState extends State<Profile> {
               top: 65,
               right: 30,
               child: GestureDetector(
-                onTap: updateNick,
+                onTap: updateProfile,
                 child: Container(
                   width: 50,
                   height: 25,
@@ -142,6 +223,43 @@ class _ProfileState extends State<Profile> {
                                   hintStyle: TextStyle(
                                     fontSize: 20
                                   )
+                                ),
+                              ),
+
+                              SizedBox(height: 40),
+                              Text(
+                                "별자리",
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w800
+                                ),
+                              ),
+                              Container(
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      color: Colors.black54,
+                                      width: 1
+                                    )
+                                  )
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "${birth.year}년 ${birth.month}월 ${birth.day}일",
+                                      style: TextStyle(
+                                        color: Colors.black54,
+                                        fontSize: 20
+                                      ),
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.calendar_today_rounded, color: Colors.black54),
+                                      onPressed: () => _showDatePicker(),
+                                    )
+                                  ],
                                 ),
                               )
                             ],

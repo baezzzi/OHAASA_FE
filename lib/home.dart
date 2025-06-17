@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:OzO/function/userfunction.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
@@ -10,7 +9,6 @@ import 'package:OzO/layout/bottommenu.dart';
 import 'package:OzO/picker/zodiacpicker.dart';
 import 'package:OzO/sidemenu/sidepopup.dart';
 import 'package:OzO/picker/colorpicker.dart';
-// import 'package:OzO/function/userfunction.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -32,8 +30,14 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    getZodiac();
-    getNickname();
+    showInfo();
+  }
+
+  Future<void> showInfo() async {
+    setState(() {
+      getZodiac();
+      getNickname();
+    });
   }
 
   // 닉네임 가져오기
@@ -108,8 +112,10 @@ class _HomeState extends State<Home> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
+    showInfo();
     return Scaffold(
       drawer: SidePopup(),
       body: Stack(
@@ -136,8 +142,32 @@ class _HomeState extends State<Home> {
                   child: Column(
                     children: [
                       SizedBox(height: 100,),
+                      // FutureBuilder<String>(
+                      //   future: getNickname(), // 닉네임을 가져오는 Future 함수
+                      //   builder: (context, snapshot) {
+                      //     if (snapshot.connectionState == ConnectionState.waiting) {
+                      //       // return CircularProgressIndicator(); // 로딩 중
+                      //       return Text("로딩중");
+                      //     } else if (snapshot.hasError) {
+                      //       return Text('닉네임 불러오기 실패');
+                      //     } else if (snapshot.hasData) {
+                      //       return Text(
+                      //         snapshot.data!,
+                      //         style: TextStyle(
+                      //           color: Colors.black54,
+                      //           fontSize: 25,
+                      //           fontWeight: FontWeight.w400,
+                      //         ),
+                      //       );
+                      //     } else {
+                      //       return Text('닉네임 없음');
+                      //     }
+                      //   },
+                      // ),
+
                       // 닉네임
                       Text(
+
                         nickname,
                         style: TextStyle(
                           color: Colors.black54,
@@ -325,3 +355,4 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
