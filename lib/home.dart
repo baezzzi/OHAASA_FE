@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:OzO/function/userfunction.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
@@ -9,6 +10,7 @@ import 'package:OzO/layout/bottommenu.dart';
 import 'package:OzO/picker/zodiacpicker.dart';
 import 'package:OzO/sidemenu/sidepopup.dart';
 import 'package:OzO/picker/colorpicker.dart';
+// import 'package:OzO/function/userfunction.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -30,8 +32,8 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    getNickname();
     getZodiac();
+    getNickname();
   }
 
   // 닉네임 가져오기
@@ -39,7 +41,6 @@ class _HomeState extends State<Home> {
     final userEmail = FirebaseAuth.instance.currentUser?.email;
     final response = await http.get(
       Uri.parse("http://localhost:8080/users/find-nickname?email=$userEmail"),
-      headers: {"Cotent-Type" : "application/json"}
     );
 
     if (response.statusCode == 200) {

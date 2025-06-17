@@ -2,6 +2,8 @@ import 'package:OzO/main.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:OzO/sidemenu/profile.dart';
+
 class SidePopup extends StatefulWidget {
   const SidePopup({super.key});
 
@@ -29,6 +31,7 @@ class _SidePopupState extends State<SidePopup> {
             child: Column(
               children: [
                 Container(
+                  width: double.infinity,
                   height: 200,
                   color: Colors.blueAccent,
                     child: Center(
@@ -52,12 +55,15 @@ class _SidePopupState extends State<SidePopup> {
                         child: Column(
                           children: [
                             ListTile(
-                              title: Text("닉네임 변경"),
+                              title: Text("프로필 변경"),
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => Profile())),
                             ),
                             ListTile(
                               title: Text("비밀번호 변경"),
                             ),
-
+                            ListTile(
+                              title: Text("공지사항"),
+                            )
                           ],
                         ),
                       )

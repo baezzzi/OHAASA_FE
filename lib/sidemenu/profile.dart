@@ -1,0 +1,210 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:OzO/home.dart';
+
+class Profile extends StatefulWidget {
+  const Profile({super.key});
+
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  late String nickname = "";
+
+  TextEditingController nicknameController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getNickname();
+  }
+
+  // 닉네임 가져오기
+  Future<void> getNickname() async {
+    final userEmail = FirebaseAuth.instance.currentUser?.email;
+    final response = await http.get(
+      Uri.parse("http://localhost:8080/users/find-nickname?email=$userEmail")
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        nickname = response.body;
+        print(nickname);
+      });
+    }
+  }
+  
+  // 닉네임 업데이트
+  Future<void> updateNick() async{
+    final userEmail = FirebaseAuth.instance.currentUser?.email;
+    final response = await http.post(
+      Uri.parse("http://localhost:8080/users/save-nickname"),
+      headers: { "Content-Type" : "application/json" },
+      body: jsonEncode({
+        "email" : userEmail,
+        "nickname" : nicknameController.text.trim()
+      })
+    );
+
+    if (response.statusCode == 200) {
+      print("닉네임 업데이트 완료");
+      if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 300,
+              color: Color(0xFFD1C3FF),
+            ),
+            Positioned(
+              top: 50,
+              left: 15,
+              child: IconButton(
+                icon: Icon(Icons.arrow_back_ios_new, color: Colors.white,),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            Positioned(
+              top: 65,
+              right: 30,
+              child: GestureDetector(
+                onTap: updateNick,
+                child: Container(
+                  width: 50,
+                  height: 25,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: Text("done"),
+                  ),
+                ),
+              )
+            ),
+            Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.15,
+                ),
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    height: 900,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(60),
+                        topLeft: Radius.circular(60)
+                      )
+                    ),
+                    child: SingleChildScrollView(
+                      child: SizedBox(
+                        height: 1000,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 50),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 120),
+                              Text(
+                                "닉네임",
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w800
+                                ),
+                              ),
+                              TextField(
+                                controller: nicknameController,
+                                decoration: InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.black54),
+                                  ),
+                                  hintText: nickname,
+                                  hintStyle: TextStyle(
+                                    fontSize: 20
+                                  )
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                  ),
+                  Stack(
+                    children: [
+                      Container(
+                        width: 130,
+                        height: 130,
+                        decoration: BoxDecoration(
+                          color: Colors.blueGrey,
+                          borderRadius: BorderRadius.circular(100),
+                          border: Border.all(
+                            width: 8,
+                            color: Colors.white,
+                          )
+                        ),
+                      ),
+                      Positioned(
+                        right: 10,
+                        bottom: 10,
+                        child: GestureDetector(
+                          child: Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(
+                                width: 2,
+                                color: Colors.blueGrey
+                              )
+                            ),
+                            child: Icon(
+                              Icons.auto_fix_normal_rounded,
+                              color: Colors.blueGrey,
+                              size: 15,
+                            ),
+                          ),
+                        )
+                      )
+                    ],
+                  )
+                ],
+              )
+            )
+          ],
+        ),
+      )
+    );
+  }
+}
