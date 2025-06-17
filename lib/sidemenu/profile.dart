@@ -134,15 +134,12 @@ class _ProfileState extends State<Profile> {
           builder: (_) => Home(),
         ),
       );
-
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Stack(
@@ -196,75 +193,83 @@ class _ProfileState extends State<Profile> {
                         topLeft: Radius.circular(60)
                       )
                     ),
-                    child: SingleChildScrollView(
-                      child: SizedBox(
-                        height: 1000,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 50),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 120),
-                              Text(
-                                "닉네임",
-                                style: TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w800
-                                ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 50),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 120),
+                          Text(
+                            "닉네임",
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800
+                            ),
+                          ),
+                          TextField(
+                            controller: nicknameController,
+                            decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black54),
                               ),
-                              TextField(
-                                controller: nicknameController,
-                                decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.black54),
-                                  ),
-                                  hintText: nickname,
-                                  hintStyle: TextStyle(
-                                    fontSize: 20
-                                  )
-                                ),
-                              ),
+                              hintText: nickname,
+                              hintStyle: TextStyle(
+                                fontSize: 20
+                              )
+                            ),
+                          ),
 
-                              SizedBox(height: 40),
+                          SizedBox(height: 40),
+                          Row(
+                            children: [
                               Text(
-                                "별자리",
+                                "별자리 - ",
                                 style: TextStyle(
                                   color: Colors.black54,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w800
                                 ),
                               ),
-                              Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(
-                                      color: Colors.black54,
-                                      width: 1
-                                    )
-                                  )
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "${birth.year}년 ${birth.month}월 ${birth.day}일",
-                                      style: TextStyle(
-                                        color: Colors.black54,
-                                        fontSize: 20
-                                      ),
-                                    ),
-                                    IconButton(
-                                      icon: Icon(Icons.calendar_today_rounded, color: Colors.black54),
-                                      onPressed: () => _showDatePicker(),
-                                    )
-                                  ],
+                              Text(
+                                getZodiacName(birth),
+                                style: TextStyle(
+                                  color: Color(0xFFD1C3FF),
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 18
                                 ),
                               )
                             ],
                           ),
-                        )
+                          Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: Colors.black54,
+                                  width: 1
+                                )
+                              )
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "${birth.year}년 ${birth.month}월 ${birth.day}일",
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 20
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.calendar_today_rounded, color: Colors.black54),
+                                  onPressed: () => _showDatePicker(),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 40),
+                        ],
                       ),
                     ),
                   ),
