@@ -172,7 +172,12 @@ class _ProfileState extends State<Profile> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
-                    child: Text("done"),
+                    child: Text(
+                      "done",
+                      style: TextStyle(
+                        color: Colors.black54,
+                      ),
+                    ),
                   ),
                 ),
               )
@@ -324,6 +329,21 @@ class _ProfileState extends State<Profile> {
                   )
                 ],
               )
+            ),
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                    padding: EdgeInsets.only(bottom: 50),
+                    child: GestureDetector(
+                        child: Text(
+                          "회원 탈퇴하기",
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 16,
+                          ),
+                        )
+                    )
+                )
             )
           ],
         ),

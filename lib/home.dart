@@ -34,10 +34,8 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> showInfo() async {
-    setState(() {
-      getZodiac();
-      getNickname();
-    });
+    getZodiac();
+    getNickname();
   }
 
   // 닉네임 가져오기
@@ -115,7 +113,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    showInfo();
+    // showInfo();
     return Scaffold(
       drawer: SidePopup(),
       body: Stack(
@@ -142,29 +140,6 @@ class _HomeState extends State<Home> {
                   child: Column(
                     children: [
                       SizedBox(height: 100,),
-                      // FutureBuilder<String>(
-                      //   future: getNickname(), // 닉네임을 가져오는 Future 함수
-                      //   builder: (context, snapshot) {
-                      //     if (snapshot.connectionState == ConnectionState.waiting) {
-                      //       // return CircularProgressIndicator(); // 로딩 중
-                      //       return Text("로딩중");
-                      //     } else if (snapshot.hasError) {
-                      //       return Text('닉네임 불러오기 실패');
-                      //     } else if (snapshot.hasData) {
-                      //       return Text(
-                      //         snapshot.data!,
-                      //         style: TextStyle(
-                      //           color: Colors.black54,
-                      //           fontSize: 25,
-                      //           fontWeight: FontWeight.w400,
-                      //         ),
-                      //       );
-                      //     } else {
-                      //       return Text('닉네임 없음');
-                      //     }
-                      //   },
-                      // ),
-
                       // 닉네임
                       Text(
 

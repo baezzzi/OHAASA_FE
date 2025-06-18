@@ -65,6 +65,12 @@ class _SidePopupState extends State<SidePopup> {
                             ),
                             ListTile(
                               title: Text("공지사항"),
+                            ),
+                            ListTile(
+                              title: Text("문의사항"),
+                            ),
+                            ListTile(
+                              title: Text(""),
                             )
                           ],
                         ),

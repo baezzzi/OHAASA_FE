@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:OzO/rank.dart';
 import 'package:OzO/home.dart';
+import 'package:OzO/friendszodiac/friend.dart';
 
 class BottomMenu extends StatefulWidget {
   const BottomMenu({super.key});
@@ -43,6 +44,10 @@ class _BottomMenuState extends State<BottomMenu> {
           GestureDetector(
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => Home())),
             child: Icon(Icons.favorite_rounded, color: Colors.black54,),
+          ),
+          GestureDetector(
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => Friend())),
+            child: Icon(Icons.diversity_1_rounded, color: Colors.black54,),
           ),
           GestureDetector(
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => Rank())),
