@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:OzO/home.dart';
 import 'package:OzO/picker/datepicker.dart';
 import 'package:OzO/picker/zodiacpicker.dart';
+import 'package:OzO/sidemenu/authuser.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -135,6 +136,12 @@ class _ProfileState extends State<Profile> {
         ),
       );
     }
+  }
+
+  // 회원 탈퇴
+  Future<void> clearUser() async {
+    final user = FirebaseAuth.instance.currentUser;
+    final credential = EmailAuthProvider;
   }
 
   @override
@@ -335,6 +342,7 @@ class _ProfileState extends State<Profile> {
                 child: Padding(
                     padding: EdgeInsets.only(bottom: 50),
                     child: GestureDetector(
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AuthUser())),
                         child: Text(
                           "회원 탈퇴하기",
                           style: TextStyle(
