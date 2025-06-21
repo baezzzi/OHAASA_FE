@@ -64,18 +64,18 @@ class _RankState extends State<Rank> {
             color: Colors.orange,
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.1,
+            top: MediaQuery.of(context).size.height * 0.08,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 40),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "✨",
-                    style: TextStyle(
-                      fontSize: 15
-                    ),
+                  Icon(
+                    Icons.auto_awesome_rounded,
+                    color: Colors.white,
+                    size: 18,
                   ),
+                  SizedBox(height:5),
                   Text(
                     date,
                     style: TextStyle(
@@ -98,7 +98,7 @@ class _RankState extends State<Rank> {
           ),
           Column(
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.2,),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.2),
               Expanded(
                 child: Container(
                   width: double.infinity,
