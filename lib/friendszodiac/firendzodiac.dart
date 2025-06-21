@@ -80,10 +80,9 @@ class _FriendZodiacState extends State<FriendZodiac> {
                     "어쩌구\n저쩌구\n오늘의 운세는 짜자잔\n한번더",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 16,
                       color: Colors.black54,
                       fontWeight: FontWeight.w400
-
                     ),
                   ),
                 ),

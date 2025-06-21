@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:OzO/home.dart';
+
+
 class Content extends StatefulWidget {
   const Content({super.key});
 
@@ -72,6 +75,7 @@ class _ContentState extends State<Content> {
         Positioned(
           right: 12,
           child: GestureDetector(
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_)=>Home())),
             child: Container(
               width: 22,
               height: 22,
