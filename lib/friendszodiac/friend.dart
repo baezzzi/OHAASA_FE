@@ -5,6 +5,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:OzO/layout/bottommenu.dart';
 import 'package:OzO/sidemenu/sidepopup.dart';
 import 'package:OzO/friendszodiac/addmodal.dart';
+import 'package:OzO/friendszodiac/content.dart';
+import 'package:OzO/friendszodiac/firendzodiac.dart';
 
 class Friend extends StatefulWidget {
   const Friend({super.key});
@@ -33,6 +35,18 @@ class _FriendState extends State<Friend> {
         return Align(
           alignment: Alignment.center,
           child: AddModal(),
+        );
+      }
+    );
+  }
+
+  Future<void> _showZodiac() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Align(
+          alignment: Alignment.center,
+          child: FriendZodiac(),
         );
       }
     );
@@ -107,6 +121,13 @@ class _FriendState extends State<Friend> {
                           children: [
                             SizedBox(height: 50),
                             Text("date"),
+                            Content(),
+                            SizedBox(height: 40),
+                            GestureDetector(
+                              onTap: () => _showZodiac(),
+                              child: Content(),
+                            ),
+                            SizedBox(height: 40),
                             // 칭긔 추가
                             GestureDetector(
                               onTap: () => _showAddFriend(),

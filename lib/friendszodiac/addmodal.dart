@@ -12,9 +12,14 @@ class AddModal extends StatefulWidget {
 
 class _AddModalState extends State<AddModal> {
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   DateTime _selectedDate = DateTime.now();
   TextEditingController nameController = TextEditingController();
-  String zodiacName = "";
 
   Future<void> _showDatePicker() async {
     showModalBottomSheet(
@@ -26,7 +31,6 @@ class _AddModalState extends State<AddModal> {
                 setState(() {
                   _selectedDate = pickedDate;
                   print(getZodiacName(pickedDate));
-                  zodiacName = getZodiacName(pickedDate);
                 });
               }
           );
@@ -36,6 +40,7 @@ class _AddModalState extends State<AddModal> {
 
   @override
   Widget build(BuildContext context) {
+    String zodiacName = getZodiacName(_selectedDate);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 30),
       child: GestureDetector(
