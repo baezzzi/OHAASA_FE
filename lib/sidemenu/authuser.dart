@@ -1,10 +1,7 @@
-import 'dart:convert';
-
-import 'package:OzO/layout/style.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart' as http;
 
+import 'package:OzO/layout/style.dart';
 import 'package:OzO/sidemenu/really.dart';
 
 class AuthUser extends StatefulWidget {
@@ -17,20 +14,7 @@ class AuthUser extends StatefulWidget {
 class _AuthUserState extends State<AuthUser> {
 
   bool _pwVisible = false;
-  final userEmail = FirebaseAuth.instance.currentUser?.email;
-  Future<void> deleteUser(email) async {
-    final response = await http.post(
-      Uri.parse("http://localhost:8080/users/delete-user"),
-      headers: { "Content-Type" : "application/json" },
-      body: jsonEncode({
-        "email" : email
-      })
-    );
-
-    if (response.statusCode == 200) {
-      print("사용자 삭제");
-    }
-  }
+  TextEditingController pwController = TextEditingController();
 
   Future<void> _showReally() async {
     showDialog(
@@ -38,7 +22,10 @@ class _AuthUserState extends State<AuthUser> {
       builder: (BuildContext context) {
         return Align(
           alignment: Alignment.center,
-          child:  Really()
+          child:  Really(
+            userEmail: FirebaseAuth.instance.currentUser?.email,
+            pw : pwController.text
+          )
         );
       }
     );
@@ -46,6 +33,8 @@ class _AuthUserState extends State<AuthUser> {
 
   @override
   Widget build(BuildContext context) {
+    final userEmail = FirebaseAuth.instance.currentUser?.email;
+
     return Scaffold(
       body: GestureDetector(
         onTap: FocusScope.of(context).unfocus,
@@ -112,6 +101,7 @@ class _AuthUserState extends State<AuthUser> {
                       SizedBox(height: 14),
                       TextFormField(
                         obscureText: !_pwVisible,
+                        controller: pwController,
                         decoration: buttonDecoration.copyWith(
                           hintText: "비밀번호",
                           prefixIcon: Icon(

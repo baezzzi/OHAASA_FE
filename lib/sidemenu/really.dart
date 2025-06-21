@@ -1,20 +1,80 @@
+import 'dart:convert';
+import 'package:OzO/main.dart';
 import 'package:flutter/material.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
+
 class Really extends StatefulWidget {
-  const Really({super.key});
+
+  final String? userEmail;
+  final String pw;
+
+  const Really({
+    super.key,
+    required this.userEmail,
+    required this.pw,
+  });
 
   @override
   State<Really> createState() => _ReallyState();
 }
 
 class _ReallyState extends State<Really> {
+
+  late String? userEmail;
+  late String pw;
+  User? user = FirebaseAuth.instance.currentUser;
+  String errMessage = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userEmail = widget.userEmail;
+    pw = widget.pw;
+  }
+
+  Future<void> deleteUser(userEmail, pw) async {
+    try {
+      var credential = EmailAuthProvider.credential(email: userEmail, password: pw);
+      await user?.reauthenticateWithCredential(credential);
+
+      final response = await http.post(
+          Uri.parse("http://localhost:8080/users/delete-user"),
+          headers: { "Content-Type" : "application/json" },
+          body: jsonEncode({
+            "email" : userEmail
+          })
+      );
+
+      if (response.statusCode == 200) {
+        print("사용자 삭제");
+        await user?.delete();
+        if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => MyApp()));
+      }
+      else {
+        print(response.body);
+        setState(() {
+          errMessage = response.body;
+        });
+      }
+
+    } catch(e) {
+      print(e);
+      setState(() {
+        errMessage = "비밀번호가 틀렸습니다.";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 30),
       child: Container(
         width: double.infinity,
-        height: 230,
+        height: 260,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -57,11 +117,20 @@ class _ReallyState extends State<Really> {
 
                 ),
               ),
+              SizedBox(height: 15),
+              Text(
+                errMessage,
+                style: TextStyle(
+                  color: Colors.blueGrey,
+                  fontSize: 14,
+                ),
+              ),
               SizedBox(height: 30,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
+                    onTap: () => deleteUser(userEmail, pw),
                     child: Container(
                       width: 130,
                       height: 35,
