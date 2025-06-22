@@ -181,6 +181,32 @@ String changeEnToKo(String enName) {
   return "해당 없음";
 }
 
+
+// friend 별자리 찾는 함수
+String frZodiacName(DateTime selectedDate) {
+
+  int month = selectedDate.month;
+  int day = selectedDate.day;
+
+  for (var zodiac in zodiacList) {
+    DateTime start = zodiac['start'];
+    DateTime end = zodiac['end'];
+
+    if (start.month == 12 && end.month == 1) {
+      if ((month == 12 && day >= start.day) || ((month == 1) && day <= end.day)) {
+        return zodiac['en'];
+      }
+    } else {
+      if ((month == start.month && day >= start.day) ||
+          (month == end.month && day <= end.day) ||
+          (month > start.month && month < end.month)) {
+        return zodiac['en'];
+      }
+    }
+  }
+  return "알수 없음";
+}
+
 class _ZodiacPickerState extends State<ZodiacPicker> {
   @override
   Widget build(BuildContext context) {

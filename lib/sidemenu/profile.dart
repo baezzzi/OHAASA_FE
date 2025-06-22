@@ -183,6 +183,7 @@ class _ProfileState extends State<Profile> {
                       "done",
                       style: TextStyle(
                         color: Colors.black54,
+                        fontSize: 12
                       ),
                     ),
                   ),
@@ -320,12 +321,12 @@ class _ProfileState extends State<Profile> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(100),
                               border: Border.all(
-                                width: 2,
+                                width: 1,
                                 color: Colors.blueGrey
                               )
                             ),
                             child: Icon(
-                              Icons.auto_fix_normal_rounded,
+                              Icons.edit,
                               color: Colors.blueGrey,
                               size: 15,
                             ),

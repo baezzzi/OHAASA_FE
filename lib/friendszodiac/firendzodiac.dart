@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 
+import 'package:OzO/picker/zodiacpicker.dart';
+
 class FriendZodiac extends StatefulWidget {
-  const FriendZodiac({super.key});
+
+  final String name;
+  final String zodiac;
+
+  const FriendZodiac({
+    super.key,
+    required this.name,
+    required this.zodiac
+  });
 
   @override
   State<FriendZodiac> createState() => _FriendZodiacState();
 }
 
 class _FriendZodiacState extends State<FriendZodiac> {
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,7 +39,7 @@ class _FriendZodiacState extends State<FriendZodiac> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "어쩌구저쩌구",
+                    widget.name,
                     style: TextStyle(
                       color: Colors.black54,
                       fontSize: 20
@@ -44,10 +55,10 @@ class _FriendZodiacState extends State<FriendZodiac> {
                     ),
                     child: Center(
                       child: Text(
-                        "쌍둥이자리",
+                        changeEnToKo(widget.zodiac),
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 11,
+                          fontSize: 10,
                           fontWeight: FontWeight.w600
                         ),
                       ),

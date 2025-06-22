@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 import 'package:OzO/picker/datepicker.dart';
 import 'package:OzO/picker/zodiacpicker.dart';
+import 'package:OzO/friendszodiac/friend.dart';
 
 class AddModal extends StatefulWidget {
   const AddModal({super.key});
@@ -38,6 +44,29 @@ class _AddModalState extends State<AddModal> {
     );
   }
 
+  Future<void> addFriend() async {
+    final userEmail = FirebaseAuth.instance.currentUser?.email;
+    final response = await http.post(
+      Uri.parse("http://localhost:8080/friend/add-friend"),
+      headers: {"Content-Type" : "application/json"},
+      body: jsonEncode({
+        "email" : userEmail,
+        "name" : nameController.text.trim(),
+        "birth" : DateFormat("yyyy-MM-dd").format(_selectedDate),
+        "zodiac" : frZodiacName(_selectedDate)
+      })
+    );
+
+    if (response.statusCode == 200) {
+      print("성공");
+      print(response.body);
+      if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => Friend()));
+    } else {
+      print("잘 안 됐음 : ${response.body}");
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     String zodiacName = getZodiacName(_selectedDate);
@@ -73,9 +102,9 @@ class _AddModalState extends State<AddModal> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: addFriend,
                       child: Text(
-                        "done",
+                        "add",
                         style: TextStyle(
                           color: Colors.black54,
                           fontSize: 13,

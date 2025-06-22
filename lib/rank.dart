@@ -34,7 +34,6 @@ class _RankState extends State<Rank> {
   Future<void> getZodiac() async {
     final response = await http.get(
         Uri.parse("http://localhost:8080/crawl/horoscope/ranking"),
-        headers: { "Content-Type" : "application/json"}
     );
 
     if (response.statusCode == 200) {

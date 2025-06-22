@@ -37,7 +37,7 @@ class _SignInState extends State<SignIn> {
     } on FirebaseAuthException catch (e) {
       print(e.message);
       setState(() {
-        loginMessage = "${e.message}";
+        loginMessage = "아이디 혹은 비밀번호가 틀렸습니다.";
 
       });
     } catch (e) {
@@ -143,6 +143,7 @@ class _SignInState extends State<SignIn> {
                       TextField(
                         controller: pwController,
                         decoration: buttonDecoration.copyWith(hintText: "비밀번호"),
+                        obscureText: true,
                       ),
                       SizedBox(height: 50,)
                     ],
