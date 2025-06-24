@@ -75,7 +75,6 @@ class _HomeState extends State<Home> {
   Future<void> getContentLucky() async {
     final response = await http.get(
       Uri.parse("http://localhost:8080/crawl/content-lucky?name=$zodiacEnName"),
-      headers: { "Content-Type" : "application/json" }
     );
     if (response.statusCode == 200) {
       List<dynamic> data = jsonDecode(response.body) as List<dynamic>;

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:OzO/picker/colorpicker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -13,7 +14,6 @@ import 'package:OzO/friendszodiac/addmodal.dart';
 import 'package:OzO/friendszodiac/content.dart';
 import 'package:OzO/friendszodiac/firendzodiac.dart';
 import 'package:OzO/picker/zodiacpicker.dart';
-import 'package:OzO/home.dart';
 
 class Friend extends StatefulWidget {
   const Friend({super.key});
@@ -26,6 +26,7 @@ class _FriendState extends State<Friend> {
 
   final user = FirebaseAuth.instance.currentUser;
 
+  late String ranking = "";
   late String date = "";
   Map<String, dynamic> friendMap = {};
 
@@ -51,7 +52,7 @@ class _FriendState extends State<Friend> {
     );
   }
 
-  Future<void> _showZodiac(String name, String zodiac) async {
+  Future<void> _showZodiac(String name, String zodiac, String ranking) async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -60,6 +61,8 @@ class _FriendState extends State<Friend> {
           child: FriendZodiac(
             name: name,
             zodiac: zodiac,
+            en : zodiac,
+            ranking : ranking
           ),
         );
       }
@@ -86,6 +89,7 @@ class _FriendState extends State<Friend> {
 
       setState(() {
         friendMap = tempMap;
+        build(context);
       });
     } else {
       print(response.body);
@@ -181,7 +185,7 @@ class _FriendState extends State<Friend> {
                           child: Column(
                             children: [
                               if (friendMap.isNotEmpty)
-                                for (int i = 1; i <= friendMap.length; i++)
+                                for (var i in friendMap.keys)
                                   if (friendMap.containsKey(i.toString()))
                                     Column(
                                       children: [
@@ -218,12 +222,14 @@ class _FriendState extends State<Friend> {
                                             onTap: () {
                                               _showZodiac(
                                                 friendMap[i.toString()]["name"],
-                                                friendMap[i.toString()]["zodiac"]
+                                                friendMap[i.toString()]["zodiac"],
+                                                friendMap[i.toString()]["ranking"]
                                               );
                                             },
                                             child: Content(
                                               name : friendMap[i.toString()]["name"],
-                                              zodiac: changeEnToKo(friendMap[i.toString()]["zodiac"])
+                                              zodiac: changeEnToKo(friendMap[i.toString()]["zodiac"]),
+                                              color: getByColor(friendMap[i.toString()]["ranking"] ?? "")
                                             ),
                                           ),
                                         ),

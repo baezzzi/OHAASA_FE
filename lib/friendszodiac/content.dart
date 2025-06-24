@@ -1,14 +1,17 @@
+import 'package:OzO/picker/colorpicker.dart';
 import 'package:flutter/material.dart';
 
 class Content extends StatefulWidget {
 
   final String name;
   final String zodiac;
+  final Color color;
 
   const Content({
     super.key,
     required this.name,
     required this.zodiac,
+    required this.color
   });
 
   @override
@@ -54,7 +57,7 @@ class _ContentState extends State<Content> {
               width: 100,
               height: 30,
               decoration: BoxDecoration(
-                color: Colors.lightGreen,
+                color: widget.color,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Center(

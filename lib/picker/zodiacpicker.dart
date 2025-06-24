@@ -181,6 +181,16 @@ String changeEnToKo(String enName) {
   return "해당 없음";
 }
 
+String changeKoToEn(String name) {
+  for (var zodiac in zodiacList) {
+    String en = zodiac["en"];
+    String ko = zodiac["name"];
+    if (ko == name) {
+      return en;
+    }
+  }
+  return "해당 없ㅇ므";
+}
 
 // friend 별자리 찾는 함수
 String frZodiacName(DateTime selectedDate) {

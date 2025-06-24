@@ -1,16 +1,24 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:OzO/picker/zodiacpicker.dart';
+import 'package:OzO/picker/colorpicker.dart';
 
 class FriendZodiac extends StatefulWidget {
 
   final String name;
   final String zodiac;
+  final String en;
+  final String ranking;
 
   const FriendZodiac({
     super.key,
     required this.name,
-    required this.zodiac
+    required this.zodiac,
+    required this.en,
+    required this.ranking
   });
 
   @override
@@ -18,6 +26,39 @@ class FriendZodiac extends StatefulWidget {
 }
 
 class _FriendZodiacState extends State<FriendZodiac> {
+
+  late String content = "";
+  late String lucky = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getContent();
+  }
+
+  Future<void> getContent() async {
+    final response = await http.get(
+      Uri.parse("http://localhost:8080/crawl/content-lucky?name=${widget.en}")
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body) as List<dynamic>;
+      print(widget.en);
+      print(data);
+      if (data.isNotEmpty) {
+        final result = data[0] as Map<String, dynamic>;
+        lucky = result["lucky"] ?? "";
+        content = result["content"] ?? "";
+      }
+      if (mounted) {
+        setState(() {
+          content = content;
+          lucky = lucky;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +91,7 @@ class _FriendZodiacState extends State<FriendZodiac> {
                     width: 70,
                     height: 20,
                     decoration: BoxDecoration(
-                      color: Colors.lightGreen,
+                      color: getByColor(widget.ranking),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Center(
@@ -75,7 +116,7 @@ class _FriendZodiacState extends State<FriendZodiac> {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.lightGreen.withAlpha(102),
+                        color: getByColor(widget.ranking).withAlpha(102),
                       blurRadius: 4,
                       offset: Offset(-4, -4)
                     ),
@@ -88,10 +129,10 @@ class _FriendZodiacState extends State<FriendZodiac> {
                 ),
                 child: Center(
                   child: Text(
-                    "어쩌구\n저쩌구\n오늘의 운세는 짜자잔\n한번더",
+                    content,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 15,
                       color: Colors.black54,
                       fontWeight: FontWeight.w400
                     ),
@@ -107,7 +148,7 @@ class _FriendZodiacState extends State<FriendZodiac> {
                   borderRadius: BorderRadius.circular(15),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.lightGreen.withAlpha(102),
+                      color: getByColor(widget.ranking).withAlpha(102),
                       blurRadius: 4,
                       offset: Offset(-4, -4)
                     ),
@@ -124,10 +165,10 @@ class _FriendZodiacState extends State<FriendZodiac> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Icon(Icons.stars_rounded, color: Colors.lightGreen, size: 14),
+                      Icon(Icons.stars_rounded, color: getByColor(widget.ranking), size: 14),
                       SizedBox(width: 15),
                       Text(
-                        "일곱색깔 무지개 빵구똥구 메롱",
+                        lucky,
                         style: TextStyle(
                           color: Colors.black54,
                           fontSize: 13,
