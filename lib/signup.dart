@@ -69,45 +69,6 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
-
-  // post 요청 보내기
-  // Future<void> signUp() async {
-  //   final response = await http.post(
-  //     Uri.parse("http://localhost:8080/users/sign-up"),
-  //     headers: {"Content-Type" : "application/json"},
-  //     body: jsonEncode({
-  //       "email" : emailController.text,
-  //       "pw" : pwController.text,
-  //       "checkpw" : pwcheckController.text,
-  //     }),
-  //   );
-  //
-  //   if (response.statusCode == 200) {
-  //     print("회원가입 성공!");
-  //     if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => SignIn()));
-  //   } else {
-  //     print("회원가입 실패 ${response.body}");
-  //   }
-  // }
-  //
-  // // 이메일 사용 가능한지 여부
-  // Future<void> checkId() async {
-  //   final response = await http.get(
-  //     Uri.parse("http://localhost:8080/users/check-id?"),
-  //     headers: {"Content-Type" : "application/json"}
-  //   );
-  //   if (response.statusCode == 200) {
-  //     setState(() {
-  //       checkIdMessage = response.body;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       checkIdMessage = response.body;
-  //     });
-  //     print(response.body);
-  //   }
-  // }
-
   // 비밀번호 같은지 확인
   String checkPwMessage = "";
   void checkPw() {
@@ -225,7 +186,6 @@ class _SignUpState extends State<SignUp> {
                       ),
                       // 이메일 입력
                       SizedBox(height: 30,),
-
                     ],
                   ),
                 ),
@@ -234,7 +194,7 @@ class _SignUpState extends State<SignUp> {
                   onTap: signUp,
                   child: Center(
                     child: Container(
-                      width: 330,
+                      width: 300,
                       height: 50,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(

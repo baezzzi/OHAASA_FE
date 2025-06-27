@@ -129,12 +129,14 @@ class _ProfileState extends State<Profile> {
     birthChange ? updateBirth() : print("birthchange");
     print("완료");
     if (mounted) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => Home(),
-        ),
-      );
+      setState(() {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => Home(),
+          ),
+        );
+      });
     }
   }
 

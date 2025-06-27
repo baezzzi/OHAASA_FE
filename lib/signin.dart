@@ -1,11 +1,12 @@
-import 'package:OzO/home.dart';
 import 'package:flutter/material.dart';
-import 'package:OzO/layout/style.dart';
-import 'package:OzO/tutorial/auth.dart';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:OzO/home.dart';
+import 'package:OzO/layout/style.dart';
+import 'package:OzO/tutorial/auth.dart';
+import 'package:OzO/findpw.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -104,20 +105,19 @@ class _SignInState extends State<SignIn> {
                 ),
 
                 Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 100,),
-                        Text(
-                          "log into\nyour account",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: Colors.orange,
-                            fontSize: 22,
-
-                          ),
-                        )
-                      ],
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 100,),
+                      Text(
+                        "log into\nyour account",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: Colors.orange,
+                          fontSize: 22,
+                        ),
+                      )
+                    ],
                   ),
                 ),
 
@@ -125,7 +125,7 @@ class _SignInState extends State<SignIn> {
                     padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: Column(
                     children: [
-                      SizedBox(height: 70,),
+                      SizedBox(height: 40,),
                       Text(
                         loginMessage,
                         style: TextStyle(
@@ -149,12 +149,12 @@ class _SignInState extends State<SignIn> {
                     ],
                   ),
                 ),
-                
+
                 GestureDetector(
                   onTap: signIn,
                   child: Center(
                     child: Container(
-                      width: 330,
+                      width: 300,
                       height: 50,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
@@ -173,7 +173,7 @@ class _SignInState extends State<SignIn> {
                 SizedBox(height: 10,),
                 Center(
                   child: TextButton(
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => FindPw())),
                       child: Text(
                         "비밀번호 찾기",
                         style: TextStyle(

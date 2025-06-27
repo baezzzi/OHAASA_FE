@@ -200,22 +200,21 @@ class _FriendState extends State<Friend> {
                                                   setState(() {
                                                     deleteFriend(friendMap[i.toString()]["id"]);
                                                     friendMap.remove(i.toString());
-                                                    // if(mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
                                                   });
                                                 },
                                                 backgroundColor: Colors.black54,
                                                 icon: Icons.delete,
                                               ),
-                                              SlidableAction(
-                                                onPressed: (context) {
-                                                  setState(() {
-                                                    if(mounted) Navigator.pop(context);
-                                                  });
-                                                },
-                                                backgroundColor: Colors.blueGrey,
-                                                icon: Icons.edit,
-
-                                              ),
+                                              // SlidableAction(
+                                              //   onPressed: (context) {
+                                              //     setState(() {
+                                              //       if(mounted) Navigator.pop(context);
+                                              //     });
+                                              //   },
+                                              //   backgroundColor: Colors.blueGrey,
+                                              //   icon: Icons.edit,
+                                              //
+                                              // ),
                                             ]
                                           ),
                                           child: GestureDetector(

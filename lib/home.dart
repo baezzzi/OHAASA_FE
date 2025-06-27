@@ -26,6 +26,8 @@ class _HomeState extends State<Home> {
   late String ranking = "";
   File? _imageFile;
 
+  final user = FirebaseAuth.instance.currentUser;
+
   // 페이지 첫 렌딩
   @override
   void initState() {
@@ -40,7 +42,7 @@ class _HomeState extends State<Home> {
 
   // 닉네임 가져오기
   Future<void> getNickname() async {
-    final userEmail = FirebaseAuth.instance.currentUser?.email;
+    final userEmail = user?.email;
     final response = await http.get(
       Uri.parse("http://localhost:8080/users/find-nickname?email=$userEmail"),
     );
@@ -48,16 +50,16 @@ class _HomeState extends State<Home> {
     if (response.statusCode == 200) {
       setState(() {
         nickname = response.body;
+        build(context);
       });
     }
   }
 
   // 별자리 가져오기
   Future<void> getZodiac() async {
-    final userEmail = FirebaseAuth.instance.currentUser?.email;
+    final userEmail = user?.email;
     final response = await http.get(
       Uri.parse("http://localhost:8080/users/find-zodiac?email=$userEmail"),
-      headers: { "Content-Type" : "application/json"}
     );
     if (response.statusCode == 200) {
       final String num = response.body;
@@ -65,6 +67,7 @@ class _HomeState extends State<Home> {
         setState(() {
           zodiacName = getNameByNum(num);
           zodiacEnName = getEnName(num);
+          build(context);
         });
       }
       getContentLucky();
@@ -90,7 +93,6 @@ class _HomeState extends State<Home> {
             this.ranking = ranking;
           });
         }
-
       }
     } else {
       print(response.body);
