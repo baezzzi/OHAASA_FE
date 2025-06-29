@@ -94,9 +94,13 @@ class _UpdatePwState extends State<UpdatePw> {
                     Text(
                       "change password",
                       style: TextStyle(
-                        color: Colors.black54,
+                        color: Colors.orange,
                         fontSize: 22,
                       ),
+                    ),
+                    SizedBox(height:2),
+                    Text(
+                      "영어 / 숫자 / 특수문자 중\n2개 이상 조합하여 최소 8글자 "
                     ),
                     SizedBox(height: 30),
                     TextFormField(

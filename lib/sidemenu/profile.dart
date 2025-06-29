@@ -125,25 +125,15 @@ class _ProfileState extends State<Profile> {
   Future<void> updateProfile() async {
     if (nicknameController.text.isNotEmpty) nickChange = true;
     print(nickChange);
-    nickChange ? updateNick() : print("nickchange");
-    birthChange ? updateBirth() : print("birthchange");
-    print("완료");
+    nickChange ? await updateNick() : print("nickchange");
+    birthChange ? await updateBirth() : print("birthchange");
     if (mounted) {
-      setState(() {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => Home(),
-          ),
-        );
-      });
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => Home()),
+        (route) => false,
+      );
     }
-  }
-
-  // 회원 탈퇴
-  Future<void> clearUser() async {
-    final user = FirebaseAuth.instance.currentUser;
-    final credential = EmailAuthProvider;
   }
 
   @override

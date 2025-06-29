@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:OzO/rank.dart';
+import 'package:OzO/rankpage/rank.dart';
 import 'package:OzO/home.dart';
 import 'package:OzO/friendszodiac/friend.dart';
 

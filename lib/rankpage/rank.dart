@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'package:OzO/picker/colorpicker.dart';
-import 'package:OzO/sidemenu/sidepopup.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/date_symbol_data_local.dart';
@@ -8,6 +6,9 @@ import 'package:intl/intl.dart';
 
 import 'package:OzO/layout/bottommenu.dart';
 import 'package:OzO/picker/zodiacpicker.dart';
+import 'package:OzO/rankpage/rankbox.dart';
+import 'package:OzO/picker/colorpicker.dart';
+import 'package:OzO/sidemenu/sidepopup.dart';
 
 class Rank extends StatefulWidget {
   const Rank({super.key});
@@ -113,7 +114,7 @@ class _RankState extends State<Rank> {
                     child: SizedBox(
                       height: 880,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 40),
                         child: Column(
                           children: [
                             SizedBox(height: 50),
@@ -122,6 +123,11 @@ class _RankState extends State<Rank> {
                                 if (rankMap.containsKey(i.toString()))
                                   Column(
                                     children: [
+                                      RankBox(
+                                        ranking : "$i",
+                                        name : rankMap[i.toString()]["name"]
+                                      ),
+
                                       Container(
                                         width: 300,
                                         height: 40,

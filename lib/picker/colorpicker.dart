@@ -35,7 +35,7 @@ Color getByColor(String ranking) {
     case "12":
       return colors[4];
     default:
-      return Colors.orange;
+      return Colors.purpleAccent;
   }
 }
 

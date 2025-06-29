@@ -67,7 +67,6 @@ class _HomeState extends State<Home> {
         setState(() {
           zodiacName = getNameByNum(num);
           zodiacEnName = getEnName(num);
-          build(context);
         });
       }
       getContentLucky();
@@ -114,7 +113,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    // showInfo();
     return Scaffold(
       drawer: SidePopup(),
       body: Stack(
