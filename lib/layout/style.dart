@@ -18,4 +18,3 @@ const BoxDecoration headerDecoration = BoxDecoration(
     bottomRight: Radius.circular(50)
   )
 );
-

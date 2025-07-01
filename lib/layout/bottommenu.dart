@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:OzO/rankpage/rank.dart';
 import 'package:OzO/home.dart';
 import 'package:OzO/friendszodiac/friend.dart';
-import 'package:OzO/notice.dart';
+import 'package:OzO/noticepage/notice.dart';
 
 class BottomMenu extends StatefulWidget {
   const BottomMenu({super.key});

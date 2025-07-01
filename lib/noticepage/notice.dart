@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:OzO/layout/style.dart';
-import 'package:OzO/webviewpage.dart';
+import 'package:OzO/noticepage/webviewpage.dart';
+import 'package:OzO/noticepage/noticecontainer.dart';
 
 class Notice extends StatefulWidget {
   const Notice({super.key});
@@ -76,54 +77,7 @@ class _NoticeState extends State<Notice> {
                               )
                             );
                           },
-
-                          child: Stack(
-                            children: [
-                              Container(
-                                width: 300,
-                                height: 150,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFFFD4CB),
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(
-                                    width: 0.5,
-                                    color: Colors.grey.withAlpha(102)
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withAlpha(102),
-                                      blurRadius: 4,
-                                      offset: Offset(4,4)
-                                    )
-                                  ]
-                                ),
-                              ),
-                              Positioned(
-                                left: 0,
-                                bottom: 0,
-                                child: Container(
-                                  width: 300,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(20),
-                                      bottomLeft: Radius.circular(20)
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(20),
-                                    child: Text(
-                                      "OzO 1.0 출시!",
-                                      style: TextStyle(
-                                        color: Colors.black54
-                                      ),
-                                    )
-                                  ),
-                                )
-                              )
-                            ],
-                          ),
+                          child: NoticeContainer(header: "OzO 1.0 출시")
                         )
                       ],
                     )
