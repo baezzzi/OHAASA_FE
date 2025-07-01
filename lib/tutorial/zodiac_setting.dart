@@ -66,122 +66,127 @@ class _ZodiacSettingState extends State<ZodiacSetting> {
     double screenHeight = MediaQuery.of(context).size.height;
     String zodiacName = getZodiacName(_selectedDate);
     return Scaffold(
-      body: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 150,
-                    decoration: headerDecoration,
-                  ),
-                  Positioned(
-                    top: 80,
-                    left: 15,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 70,),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: Image.asset(
-                  "assets/images/sparkle.png",
-                  width: 70,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: Colors.white,
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
                   children: [
-                    SizedBox(height: 8,),
-                    Text(
-                      "OzO 이용을 위한\n별자리 정보를 입력하세요!",
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-
-                    SizedBox(height: 60,),
                     Container(
                       width: double.infinity,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Colors.orange,
-                            width: 1,
-                          ),
-                        )
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "${_selectedDate.year}년 ${_selectedDate.month}월 ${_selectedDate.day}일",
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 20,
-                            ),
-                          ),
-
-                          IconButton(
-                            onPressed: () => _showDatePicker(),
-                            icon: Icon(Icons.calendar_today_rounded), color: Colors.orange,
-                          )
-                        ],
-                      )
+                      height: 150,
+                      decoration: headerDecoration,
                     ),
-                    SizedBox(height: 40,),
-                    Container(
-                      width: double.infinity,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Colors.orange,
-                            width: 1,
-                          )
-                        )
+                    Positioned(
+                      top: 80,
+                      left: 15,
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
-                      child: Text(
-                        zodiacName,
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black54
-                        ),
-                      )
                     ),
-                    SizedBox(height: 20,),
-
                   ],
                 ),
-              ),
-            ],
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: screenHeight * 0.05),
-              child: GestureDetector(
-                onTap: saveZodiac,
-                child: NextButton(text: "다음")
-              ),
+                SizedBox(height: 70,),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  child: Image.asset(
+                    "assets/images/sparkle.png",
+                    width: 70,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 40),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 8,),
+                      Text(
+                        "OzO 이용을 위한\n별자리 정보를 입력하세요!",
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+
+                      SizedBox(height: 60,),
+                      Container(
+                        width: double.infinity,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Color(0xFFD1C3FF),
+                              width: 1,
+                            ),
+                          )
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "${_selectedDate.year}년 ${_selectedDate.month}월 ${_selectedDate.day}일",
+                              style: TextStyle(
+                                color: Colors.black54,
+                                fontSize: 20,
+                              ),
+                            ),
+
+                            IconButton(
+                              onPressed: () => _showDatePicker(),
+                              icon: Icon(Icons.calendar_today_rounded), color: Color(0xFFD1C3FF),
+                            )
+                          ],
+                        )
+                      ),
+                      SizedBox(height: 40,),
+                      Container(
+                        width: double.infinity,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Color(0xFFD1C3FF),
+                              width: 1,
+                            )
+                          )
+                        ),
+                        child: Text(
+                          zodiacName,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black54
+                          ),
+                        )
+                      ),
+                      SizedBox(height: 20,),
+
+                    ],
+                  ),
+                ),
+              ],
             ),
-          )
-        ],
-      ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: screenHeight * 0.05),
+                child: GestureDetector(
+                  onTap: saveZodiac,
+                  child: NextButton(text: "다음")
+                ),
+              ),
+            )
+          ],
+        ),
+      )
     );
   }
 }

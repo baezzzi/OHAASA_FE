@@ -7,8 +7,8 @@ import 'package:intl/intl.dart';
 import 'package:OzO/layout/bottommenu.dart';
 import 'package:OzO/picker/zodiacpicker.dart';
 import 'package:OzO/rankpage/rankbox.dart';
-import 'package:OzO/picker/colorpicker.dart';
 import 'package:OzO/sidemenu/sidepopup.dart';
+import 'package:OzO/rankpage/rankdetail.dart';
 
 class Rank extends StatefulWidget {
   const Rank({super.key});
@@ -52,6 +52,21 @@ class _RankState extends State<Rank> {
     }
   }
 
+  Future<void> openDetail(String ranking, String name) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Align(
+          alignment: Alignment.center,
+          child: RankDetail(
+            ranking: ranking,
+            name: name,
+          )
+        );
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +76,9 @@ class _RankState extends State<Rank> {
           Container(
             width: double.infinity,
             height: 300,
-            color: Colors.orange,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [Color(0xFFD1C3FF), Color(0xFFFFD4CB)])
+            )
           ),
           Positioned(
             top: MediaQuery.of(context).size.height * 0.08,
@@ -81,14 +98,14 @@ class _RankState extends State<Rank> {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
-                      fontWeight: FontWeight.w600
+                      fontWeight: FontWeight.w900
                     ),
                   ),
                   Text(
                     "별자리 운세 순위",
                     style: TextStyle(
                       color: Colors.white,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w900,
                       fontSize: 18
                     ),
                   )
@@ -102,7 +119,6 @@ class _RankState extends State<Rank> {
               Expanded(
                 child: Container(
                   width: double.infinity,
-                  height: 900,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -112,7 +128,7 @@ class _RankState extends State<Rank> {
                   ),
                   child: SingleChildScrollView(
                     child: SizedBox(
-                      height: 880,
+                      height: 800,
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 40),
                         child: Column(
@@ -123,70 +139,19 @@ class _RankState extends State<Rank> {
                                 if (rankMap.containsKey(i.toString()))
                                   Column(
                                     children: [
-                                      RankBox(
-                                        ranking : "$i",
-                                        name : rankMap[i.toString()]["name"]
-                                      ),
-
-                                      Container(
-                                        width: 300,
-                                        height: 40,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(20),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: getByColor("$i"),
-                                              blurRadius: 5,
-                                              offset: Offset(0,0)
-                                            )
-                                          ]
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              width: 200,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                children: [
-                                                  SizedBox(
-                                                    width: 30,
-                                                    child: Text(
-                                                      "$i",
-                                                      style: TextStyle(
-                                                        color: Colors.black54,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 100,
-                                                    child: Text(
-                                                      changeEnToKo(rankMap[i.toString()]['name']),
-                                                      textAlign: TextAlign.center,
-                                                      style: TextStyle(
-                                                        color: Colors.black54,
-                                                        fontSize: 15,
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                color: getByColor("$i"),
-                                                borderRadius: BorderRadius.only(
-                                                  topRight: Radius.circular(20),
-                                                  bottomRight: Radius.circular(20)
-                                                )
-                                              ),
-                                            )
-                                          ]
+                                      GestureDetector(
+                                        onTap: () {
+                                          openDetail(
+                                            i.toString(),
+                                            rankMap[i.toString()]['name']
+                                          );
+                                        },
+                                        child: RankBox(
+                                          ranking : "$i",
+                                          name : changeEnToKo(rankMap[i.toString()]["name"])
                                         ),
                                       ),
-                                      SizedBox(height: 20),
+                                      SizedBox(height: 14),
                                     ],
                                   ),
                           ],

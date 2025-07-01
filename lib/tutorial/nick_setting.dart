@@ -44,74 +44,79 @@ class _NickSettingState extends State<NickSetting> {
         onTap: () {
           FocusScope.of(context).unfocus();
         },
-        child: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 150,
-                      decoration: headerDecoration,
-                    ),
-                    Positioned(
-                      top: 80,
-                      left: 15,
-                      child: IconButton(
-                        icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 70,),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: Image.asset(
-                    "assets/images/sparkle.png",
-                    width: 70,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: Colors.white,
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
                     children: [
-                      SizedBox(height: 8,),
-                      Text(
-                        "OzO 이용을 위한\n닉네임을 입력하세요!",
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
+                      Container(
+                        width: double.infinity,
+                        height: 150,
+                        decoration: headerDecoration,
+                      ),
+                      Positioned(
+                        top: 80,
+                        left: 15,
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                         ),
                       ),
-                      SizedBox(height: 60,),
-                      TextField(
-                        controller: nicknameController,
-                        decoration: buttonDecoration.copyWith(hintText: "닉네임")
-                      )
                     ],
                   ),
-                ),
-              ],
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: screenHeight * 0.05),
-                child: GestureDetector(
-                  onTap: saveNickname,
-                  child: NextButton(text: "다음")
-                ),
+                  SizedBox(height: 70,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30),
+                    child: Image.asset(
+                      "assets/images/sparkle.png",
+                      width: 70,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 8,),
+                        Text(
+                          "OzO 이용을 위한\n닉네임을 입력하세요!",
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(height: 60,),
+                        TextField(
+                          controller: nicknameController,
+                          decoration: buttonDecoration.copyWith(hintText: "닉네임")
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            )
-          ],
-        ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: screenHeight * 0.05),
+                  child: GestureDetector(
+                    onTap: saveNickname,
+                    child: NextButton(text: "다음")
+                  ),
+                ),
+              )
+            ],
+          ),
+        )
       )
     );
   }

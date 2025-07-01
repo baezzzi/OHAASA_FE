@@ -1,8 +1,10 @@
-import 'package:OzO/tutorial/nick_setting.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
+import 'dart:io';
+import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
+import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 import 'package:OzO/signup.dart';
 import 'package:OzO/signin.dart';
@@ -10,9 +12,18 @@ import 'package:OzO/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // WebView 플랫폼 초기화
+  if (WebViewPlatform.instance == null) {
+    if (Platform.isIOS) {
+      WebViewPlatform.instance = WebKitWebViewPlatform();
+    }
+  }
+
   runApp(const MaterialApp(home: MyApp()));
 }
 
@@ -24,6 +35,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -40,35 +53,40 @@ class _MyAppState extends State<MyApp> {
              body: Stack(
                children: [
                  Center(
-                   child: Column(
-                     children: [
-                       SizedBox(height: 300,),
-                       GestureDetector(
-                         onTap: () =>
-                         {
-                           Navigator.push(
-                               context,
-                               MaterialPageRoute(builder: (_) => SignIn())
-                           ),
-                         },
-                         child: Container(
-                           width: 280,
-                           height: 50,
-                           alignment: Alignment.center,
-                           decoration: BoxDecoration(
-                             color: Colors.orange,
-                             borderRadius: BorderRadius.circular(20),
-                           ),
-                           child: Text(
-                             "로그인",
-                             style: TextStyle(
-                               color: Colors.white,
+                   child: Container(
+                     width: double.infinity,
+                     height: double.infinity,
+                     color: Colors.white,
+                     child: Column(
+                       children: [
+                         SizedBox(height: 300,),
+                         GestureDetector(
+                           onTap: () =>
+                           {
+                             Navigator.push(
+                                 context,
+                                 MaterialPageRoute(builder: (_) => SignIn())
+                             ),
+                           },
+                           child: Container(
+                             width: 280,
+                             height: 50,
+                             alignment: Alignment.center,
+                             decoration: BoxDecoration(
+                               color: Color(0xFFD1C3FF),
+                               borderRadius: BorderRadius.circular(20),
+                             ),
+                             child: Text(
+                               "로그인",
+                               style: TextStyle(
+                                 color: Colors.white,
+                               ),
                              ),
                            ),
                          ),
-                       ),
-                     ],
-                   ),
+                       ],
+                     ),
+                   )
                  ),
                  Align(
                    alignment: Alignment.bottomCenter,
@@ -94,8 +112,9 @@ class _MyAppState extends State<MyApp> {
                            child: Text(
                              "회원가입",
                              style: TextStyle(
-                               color: Colors.orange,
+                               color: Color(0xFFD1C3FF),
                                fontSize: 15,
+                               fontWeight: FontWeight.w900
                              ),
                            )
                          ),

@@ -52,6 +52,8 @@ class _DatePickerState extends State<DatePicker> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 350,
+      // color: Colors.white,
+      
       child: Column(
         children: [
           SizedBox(height: 25,),
@@ -63,7 +65,7 @@ class _DatePickerState extends State<DatePicker> {
                 child: Text(
                   "cancle",
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: Color(0xFFD1C3FF),
                     fontSize: 15,
                     fontWeight: FontWeight.w700
                   ),
@@ -80,7 +82,7 @@ class _DatePickerState extends State<DatePicker> {
                 child:Text(
                   "done",
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: Color(0xFFD1C3FF),
                     fontSize: 15,
                     fontWeight: FontWeight.w700
                   ),

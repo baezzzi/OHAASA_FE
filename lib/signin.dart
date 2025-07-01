@@ -80,111 +80,118 @@ class _SignInState extends State<SignIn> {
           onTap: () {
             FocusScope.of(context).unfocus();
           },
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 150,
-                      decoration: headerDecoration,
-                    ),
-                   Positioned(
-                     top: 80,
-                     left: 15,
-                     child: IconButton(
-                         icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
-                         onPressed: () {
-                           Navigator.pop(context);
-                         },
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            color: Colors.white,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 150,
+                        decoration: headerDecoration,
+                      ),
+                     Positioned(
+                       top: 80,
+                       left: 15,
+                       child: IconButton(
+                           icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
+                           onPressed: () {
+                             Navigator.pop(context);
+                           },
+                       ),
                      ),
-                   ),
-                  ],
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 100,),
-                      Text(
-                        "log into\nyour account",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: Colors.orange,
-                          fontSize: 22,
-                        ),
-                      )
                     ],
                   ),
-                ),
 
-                Padding(
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 40,),
-                      Text(
-                        loginMessage,
-                        style: TextStyle(
-                          color: Colors.deepOrange,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextField(
-                        controller: emailController,
-                        decoration: buttonDecoration.copyWith(hintText: "이메일"),
-                      ),
-                      SizedBox(height: 20,),
-                      TextField(
-                        controller: pwController,
-                        decoration: buttonDecoration.copyWith(hintText: "비밀번호"),
-                        obscureText: true,
-                      ),
-                      SizedBox(height: 50,)
-                    ],
+                    child: Column(
+                      children: [
+                        SizedBox(height: 100,),
+                        Text(
+                          "log into\nyour account",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Color(0xFFD1C3FF),
+                            fontSize: 22,
+                            fontWeight: FontWeight.w700
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
 
-                GestureDetector(
-                  onTap: signIn,
-                  child: Center(
-                    child: Container(
-                      width: 300,
-                      height: 50,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.circular(20)
-                      ),
-                      child: Text(
-                          "로그인",
-                        style: TextStyle(
-                          color: Colors.white,
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 40,),
+                        Text(
+                          loginMessage,
+                          style: TextStyle(
+                            color: Colors.deepOrange,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextField(
+                          controller: emailController,
+                          decoration: buttonDecoration.copyWith(hintText: "이메일"),
+                        ),
+                        SizedBox(height: 20,),
+                        TextField(
+                          controller: pwController,
+                          decoration: buttonDecoration.copyWith(hintText: "비밀번호"),
+                          obscureText: true,
+                        ),
+                        SizedBox(height: 50,)
+                      ],
+                    ),
+                  ),
+
+                  GestureDetector(
+                    onTap: signIn,
+                    child: Center(
+                      child: Container(
+                        width: 300,
+                        height: 50,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(colors: [Color(0xFFFFD4CB), Color(0xFFD1C3FF)]),
+                          borderRadius: BorderRadius.circular(20)
+                        ),
+                        child: Text(
+                            "로그인",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w900
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 10,),
-                Center(
-                  child: TextButton(
-                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => FindPw())),
-                      child: Text(
-                        "비밀번호 찾기",
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
-                      )
-                  ),
-                )
-              ],
+                  SizedBox(height: 10,),
+                  Center(
+                    child: TextButton(
+                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => FindPw())),
+                        child: Text(
+                          "비밀번호 찾기",
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ),
+                        )
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
+          )
         ),
       ),
     );

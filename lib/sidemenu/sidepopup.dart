@@ -64,9 +64,6 @@ class _SidePopupState extends State<SidePopup> {
                               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => UpdatePw())),
                             ),
                             ListTile(
-                              title: Text("공지사항"),
-                            ),
-                            ListTile(
                               title: Text("문의사항"),
                             ),
                             ListTile(

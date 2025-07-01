@@ -141,7 +141,6 @@ class _HomeState extends State<Home> {
                       SizedBox(height: 100,),
                       // 닉네임
                       Text(
-
                         nickname,
                         style: TextStyle(
                           color: Colors.black54,
@@ -173,7 +172,7 @@ class _HomeState extends State<Home> {
                       Expanded(
                         child: SingleChildScrollView(
                           child: SizedBox(
-                            height: 1000,
+                            height: 400,
                             child: Column(
                               children: [
                                 SizedBox(height: 30),

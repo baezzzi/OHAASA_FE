@@ -166,7 +166,7 @@ class _FriendZodiacState extends State<FriendZodiac> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Icon(Icons.stars_rounded, color: getByColor(widget.ranking), size: 14),
-                      SizedBox(width: 15),
+                      SizedBox(width: 10),
                       Text(
                         lucky,
                         style: TextStyle(

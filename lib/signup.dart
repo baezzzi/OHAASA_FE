@@ -137,8 +137,9 @@ class _SignUpState extends State<SignUp> {
                         "create\nyour account",
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: Colors.orange,
+                          color: Color(0xFFD1C3FF),
                           fontSize: 22,
+                          fontWeight: FontWeight.w700
                         ),
                       ),
                     ],
@@ -160,7 +161,7 @@ class _SignUpState extends State<SignUp> {
                       // 비밀번호 입력
                       TextField(
                         controller: pwController,
-                        decoration: buttonDecoration.copyWith(hintText: '비밀번호 (6자 이상)'),
+                        decoration: buttonDecoration.copyWith(hintText: '비밀번호 (8자 이상)'),
                         obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
                       ),
@@ -198,13 +199,14 @@ class _SignUpState extends State<SignUp> {
                       height: 50,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: Colors.orange,
+                        gradient: LinearGradient(colors: [Color(0xFFFFD4CB), Color(0xFFD1C3FF)]),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Text(
                           "계정 생성하기",
                         style: TextStyle(
                           color: Colors.white,
+                          fontWeight: FontWeight.w900
                         ),
                       ),
                     ),

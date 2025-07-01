@@ -14,10 +14,10 @@ class _NextButtonState extends State<NextButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
-      height: 60,
+      width: 330,
+      height: 40,
       decoration: BoxDecoration(
-        color: Colors.orange,
+        gradient: LinearGradient(colors: [Color(0xFFFFD4CB), Color(0xFFD1C3FF)]),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Center(
@@ -25,6 +25,7 @@ class _NextButtonState extends State<NextButton> {
           widget.text,
           style: TextStyle(
             color: Colors.white,
+            fontWeight: FontWeight.w900
           ),
         ),
       )

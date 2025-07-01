@@ -76,13 +76,14 @@ class _FindPwState extends State<FindPw> {
                       "find password",
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                        color: Colors.black54,
+                        color: Color(0xFFD1C3FF),
                         fontSize: 22,
+                        fontWeight: FontWeight.w700
                       ),
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "${emailController.text}으로\n메일이 전송됩니다.\n링크를 클릭해 비밀번호 재설정해주세요.",
+                      "${emailController.text}으로\n비밀번호 설정 메일이 전송됩니다.\n링크를 클릭해 비밀번호 재설정해주세요.",
                       style: TextStyle(
                         fontSize: 14
                       ),
@@ -99,7 +100,7 @@ class _FindPwState extends State<FindPw> {
                         width: double.infinity,
                         height: 30,
                         decoration: BoxDecoration(
-                          color: Colors.orange,
+                          color: Color(0xFFD1C3FF),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Center(
@@ -107,7 +108,8 @@ class _FindPwState extends State<FindPw> {
                             "비밀번호 변경",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 12
+                              fontSize: 12,
+                              fontWeight: FontWeight.w900
                             ),
                           )
                         )

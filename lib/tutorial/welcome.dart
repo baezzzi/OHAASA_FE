@@ -32,45 +32,78 @@ class Welcome extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Stack(
-        children: [
-          Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 150,
-                decoration: headerDecoration,
-              ),
-              Positioned(
-                top: 80,
-                left: 15,
-                child: IconButton(
-                  icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
-                  onPressed: () => Navigator.pop(context)
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: Colors.white,
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 150,
+                      decoration: headerDecoration,
+                    ),
+                    Positioned(
+                      top: 80,
+                      left: 15,
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
+                        onPressed: () => Navigator.pop(context)
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          Center(
-            child: Text(
-              "환영합니다!!",
-              style: TextStyle(
-                color: Colors.blue,
-                fontSize: 30,
-              ),
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 200,),
+                        Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: Color(0x55FFD4CB)
+                          ),
+                          child: Center(
+                            child: Icon(
+                              Icons.check,
+                              color: Color(0xFFD1C3FF),
+                            )
+                          )
+                        ),
+                        SizedBox(height: 30),
+                        Text(
+                          "OzO 이용 준비 완료!",
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600
+                          ),
+                        )
+                      ],
+                    )
+                  ),
+                )
+              ],
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: screenHeight * 0.05),
-              child: GestureDetector(
-                onTap: () => handleTutorial(context),
-                child: NextButton(text: "완료")
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: screenHeight * 0.05),
+                child: GestureDetector(
+                  onTap: () => handleTutorial(context),
+                  child: NextButton(text: "완료")
+                )
               )
             )
-          )
-        ],
+          ],
+        )
       )
     );
   }

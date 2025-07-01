@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:OzO/friendszodiac/updatefriend.dart';
 import 'package:OzO/picker/colorpicker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -29,6 +30,7 @@ class _FriendState extends State<Friend> {
   late String ranking = "";
   late String date = "";
   Map<String, dynamic> friendMap = {};
+  bool isLimited = false;
 
   @override
   void initState() {
@@ -38,6 +40,7 @@ class _FriendState extends State<Friend> {
     DateTime now = DateTime.now();
     date = DateFormat("M월 d일 EEEE", "ko").format(now);
     _showFrList();
+
   }
 
   Future<void> _showAddFriend() async{
@@ -77,8 +80,6 @@ class _FriendState extends State<Friend> {
     );
 
     if (response.statusCode == 200) {
-      print("통신 성공");
-      print(response.body);
       List<dynamic> data = jsonDecode(response.body);
       Map<String, dynamic> tempMap = {};
 
@@ -89,7 +90,15 @@ class _FriendState extends State<Friend> {
 
       setState(() {
         friendMap = tempMap;
-        build(context);
+        if (friendMap.length == 10) {
+          setState(() {
+            isLimited = true;
+          });
+        } else {
+          setState(() {
+            isLimited = false;
+          });
+        }
       });
     } else {
       print(response.body);
@@ -109,11 +118,32 @@ class _FriendState extends State<Friend> {
     );
 
     if (response.statusCode == 200) {
-      print("친구 삭제 완");
+      print("성공");
       setState(() {
-        build(context);
+        if (friendMap.length != 10) {
+          setState(() {
+            isLimited = false;
+          });
+        }
       });
+    } else {
+      print(response.body);
     }
+  }
+
+  // 친구 수정
+  Future<void> openFix(String id) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Align(
+          alignment: Alignment.center,
+          child: UpdateFriend(
+            id: id,
+          ),
+        );
+      }
+    );
   }
 
   @override
@@ -126,7 +156,7 @@ class _FriendState extends State<Friend> {
             width: double.infinity,
             height: 300,
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.black54, Colors.blueGrey])
+                gradient: LinearGradient(colors: [Color(0xFFD1C3FF), Color(0xFFFFD4CB)])
             ),
           ),
           Positioned(
@@ -147,14 +177,14 @@ class _FriendState extends State<Friend> {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                   Text(
                     "친구들 별자리 운세",
                     style: TextStyle(
                       color: Colors.white,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w900,
                       fontSize: 18
                     ),
                   )
@@ -179,7 +209,7 @@ class _FriendState extends State<Friend> {
                     padding: EdgeInsets.only(top: 50),
                     child: SingleChildScrollView(
                       child: SizedBox(
-                        height: 900,
+                        height: friendMap.length * 100 + 50,
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 40),
                           child: Column(
@@ -202,14 +232,13 @@ class _FriendState extends State<Friend> {
                                                     friendMap.remove(i.toString());
                                                   });
                                                 },
-                                                backgroundColor: Colors.black54,
+                                                backgroundColor: Color(0xFFD1C3FF),
                                                 icon: Icons.delete,
+                                                foregroundColor: Colors.white,
                                               ),
                                               // SlidableAction(
                                               //   onPressed: (context) {
-                                              //     setState(() {
-                                              //       if(mounted) Navigator.pop(context);
-                                              //     });
+                                              //     openFix(friendMap[i.toString()]['id']);
                                               //   },
                                               //   backgroundColor: Colors.blueGrey,
                                               //   icon: Icons.edit,
@@ -237,7 +266,8 @@ class _FriendState extends State<Friend> {
                                     ),
 
                               // 칭긔 추가
-                              GestureDetector(
+                              isLimited ? Container()
+                              : GestureDetector(
                                 onTap: () => _showAddFriend(),
                                 child: Container(
                                   width: double.infinity,
