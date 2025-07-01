@@ -80,7 +80,7 @@ class _ReallyState extends State<Really> {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black26,
+              color: Colors.grey.withAlpha(102),
               blurRadius: 10,
               offset: Offset(4, 4)
             )
@@ -95,9 +95,9 @@ class _ReallyState extends State<Really> {
               Text(
                 "회원 탈퇴",
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.black54,
                   fontSize: 18,
-                  fontWeight: FontWeight.w800
+                  fontWeight: FontWeight.w900
                 ),
               ),
               SizedBox(height: 15),
@@ -121,7 +121,7 @@ class _ReallyState extends State<Really> {
               Text(
                 errMessage,
                 style: TextStyle(
-                  color: Colors.blueGrey,
+                  color: Color(0xFFD1C3FF),
                   fontSize: 14,
                 ),
               ),
@@ -164,10 +164,6 @@ class _ReallyState extends State<Really> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
-                        // border : Border.all(
-                        //     width: 1,
-                        //     color: Colors.black54
-                        // ),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black26,

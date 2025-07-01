@@ -94,8 +94,9 @@ class _UpdatePwState extends State<UpdatePw> {
                     Text(
                       "change password",
                       style: TextStyle(
-                        color: Colors.orange,
+                        color: Color(0xFFD1C3FF),
                         fontSize: 22,
+                        fontWeight: FontWeight.w400
                       ),
                     ),
                     SizedBox(height:2),
@@ -133,14 +134,15 @@ class _UpdatePwState extends State<UpdatePw> {
                         height: 40,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: Colors.orange
+                          gradient: LinearGradient(colors: [Color(0xFFFFD4CB), Color(0xFFD1C3FF)])
                         ),
                         child: Center(
                           child: Text(
                               "비밀번호 변경",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 14
+                              fontSize: 14,
+                              fontWeight: FontWeight.w900
                             ),
                           )
                         )

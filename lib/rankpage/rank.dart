@@ -167,7 +167,7 @@ class _RankState extends State<Rank> {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.only(bottom: 20),
-              child: BottomMenu(),
+              child: BottomMenu(currentPage: "rank",),
             ),
           ),
         ],

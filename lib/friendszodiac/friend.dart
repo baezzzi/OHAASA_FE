@@ -298,7 +298,7 @@ class _FriendState extends State<Friend> {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding : EdgeInsets.only(bottom: 20),
-              child: BottomMenu(),
+              child: BottomMenu(currentPage: "friend",),
             ),
           )
         ],

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:OzO/sidemenu/profileprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
@@ -9,6 +10,7 @@ import 'package:OzO/layout/bottommenu.dart';
 import 'package:OzO/picker/zodiacpicker.dart';
 import 'package:OzO/sidemenu/sidepopup.dart';
 import 'package:OzO/picker/colorpicker.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -50,7 +52,6 @@ class _HomeState extends State<Home> {
     if (response.statusCode == 200) {
       setState(() {
         nickname = response.body;
-        build(context);
       });
     }
   }
@@ -109,7 +110,6 @@ class _HomeState extends State<Home> {
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -289,29 +289,29 @@ class _HomeState extends State<Home> {
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                GestureDetector(
-                  onTap: _pickImage,
-                  child: Container(
-                    width: 130,
-                    height: 130,
-                    decoration: BoxDecoration(
-                      color: Colors.deepPurpleAccent,
-                      borderRadius: BorderRadius.circular(100),
-                      border: Border.all(
-                        width: 8,
-                        color: Colors.white,
+                Consumer<ProfileProvider>(
+                  builder: (context, provider, child) {
+                    final imagePath = provider.profileImagePath;
+                    return Container(
+                      width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFFFD4CB),
+                        borderRadius: BorderRadius.circular(100),
+                        border: Border.all(width: 4, color: Colors.white),
+                        image: imagePath != null && imagePath.isNotEmpty
+                            ? DecorationImage(
+                          image: imagePath.startsWith('http')
+                              ? NetworkImage(imagePath)
+                              : FileImage(File(imagePath)) as ImageProvider,
+                          fit: BoxFit.cover,
+                        )
+                            : null,
                       ),
-                      image: _imageFile != null
-                          ? DecorationImage(
-                        image: FileImage(_imageFile!),
-                        fit: BoxFit.cover,
-                      ) : null,
-                    ),
-                    child: _imageFile == null
-                        ? const Icon(Icons.face, color: Colors.white, size: 100,)
-                        : null,
-                  ),
+                    );
+                  },
                 )
+
               ],
             )
           ),
@@ -320,7 +320,7 @@ class _HomeState extends State<Home> {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding : EdgeInsets.only(bottom: 20),
-              child: BottomMenu(),
+              child: BottomMenu(currentPage: "home"),
             ),
           )
         ],

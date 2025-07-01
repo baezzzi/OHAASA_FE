@@ -1,14 +1,18 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import 'package:OzO/home.dart';
 import 'package:OzO/picker/datepicker.dart';
 import 'package:OzO/picker/zodiacpicker.dart';
 import 'package:OzO/sidemenu/authuser.dart';
+import 'package:provider/provider.dart';
+import 'package:OzO/sidemenu/profileprovider.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -45,7 +49,6 @@ class _ProfileState extends State<Profile> {
     if (response.statusCode == 200) {
       setState(() {
         nickname = response.body;
-        print(nickname);
       });
     }
   }
@@ -63,8 +66,7 @@ class _ProfileState extends State<Profile> {
     );
 
     if (response.statusCode == 200) {
-      print("닉네임 업데이트 완료");
-      print(nicknameController.text);
+      print("닉네임 변경");
     }
   }
   
@@ -78,7 +80,6 @@ class _ProfileState extends State<Profile> {
     if (response.statusCode == 200) {
       setState(() {
         birth = DateTime.parse(jsonDecode(response.body));
-        print(birth);
       });
     }
   }
@@ -95,8 +96,6 @@ class _ProfileState extends State<Profile> {
               newBirth = pickedDate;
               birth = newBirth;
               birthChange = true;
-              print(newBirth);
-              print(getZodiacNum(newBirth));
             });
           }
         );
@@ -117,8 +116,7 @@ class _ProfileState extends State<Profile> {
     );
 
     if (response.statusCode == 200) {
-      print("생일 업데이트");
-      print(DateFormat('yyyy-MM-dd').format(newBirth));
+      print("생일 업뎃");
     }
   }
 
@@ -146,7 +144,9 @@ class _ProfileState extends State<Profile> {
             Container(
               width: double.infinity,
               height: 300,
-              color: Color(0xFFD1C3FF),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [Color(0xFFD1C3FF), Color(0xFfFFD4CB)])
+              ),
             ),
             Positioned(
               top: 50,
@@ -290,22 +290,41 @@ class _ProfileState extends State<Profile> {
                   ),
                   Stack(
                     children: [
-                      Container(
-                        width: 130,
-                        height: 130,
-                        decoration: BoxDecoration(
-                          color: Colors.blueGrey,
-                          borderRadius: BorderRadius.circular(100),
-                          border: Border.all(
-                            width: 8,
-                            color: Colors.white,
-                          )
-                        ),
+                      Consumer<ProfileProvider>(
+                        builder: (context, provider, child) {
+                          final imagePath = provider.profileImagePath;
+                          return Container(
+                            width: 130,
+                            height: 130,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFFFD4CB),
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(width: 4, color: Colors.white),
+                              image: imagePath != null && imagePath.isNotEmpty
+                                  ? DecorationImage(
+                                image: imagePath.startsWith('http')
+                                    ? NetworkImage(imagePath)
+                                    : FileImage(File(imagePath)) as ImageProvider,
+                                fit: BoxFit.cover,
+                              )
+                                  : null,
+                            ),
+                          );
+                        },
                       ),
+
                       Positioned(
                         right: 10,
                         bottom: 10,
                         child: GestureDetector(
+                          onTap: () async {
+                            final picker = ImagePicker();
+                            final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+                            if (pickedFile != null) {
+                              final profileProvider = Provider.of<ProfileProvider>(context, listen: false);
+                              profileProvider.updateProfileImage(pickedFile.path); // 또는 Firebase Storage에 업로드 후 URL 저장
+                            }
+                          },
                           child: Container(
                             width: 30,
                             height: 30,
@@ -314,12 +333,12 @@ class _ProfileState extends State<Profile> {
                               borderRadius: BorderRadius.circular(100),
                               border: Border.all(
                                 width: 1,
-                                color: Colors.blueGrey
+                                color: Color(0xFFFFD4CB)
                               )
                             ),
                             child: Icon(
                               Icons.edit,
-                              color: Colors.blueGrey,
+                              color: Color(0xFFFFD4CB),
                               size: 15,
                             ),
                           ),
@@ -331,20 +350,20 @@ class _ProfileState extends State<Profile> {
               )
             ),
             Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                    padding: EdgeInsets.only(bottom: 50),
-                    child: GestureDetector(
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AuthUser())),
-                        child: Text(
-                          "회원 탈퇴하기",
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 16,
-                          ),
-                        )
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 50),
+                child: GestureDetector(
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AuthUser())),
+                    child: Text(
+                      "회원 탈퇴하기",
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 16,
+                      ),
                     )
                 )
+              )
             )
           ],
         ),

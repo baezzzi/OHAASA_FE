@@ -5,10 +5,12 @@ import 'firebase_options.dart';
 import 'dart:io';
 import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
+import 'package:provider/provider.dart';
 
 import 'package:OzO/signup.dart';
 import 'package:OzO/signin.dart';
 import 'package:OzO/home.dart';
+import 'package:OzO/sidemenu/profileprovider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +26,15 @@ void main() async {
     }
   }
 
-  runApp(const MaterialApp(home: MyApp()));
+
+  // runApp(const MaterialApp(home: MyApp()));
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ProfileProvider(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {

@@ -1,4 +1,5 @@
 import 'package:OzO/main.dart';
+import 'package:OzO/noticepage/webviewpage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -65,10 +66,17 @@ class _SidePopupState extends State<SidePopup> {
                             ),
                             ListTile(
                               title: Text("문의사항"),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => WebViewPage(
+                                      url: "https://docs.google.com/forms/u/1/d/e/1FAIpQLSdf35boJHO61I0yJTHCFoWXBPGPMifNqZtl8KIAG4nwv3pVsw/formResponse"
+                                    )
+                                  )
+                                );
+                              },
                             ),
-                            ListTile(
-                              title: Text(""),
-                            )
                           ],
                         ),
                       )
@@ -85,16 +93,23 @@ class _SidePopupState extends State<SidePopup> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                    "💌 OzO 메일\nmycodingnumber100@gmail.com",
+                    style: TextStyle(
+                      fontSize: 12
+                    ),
+                  ),
+                  SizedBox(height: 10),
                   Container(
                     width: 220,
                     height: 10,
                     decoration:BoxDecoration(
-                        border : Border(
-                            bottom: BorderSide(
-                                color: Colors.black12,
-                                width: 1
-                            )
+                      border : Border(
+                      bottom: BorderSide(
+                        color: Colors.black12,
+                        width: 1
                         )
+                      )
                     ),
                   ),
                   SizedBox(height: 20,),

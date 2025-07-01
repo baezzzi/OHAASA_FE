@@ -6,13 +6,20 @@ import 'package:OzO/friendszodiac/friend.dart';
 import 'package:OzO/noticepage/notice.dart';
 
 class BottomMenu extends StatefulWidget {
-  const BottomMenu({super.key});
+
+  final String currentPage;
+
+  const BottomMenu({
+    super.key,
+    required this.currentPage
+  });
 
   @override
   State<BottomMenu> createState() => _BottomMenuState();
 }
 
 class _BottomMenuState extends State<BottomMenu> {
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,20 +50,40 @@ class _BottomMenuState extends State<BottomMenu> {
             },
           ),
           GestureDetector(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => Notice())),
-            child: Icon(Icons.notifications, color: Colors.black54)
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => Notice()));
+            },
+            child: Icon(
+              Icons.notifications,
+              color: Colors.black54
+            )
           ),
           GestureDetector(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => Home())),
-            child: Icon(Icons.favorite_rounded, color: Colors.black54,),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
+            },
+            child: Icon(
+              Icons.favorite_rounded,
+              color: widget.currentPage == "home" ? Color(0xFFFFD4CB) : Colors.black54,
+            ),
           ),
           GestureDetector(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => Friend())),
-            child: Icon(Icons.diversity_2_rounded, color: Colors.black54,),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => Friend()));
+            },
+            child: Icon(
+              Icons.diversity_2_rounded,
+              color: widget.currentPage == "friend" ? Color(0xFFFFD4CB) : Colors.black54,
+            ),
           ),
           GestureDetector(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => Rank())),
-            child: Icon(Icons.extension_rounded, color: Colors.black54,),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => Rank()));
+            },
+            child: Icon(
+              Icons.extension_rounded,
+              color: widget.currentPage == "rank" ? Color(0xFFFFD4CB) : Colors.black54,
+            ),
           )
         ],
       ),

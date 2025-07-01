@@ -131,7 +131,7 @@ class _AuthUserState extends State<AuthUser> {
                             width: 150,
                             height: 35,
                             decoration: BoxDecoration(
-                              color: Colors.orange,
+                              gradient: LinearGradient(colors: [Color(0xFFFFD4CB), Color(0xFFD1C3FF)]),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Center(
@@ -140,7 +140,7 @@ class _AuthUserState extends State<AuthUser> {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
-                                  fontWeight: FontWeight.w700
+                                  fontWeight: FontWeight.w900
                                 ),
                               )
                             )

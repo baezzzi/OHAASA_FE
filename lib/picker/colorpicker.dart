@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// FFD4CB  - 핑크
+// D1C3FF  - 보라
+
 class ColorPicker extends StatefulWidget {
   const ColorPicker({super.key});
 
