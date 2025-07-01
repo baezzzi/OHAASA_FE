@@ -35,13 +35,13 @@ class _SidePopupState extends State<SidePopup> {
                 Container(
                   width: double.infinity,
                   height: 200,
-                  color: Colors.blueAccent,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: [Color(0xFFD1C3FF), Color(0xFFFFD4CB)])
+                  ),
                     child: Center(
-                      child: Text(
-                        "OzO",
-                        style: TextStyle(
-                          color: Colors.white
-                        ),
+                      child: Image.asset(
+                        "assets/images/ozo.png",
+                        width: 70,
                       ),
                     ),
                 ),
