@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 import 'package:OzO/layout/bottommenu.dart';
 import 'package:OzO/picker/zodiacpicker.dart';
@@ -30,11 +32,20 @@ class _HomeState extends State<Home> {
 
   final user = FirebaseAuth.instance.currentUser;
 
+  late String date = "";
+
   // 페이지 첫 렌딩
   @override
   void initState() {
     super.initState();
     showInfo();
+    initializeDateFormatting("ko", "");
+    DateTime now = DateTime.now();
+    setState(() {
+      date = DateFormat("M월 d일 EEEE", "ko").format(now);
+
+    });
+    print(date);
   }
 
   Future<void> showInfo() async {
@@ -117,10 +128,16 @@ class _HomeState extends State<Home> {
       drawer: SidePopup(),
       body: Stack(
         children: [
-          Container(
-            width: double.infinity,
-            height: 300,
-            color: getByColor(ranking),
+          Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                height: 300,
+                color: getByColor(ranking),
+              ),
+              Image.asset("assets/images/header.png"),
+
+            ],
           ),
           Column(
             children: [
@@ -149,24 +166,62 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       SizedBox(height: 5,),
-                      Container(
-                        width: 120,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          color: getByColor(ranking),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Center(
-                          // 별자리
-                          child: Text(
-                            zodiacName,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w900,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Container(
+                          //   width: 30,
+                          //   height: 30,
+                          //   decoration: BoxDecoration(
+                          //       borderRadius: BorderRadius.circular(100),
+                          //       color: getByColor(ranking)
+                          //   ),
+                          //   child:
+                          // ),
+                          // SizedBox(width: 10),
+                          Container(
+                            width: 120,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: getByColor(ranking),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Center(
+                              // 별자리
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // SizedBox(width: 15),
+                                  Center(
+                                      child: Text(
+                                        ranking,
+                                        style: TextStyle(
+                                            color: Colors.white
+                                        ),
+                                      )
+                                  ),
+                                SizedBox(width: 5,),
+                                Text(
+                                  "|",
+                                  style: TextStyle(
+                                    color: Colors.white
+                                  ),
+                                ),
+                                  SizedBox(width: 10,),
+
+                                Text(
+                                  zodiacName,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                              ]
                             ),
                           ),
-                        ),
+                            )
+                        ],
                       ),
                       SizedBox(height: 40),
                       Expanded(
@@ -288,7 +343,7 @@ class _HomeState extends State<Home> {
             alignment: Alignment.topCenter,
             child: Column(
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.08),
                 Consumer<ProfileProvider>(
                   builder: (context, provider, child) {
                     final imagePath = provider.profileImagePath;

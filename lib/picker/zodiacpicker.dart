@@ -6,84 +6,96 @@ final List<Map<String, dynamic>> zodiacList = [
     "start" : DateTime(0, 12, 25),
     "end" : DateTime(0, 1, 19),
     "num" : 1,
-    "en" : "capricorn"
+    "en" : "capricorn",
+    "image" : "assets/images/capricorn.png"
   },
   {
     "name" : "물병자리",
     "start" : DateTime(0, 1, 20),
     "end" : DateTime(0, 2, 18),
     "num" : 2,
-    "en" : "aquarius"
+    "en" : "aquarius",
+    "image" : "assets/images/aquarius.png"
   },
   {
     "name" : "물고기자리",
     "start" : DateTime(0, 2, 19),
     "end" : DateTime(0, 3, 20),
     "num" : 3,
-    "en" : "pisces"
+    "en" : "pisces",
+    "image" : "assets/images/pisces.png"
   },
   {
     "name" : "양자리",
     "start" : DateTime(0, 3, 21),
     "end" : DateTime(0, 4, 20),
     "num" : 4,
-    "en" : "aries"
+    "en" : "aries",
+    "image" : "assets/images/aries.png"
   },
   {
     "name" : "황소자리",
     "start" : DateTime(0, 4, 21),
     "end" : DateTime(0, 5, 20),
     "num" : 5,
-    "en" : "taurus"
+    "en" : "taurus",
+    "image" : "assets/images/taurus.png"
   },
   {
     "name" : "쌍둥이자리",
     "start" : DateTime(0, 5, 21),
     "end" : DateTime(0, 6, 21),
     "num" : 6,
-    "en" : "gemini"
+    "en" : "gemini",
+    "image" : "assets/images/gemini.png"
   },
   {
     "name" : "게자리",
     "start" : DateTime(0, 6, 22),
     "end" : DateTime(0, 7, 22),
     "num" : 7,
-    "en" : "cancer"
+    "en" : "cancer",
+    "image" : "assets/images/cancer.png"
   },
   {
     "name" : "사자자리",
     "start" : DateTime(0, 7, 23),
     "end" : DateTime(0, 8, 22),
     "num" : 8,
-    "en" : "leo"
+    "en" : "leo",
+    "image" : "assets/images/leo.png"
   },
   {
     "name" : "처녀자리",
     "start" : DateTime(0, 8, 23),
     "end" : DateTime(0, 9, 23),
     "num" : 9,
-    "en" : "virgo"
+    "en" : "virgo",
+    "image" : "assets/images/virgo.png"
   },
   {
     "name" : "천칭자리",
     "start" : DateTime(0, 9, 24),
     "end" : DateTime(0, 10, 22),
     "num" : 10,
-    "en" : "libra"
+    "en" : "libra",
+    "image" : "assets/images/libra.png"
   },
   {
     "name" : "전갈자리",
     "start" : DateTime(0, 10, 23),
     "end" : DateTime(0, 11, 22),
     "num" : 11,
-    "en" : "scorpio"
+    "en" : "scorpio",
+    "image" : "assets/images/scorpio.png"
   },
   {
     "name" : "사수자리",
     "start" : DateTime(0, 11, 23),
     "end" : DateTime(0, 12, 24),
     "num" : 12,
-    "en" : "sagittarius"
+    "en" : "sagittarius",
+    "image" : "assets/images/saggitarius.png"
   }
 ];
 class ZodiacPicker extends StatefulWidget {
@@ -215,6 +227,17 @@ String frZodiacName(DateTime selectedDate) {
     }
   }
   return "알수 없음";
+}
+
+String getImageLink(String name) {
+  for (var zodiac in zodiacList) {
+    String link = zodiac['image'];
+    String ko = zodiac["name"];
+    if(ko == name) {
+      return link;
+    }
+  }
+  return "알 수 없음";
 }
 
 class _ZodiacPickerState extends State<ZodiacPicker> {

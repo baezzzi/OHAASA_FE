@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:OzO/picker/colorpicker.dart';
+import 'package:OzO/picker/zodiacpicker.dart';
 
 class RankBox extends StatefulWidget {
 
@@ -18,6 +19,14 @@ class RankBox extends StatefulWidget {
 }
 
 class _RankBoxState extends State<RankBox> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(getByColor(widget.ranking));
+    print(getImageLink(widget.name));
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,15 +59,25 @@ class _RankBoxState extends State<RankBox> {
               ),
             ),
           ),
-          Container(
-            width: 100,
-            decoration: BoxDecoration(
-              color: getByColor(widget.ranking),
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20),
-                bottomRight: Radius.circular(20)
+          Stack(
+            children: [
+              Container(
+                width: 100,
+                decoration: BoxDecoration(
+                  color: getByColor(widget.ranking),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20)
+                  )
+                ),
+              ),
+              Center(
+                child: Image.asset(
+                  getImageLink(widget.name),
+                  width: 100,
+                )
               )
-            ),
+            ],
           )
         ],
       ),

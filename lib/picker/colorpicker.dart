@@ -12,31 +12,35 @@ class ColorPicker extends StatefulWidget {
 
 // 순위에 따른 색
 final List<Color> colors = [
-  Color(0xFFFA8B8B), // 1등
-  Color(0xFFFFA069), // 2-4등
+  Color(0xFFFF8181), // 1등
+  Color(0xFFFF9D60), // 2등
+  Color(0xFFFFDC4D),  // 3등
   Color(0xFF9AD389), // 5-8등
-  Color(0xFF8CA8EA), // 9-11등
-  Color(0xFF313857), // 12등
+  Color(0xFF96B2F4), // 9-11등
+  Color(0xFF4D89FF),
+  Color(0xFF364C9A), // 12등
+  Color(0xFFC487FA),
+  Color(0xFFFA91D4),
+  Color(0xFFA1A1A1),
+  Color(0xFF936351),
+  Color(0xFF131313),
+  // Color(0xFF8F232D)
 ];
 
 Color getByColor(String ranking) {
   switch (ranking) {
     case "1" : return colors[0];
-    case "2":
-    case "3":
-    case "4":
-      return colors[1];
-    case "5":
-    case "6":
-    case "7":
-      return colors[2];
-    case "8":
-    case "9":
-    case "10":
-    case "11":
-      return colors[3];
-    case "12":
-      return colors[4];
+    case "2": return colors[1];
+    case "3": return colors[2];
+    case "4": return colors[3];
+    case "5": return colors[4];
+    case "6": return colors[5];
+    case "7": return colors[6];
+    case "8": return colors[7];
+    case "9": return colors[8];
+    case "10": return colors[9];
+    case "11": return colors[10];
+    case "12": return colors[11];
     default:
       return Color(0xFFD1C3FF);
   }

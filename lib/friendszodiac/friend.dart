@@ -209,7 +209,7 @@ class _FriendState extends State<Friend> {
                     padding: EdgeInsets.only(top: 50),
                     child: SingleChildScrollView(
                       child: SizedBox(
-                        height: friendMap.length * 100 + 50,
+                        height: friendMap.length * 100 + 100,
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 40),
                           child: Column(
@@ -224,7 +224,6 @@ class _FriendState extends State<Friend> {
                                           endActionPane: ActionPane(
                                             motion: DrawerMotion(),
                                             children: [
-
                                               SlidableAction(
                                                 onPressed: (context) {
                                                   setState(() {
@@ -232,18 +231,11 @@ class _FriendState extends State<Friend> {
                                                     friendMap.remove(i.toString());
                                                   });
                                                 },
-                                                backgroundColor: Color(0xFFD1C3FF),
+                                                backgroundColor: Colors.black54,
                                                 icon: Icons.delete,
                                                 foregroundColor: Colors.white,
+                                                borderRadius: BorderRadius.circular(20),
                                               ),
-                                              // SlidableAction(
-                                              //   onPressed: (context) {
-                                              //     openFix(friendMap[i.toString()]['id']);
-                                              //   },
-                                              //   backgroundColor: Colors.blueGrey,
-                                              //   icon: Icons.edit,
-                                              //
-                                              // ),
                                             ]
                                           ),
                                           child: GestureDetector(

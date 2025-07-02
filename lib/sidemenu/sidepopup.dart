@@ -31,6 +31,7 @@ class _SidePopupState extends State<SidePopup> {
           Container(
             color: Colors.white,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
                   width: double.infinity,
@@ -38,12 +39,17 @@ class _SidePopupState extends State<SidePopup> {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(colors: [Color(0xFFD1C3FF), Color(0xFFFFD4CB)])
                   ),
-                    child: Center(
-                      child: Image.asset(
-                        "assets/images/ozo.png",
-                        width: 70,
-                      ),
-                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Image.asset(
+                          "assets/images/ozo.png",
+                          width: 150,
+                          color: Colors.black54,
+                        ),
+                      ],
+                    )
                 ),
                 SizedBox(height: 20),
                 SizedBox(

@@ -160,13 +160,13 @@ class _FriendZodiacState extends State<FriendZodiac> {
                   ]
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Icon(Icons.stars_rounded, color: getByColor(widget.ranking), size: 14),
-                      SizedBox(width: 10),
+                      SizedBox(width: 5,),
                       Text(
                         lucky,
                         style: TextStyle(
