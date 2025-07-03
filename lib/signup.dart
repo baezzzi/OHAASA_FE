@@ -104,117 +104,123 @@ class _SignUpState extends State<SignUp> {
           onTap: () {
             FocusScope.of(context).unfocus(); // 키보드 숨기기
           },
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      height: 150,
-                      width: double.infinity,
-                      decoration: headerDecoration,
-                    ),
-                    Positioned(
-                      top: 80,
-                      left: 15,
-                      child: IconButton(
-                        icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Column(
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            color: Colors.white,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
                     children: [
-                      SizedBox(height: 80),
-                      Text(
-                        "create\nyour account",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: Color(0xFFD1C3FF),
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700
+                      Container(
+                        height: 150,
+                        width: double.infinity,
+                        decoration: headerDecoration,
+                      ),
+                      Positioned(
+                        top: 80,
+                        left: 15,
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                         ),
                       ),
                     ],
                   ),
-                ),
 
-
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 70,),
-                      TextField(
-                        controller: emailController,
-                        decoration: buttonDecoration.copyWith(hintText: '이메일'),
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                      SizedBox(height: 14,),
-                      // 비밀번호 입력
-                      TextField(
-                        controller: pwController,
-                        decoration: buttonDecoration.copyWith(hintText: '비밀번호 (8자 이상)'),
-                        obscureText: true,
-                        keyboardType: TextInputType.visiblePassword,
-                      ),
-                      SizedBox(height: 14,),
-                      // 비밀번호 확인
-                      TextField(
-                        controller: pwcheckController,
-                        decoration: buttonDecoration.copyWith(hintText: '비밀번호 확인'),
-                        obscureText: true,
-                        keyboardType: TextInputType.visiblePassword,
-                        onChanged: (value) => checkPw(),
-                      ),
-                      SizedBox(height: 10,),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          checkPwMessage,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 80),
+                        Text(
+                          "create\nyour account",
+                          textAlign: TextAlign.left,
                           style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 13
+                              color: Color(0xFFD1C3FF),
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 50),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 70,),
+                        TextField(
+                          controller: emailController,
+                          decoration: buttonDecoration.copyWith(hintText: '이메일'),
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                        SizedBox(height: 14,),
+                        // 비밀번호 입력
+                        TextField(
+                          controller: pwController,
+                          decoration: buttonDecoration.copyWith(hintText: '비밀번호 (8자 이상)'),
+                          obscureText: true,
+                          keyboardType: TextInputType.visiblePassword,
+                        ),
+                        SizedBox(height: 14,),
+                        // 비밀번호 확인
+                        TextField(
+                          controller: pwcheckController,
+                          decoration: buttonDecoration.copyWith(hintText: '비밀번호 확인'),
+                          obscureText: true,
+                          keyboardType: TextInputType.visiblePassword,
+                          onChanged: (value) => checkPw(),
+                        ),
+                        SizedBox(height: 10,),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            checkPwMessage,
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 13
+                            ),
+                          ),
+                        ),
+                        // 이메일 입력
+                        SizedBox(height: 30,),
+                      ],
+                    ),
+                  ),
+
+                  GestureDetector(
+                    onTap: signUp,
+                    child: Center(
+                      child: Container(
+                        width: 300,
+                        height: 50,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(colors: [Color(0xFFFFD4CB), Color(0xFFD1C3FF)]),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Text(
+                          "계정 생성하기",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w900
                           ),
                         ),
                       ),
-                      // 이메일 입력
-                      SizedBox(height: 30,),
-                    ],
-                  ),
-                ),
-
-                GestureDetector(
-                  onTap: signUp,
-                  child: Center(
-                    child: Container(
-                      width: 300,
-                      height: 50,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(colors: [Color(0xFFFFD4CB), Color(0xFFD1C3FF)]),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Text(
-                          "계정 생성하기",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900
-                        ),
-                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
+
+          )
         ),
       ),
     );

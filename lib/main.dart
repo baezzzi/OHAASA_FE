@@ -49,93 +49,95 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     return MaterialApp(
       home: StreamBuilder(
-         stream: FirebaseAuth.instance.authStateChanges(),
-         builder: (context, snapshot) {
-           if (snapshot.connectionState == ConnectionState.waiting) {
-             return const Center(child: CircularProgressIndicator());
-           } else if (snapshot.hasData && snapshot.data != null) {
-             return Home();
-           }
-           return Scaffold(
-             body: Stack(
-               children: [
-                 Center(
-                   child: Container(
-                     width: double.infinity,
-                     height: double.infinity,
-                     color: Colors.white,
-                     child: Column(
-                       children: [
-                         SizedBox(height: 300,),
-                         GestureDetector(
-                           onTap: () =>
-                           {
-                             Navigator.push(
-                                 context,
-                                 MaterialPageRoute(builder: (_) => SignIn())
-                             ),
-                           },
-                           child: Container(
-                             width: 280,
-                             height: 50,
-                             alignment: Alignment.center,
-                             decoration: BoxDecoration(
-                               color: Color(0xFFD1C3FF),
-                               borderRadius: BorderRadius.circular(20),
-                             ),
-                             child: Text(
-                               "로그인",
-                               style: TextStyle(
-                                 color: Colors.white,
-                               ),
-                             ),
-                           ),
-                         ),
-                       ],
-                     ),
-                   )
-                 ),
-                 Align(
-                   alignment: Alignment.bottomCenter,
-                   child: Padding(
-                     padding: EdgeInsets.only(bottom: screenHeight * .1),
-                     child: Row(
-                       mainAxisAlignment: MainAxisAlignment.center,
-                       children: [
-                         Text(
-                           "계정이 없다면",
-                           style: TextStyle(
-                             color: Colors.grey,
-                             fontSize: 15,
-                           ),
-                         ),
-                         TextButton(
-                           onPressed: () =>
-                             Navigator.push(
-                               context,
-                               MaterialPageRoute(
-                                 builder: (_) => SignUp())
-                             ),
-                           child: Text(
-                             "회원가입",
-                             style: TextStyle(
-                               color: Color(0xFFD1C3FF),
-                               fontSize: 15,
-                               fontWeight: FontWeight.w900
-                             ),
-                           )
-                         ),
-                       ],
-                     )
-                   )
-                 )
-               ],
-             ),
-           );
-         },
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasData && snapshot.data != null) {
+            return Home();
+          }
+          return Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                  colors: [Color(0xFFD1C3FF), Color(0xFFFFD4CB)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter
+                  )
+                ),
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 200),
+                  child: Image.asset("assets/images/ozo.png", width: 200,)
+                )
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 70),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 50),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SignUp())),
+                          child: Container(
+                            width: double.infinity,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withAlpha(70),
+                              borderRadius: BorderRadius.circular(10)
+                            ),
+                            child: Center(
+                              child: Text(
+                                "시작하기",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 16
+                                ),
+                              )
+                            )
+                          )
+                        ),
+                        SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SignIn())),
+                          child: Container(
+                            width: double.infinity,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white.withAlpha(70)
+                            ),
+                            child: Center(
+                              child: Text(
+                                "로그인",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w800
+                                ),
+                              )
+                            )
+                          )
+                        )
+                      ],
+                    )
+                  )
+               )
+             )
+           ],
+         );
+       },
       )
     );
   }
