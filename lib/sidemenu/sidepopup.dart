@@ -40,13 +40,12 @@ class _SidePopupState extends State<SidePopup> {
                     gradient: LinearGradient(colors: [Color(0xFFD1C3FF), Color(0xFFFFD4CB)])
                   ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(
                           "assets/images/ozo.png",
                           width: 150,
-                          color: Colors.black54,
                         ),
                       ],
                     )

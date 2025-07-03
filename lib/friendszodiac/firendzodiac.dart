@@ -34,7 +34,16 @@ class _FriendZodiacState extends State<FriendZodiac> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getContent();
+
+    DateTime now = DateTime.now();
+    if (now.hour >= 0 && now.hour < 7) {
+      setState(() {
+        content = "쿨쿨 zZ";
+        lucky = "별나라 여행하기";
+      });
+    } else {
+      getContent();
+    }
   }
 
   Future<void> getContent() async {

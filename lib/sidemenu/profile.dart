@@ -333,7 +333,7 @@ class _ProfileState extends State<Profile> {
                               borderRadius: BorderRadius.circular(100),
                               border: Border.all(
                                 width: 1,
-                                color: Color(0xFFFFD4CB)
+                                color: Colors.black12
                               )
                             ),
                             child: Icon(

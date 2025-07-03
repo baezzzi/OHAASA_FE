@@ -39,8 +39,12 @@ class _FriendState extends State<Friend> {
     initializeDateFormatting("ko", "");
     DateTime now = DateTime.now();
     date = DateFormat("M월 d일 EEEE", "ko").format(now);
-    _showFrList();
+    String day = DateFormat("EE", "ko").format(now);
 
+    if ((day == "토") || (day == "일")) {
+    } else {
+      _showFrList();
+    }
   }
 
   Future<void> _showAddFriend() async{

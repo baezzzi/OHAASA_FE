@@ -9,6 +9,7 @@ import 'package:OzO/picker/zodiacpicker.dart';
 import 'package:OzO/rankpage/rankbox.dart';
 import 'package:OzO/sidemenu/sidepopup.dart';
 import 'package:OzO/rankpage/rankdetail.dart';
+import 'package:OzO/rankpage/ready.dart';
 
 class Rank extends StatefulWidget {
   const Rank({super.key});
@@ -29,7 +30,14 @@ class _RankState extends State<Rank> {
     initializeDateFormatting("ko", "");
     DateTime now = DateTime.now();
     date = DateFormat('M월 d일 EEEE', 'ko').format(now);
-    getZodiac();
+    String day = DateFormat("EE", "ko").format(now);
+
+    if ((day == "토") || (day == "일")) {
+      print("주말");
+    } else {
+      print("평일");
+      getZodiac();
+    }
   }
 
   Future<void> getZodiac() async {
@@ -134,6 +142,13 @@ class _RankState extends State<Rank> {
                         child: Column(
                           children: [
                             SizedBox(height: 50),
+                            if (rankMap.isEmpty)
+                              Column(
+                                children: [
+                                  SizedBox(height: 100),
+                                  Ready()
+                                ],
+                              ),
                             if (rankMap.isNotEmpty)
                               for (int i = 1; i <= 12; i++)
                                 if (rankMap.containsKey(i.toString()))

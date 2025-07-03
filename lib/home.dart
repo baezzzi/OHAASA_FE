@@ -1,18 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:OzO/sidemenu/profileprovider.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import 'package:OzO/layout/bottommenu.dart';
 import 'package:OzO/picker/zodiacpicker.dart';
 import 'package:OzO/sidemenu/sidepopup.dart';
 import 'package:OzO/picker/colorpicker.dart';
-import 'package:provider/provider.dart';
+import 'package:OzO/sidemenu/profileprovider.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -28,24 +28,37 @@ class _HomeState extends State<Home> {
   late String content = "";
   late String lucky = "";
   late String ranking = "";
-  File? _imageFile;
+  late String day = "";
+  late String ready = "";
 
   final user = FirebaseAuth.instance.currentUser;
 
-  late String date = "";
 
   // 페이지 첫 렌딩
   @override
   void initState() {
     super.initState();
     showInfo();
+
     initializeDateFormatting("ko", "");
     DateTime now = DateTime.now();
-    setState(() {
-      date = DateFormat("M월 d일 EEEE", "ko").format(now);
+    day = DateFormat('EE', 'ko').format(now);
 
-    });
-    print(date);
+    if ((day == "토") || (day == "일")) {
+      print("주말");
+    } else {
+      print("평일");
+      if (now.hour >= 0 && now.hour < 7) {
+        print("7시 전");
+        setState(() {
+          content = "쿨쿨 zZ";
+          lucky = "별나라 여행하기";
+          ranking = "★";
+        });
+      } else {
+        getContentLucky();
+      }
+    }
   }
 
   Future<void> showInfo() async {
@@ -81,7 +94,6 @@ class _HomeState extends State<Home> {
           zodiacEnName = getEnName(num);
         });
       }
-      getContentLucky();
     }
   }
   
@@ -110,17 +122,8 @@ class _HomeState extends State<Home> {
     }
   }
 
-  // 이미지 선택 함수
-  Future<void> _pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        _imageFile = File(pickedFile.path);
-      });
-    }
-  }
+  // 주말인 경우에는 이거 써야됨
+  //firestore 하고 하셈
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +158,7 @@ class _HomeState extends State<Home> {
                   ),
                   child: Column(
                     children: [
-                      SizedBox(height: 100,),
+                      SizedBox(height: 90,),
                       // 닉네임
                       Text(
                         nickname,
@@ -166,50 +169,46 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       SizedBox(height: 5,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Container(
-                          //   width: 30,
-                          //   height: 30,
-                          //   decoration: BoxDecoration(
-                          //       borderRadius: BorderRadius.circular(100),
-                          //       color: getByColor(ranking)
-                          //   ),
-                          //   child:
-                          // ),
-                          // SizedBox(width: 10),
-                          Container(
-                            width: 120,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: getByColor(ranking),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Center(
-                              // 별자리
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  // SizedBox(width: 15),
-                                  Center(
-                                      child: Text(
-                                        ranking,
-                                        style: TextStyle(
-                                            color: Colors.white
-                                        ),
-                                      )
-                                  ),
-                                SizedBox(width: 5,),
-                                Text(
-                                  "|",
+                      Container(
+                        width: 120,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          color: getByColor(ranking),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // SizedBox(width: 15),
+                            SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: Center(
+                                child: Text(
+                                  ranking,
                                   style: TextStyle(
                                     color: Colors.white
                                   ),
-                                ),
-                                  SizedBox(width: 10,),
-
-                                Text(
+                                )
+                              )
+                            ),
+                            Container(
+                              width: 5,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  right: BorderSide(
+                                    color: Colors.white,
+                                    width: 1
+                                  )
+                                )
+                              ),
+                            ),
+                            SizedBox(
+                              width: 80,
+                              height: 30,
+                              child: Center(
+                                child: Text(
                                   zodiacName,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -217,13 +216,12 @@ class _HomeState extends State<Home> {
                                     fontWeight: FontWeight.w900,
                                   ),
                                 ),
-                              ]
-                            ),
-                          ),
+                              )
                             )
-                        ],
+                          ]
+                        ),
                       ),
-                      SizedBox(height: 40),
+                      SizedBox(height: 20),
                       Expanded(
                         child: SingleChildScrollView(
                           child: SizedBox(
@@ -273,7 +271,7 @@ class _HomeState extends State<Home> {
                                     )
                                   )
                                 ),
-                                SizedBox(height: 15),
+                                // SizedBox(height: 5),
                                 // 행운 행동
                                 Center(
                                   child: SizedBox(
@@ -354,7 +352,7 @@ class _HomeState extends State<Home> {
                         color: Color(0xFFFFD4CB),
                         borderRadius: BorderRadius.circular(100),
                         border: Border.all(width: 4, color: Colors.white),
-                        image: imagePath != null && imagePath.isNotEmpty
+                        image: imagePath.isNotEmpty
                             ? DecorationImage(
                           image: imagePath.startsWith('http')
                               ? NetworkImage(imagePath)
