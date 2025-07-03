@@ -42,22 +42,15 @@ class _HomeState extends State<Home> {
 
     initializeDateFormatting("ko", "");
     DateTime now = DateTime.now();
-    day = DateFormat('EE', 'ko').format(now);
 
-    if ((day == "토") || (day == "일")) {
-      print("주말");
+    if (now.hour >= 0 && now.hour < 7) {
+      setState(() {
+        content = "쿨쿨 zZ";
+        lucky = "별나라 여행하기";
+        ranking = "★";
+      });
     } else {
-      print("평일");
-      if (now.hour >= 0 && now.hour < 7) {
-        print("7시 전");
-        setState(() {
-          content = "쿨쿨 zZ";
-          lucky = "별나라 여행하기";
-          ranking = "★";
-        });
-      } else {
-        getContentLucky();
-      }
+      getContentLucky();
     }
   }
 

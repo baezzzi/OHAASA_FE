@@ -30,14 +30,9 @@ class _RankState extends State<Rank> {
     initializeDateFormatting("ko", "");
     DateTime now = DateTime.now();
     date = DateFormat('M월 d일 EEEE', 'ko').format(now);
-    String day = DateFormat("EE", "ko").format(now);
 
-    if ((day == "토") || (day == "일")) {
-      print("주말");
-    } else {
-      print("평일");
-      getZodiac();
-    }
+    getZodiac();
+
   }
 
   Future<void> getZodiac() async {

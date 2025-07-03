@@ -5,13 +5,13 @@ class Content extends StatefulWidget {
 
   final String name;
   final String zodiac;
-  final Color color;
+  final String ranking;
 
   const Content({
     super.key,
     required this.name,
     required this.zodiac,
-    required this.color
+    required this.ranking
   });
 
   @override
@@ -19,6 +19,24 @@ class Content extends StatefulWidget {
 }
 
 class _ContentState extends State<Content> {
+
+  bool isReady = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    DateTime now = DateTime.now();
+    if (now.hour >= 0 && now.hour < 7) {
+      setState(() {
+        isReady = true;
+      });
+    } else {
+      setState(() {
+        isReady = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,22 +72,55 @@ class _ContentState extends State<Content> {
               ),
             ),
             Container(
-              width: 100,
+              width: 120,
               height: 30,
               decoration: BoxDecoration(
-                color: widget.color,
+                color: getByColor(widget.ranking),
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: Center(
-                child: Text(
-                  widget.zodiac,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: Center(
+                      child: Text(
+                        isReady == true ? "★" : widget.ranking,
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      )
+                    )
                   ),
-                ),
-              ),
+                  Container(
+                    width: 5,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      border: Border(
+                        right: BorderSide(
+                          width: 1,
+                          color: Colors.white
+                        )
+                      )
+                    ),
+                  ),
+                  SizedBox(
+                    width: 80,
+                    height: 30,
+                    child: Center(
+                      child: Text(
+                        widget.zodiac,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              )
             )
           ],
         ),

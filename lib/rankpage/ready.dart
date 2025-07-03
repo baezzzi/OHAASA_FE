@@ -22,6 +22,8 @@ class _ReadyState extends State<Ready> {
     if (now.hour >= 0 && now.hour < 7) {
       setState(() {
         time = now.hour * 60 + now.minute;
+        print(time);
+        print(0.66* time);
       });
     }
   }
@@ -42,13 +44,13 @@ class _ReadyState extends State<Ready> {
                   color: Colors.grey.withAlpha(52),
                 ),
                 Container(
-                  width: 0.66 * time,
+                  width: (0.66 * time) ,
                   height: 25,
                   color: Color(0xFFD1C3FF),
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      "${((0.66 * time) / 420 * 100).toInt()} % ",
+                      "${((0.67 * time) / 280 * 100).toInt()} % ",
                       style: TextStyle(
                         color: Colors.black38,
                         fontSize: 12

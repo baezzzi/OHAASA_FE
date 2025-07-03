@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:OzO/friendszodiac/updatefriend.dart';
-import 'package:OzO/picker/colorpicker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -39,12 +37,9 @@ class _FriendState extends State<Friend> {
     initializeDateFormatting("ko", "");
     DateTime now = DateTime.now();
     date = DateFormat("M월 d일 EEEE", "ko").format(now);
-    String day = DateFormat("EE", "ko").format(now);
 
-    if ((day == "토") || (day == "일")) {
-    } else {
-      _showFrList();
-    }
+    _showFrList();
+
   }
 
   Future<void> _showAddFriend() async{
@@ -122,7 +117,6 @@ class _FriendState extends State<Friend> {
     );
 
     if (response.statusCode == 200) {
-      print("성공");
       setState(() {
         if (friendMap.length != 10) {
           setState(() {
@@ -135,20 +129,6 @@ class _FriendState extends State<Friend> {
     }
   }
 
-  // 친구 수정
-  Future<void> openFix(String id) async {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Align(
-          alignment: Alignment.center,
-          child: UpdateFriend(
-            id: id,
-          ),
-        );
-      }
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +206,9 @@ class _FriendState extends State<Friend> {
                                         Slidable(
                                           key: Key(friendMap[i.toString()]["id"].toString()),
                                           endActionPane: ActionPane(
-                                            motion: DrawerMotion(),
+                                            extentRatio: 0.25,
+
+                                            motion: ScrollMotion(),
                                             children: [
                                               SlidableAction(
                                                 onPressed: (context) {
@@ -235,10 +217,10 @@ class _FriendState extends State<Friend> {
                                                     friendMap.remove(i.toString());
                                                   });
                                                 },
-                                                backgroundColor: Colors.black54,
+                                                backgroundColor: Color(0xFFFF5353),
                                                 icon: Icons.delete,
                                                 foregroundColor: Colors.white,
-                                                borderRadius: BorderRadius.circular(20),
+                                                // borderRadius: BorderRadius.circular(20),
                                               ),
                                             ]
                                           ),
@@ -253,7 +235,7 @@ class _FriendState extends State<Friend> {
                                             child: Content(
                                               name : friendMap[i.toString()]["name"],
                                               zodiac: changeEnToKo(friendMap[i.toString()]["zodiac"]),
-                                              color: getByColor(friendMap[i.toString()]["ranking"] ?? "")
+                                              ranking: friendMap[i.toString()]["ranking"]
                                             ),
                                           ),
                                         ),
