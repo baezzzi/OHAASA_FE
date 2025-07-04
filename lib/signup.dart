@@ -26,7 +26,6 @@ class _SignUpState extends State<SignUp> {
 
   // firebase auth 요청
   Future<void> signUp() async {
-    print("함수실행");
     if (pwController.text == pwcheckController.text) {
 
       try {
@@ -34,7 +33,6 @@ class _SignUpState extends State<SignUp> {
             email: emailController.text.trim(),
             password: pwController.text.trim()
         );
-        print("회원가입 id : ${emailController.text}, pw : ${pwController.text}");
 
         final response = await http.post(
           Uri.parse("http://localhost:8080/users/sign-up"),
@@ -47,9 +45,10 @@ class _SignUpState extends State<SignUp> {
 
         if (response.statusCode == 200) {
           print("DB 저장 완료");
-          print("${credential.user?.uid}");
+          await FirebaseAuth.instance.signOut();
+
+          if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => SignIn()));
         }
-        if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => SignIn()));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'email-already-in-use') {
           setState(() {
