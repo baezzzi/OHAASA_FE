@@ -44,7 +44,6 @@ class _SignUpState extends State<SignUp> {
         );
 
         if (response.statusCode == 200) {
-          print("DB 저장 완료");
           await FirebaseAuth.instance.signOut();
 
           if (mounted) Navigator.push(context, MaterialPageRoute(builder: (_) => SignIn()));

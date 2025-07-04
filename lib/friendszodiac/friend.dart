@@ -82,9 +82,12 @@ class _FriendState extends State<Friend> {
       List<dynamic> data = jsonDecode(response.body);
       Map<String, dynamic> tempMap = {};
 
+      print(data);
+
       for (var item in data) {
-        String id = item["id"];
-        tempMap[id] = item;
+        String name = item["name"];
+        tempMap[name] = item;
+
       }
 
       setState(() {
@@ -98,21 +101,21 @@ class _FriendState extends State<Friend> {
             isLimited = false;
           });
         }
+
       });
     } else {
-      print(response.body);
     }
   }
 
   // 칭긔 손절
-  Future<void> deleteFriend(String id) async {
+  Future<void> deleteFriend(String name) async {
     final userEmail = user?.email;
     final response = await http.post(
       Uri.parse("http://localhost:8080/friend/delete-friend"),
       headers: { "Content-Type" : "application/json" },
       body: jsonEncode({
         "email" : userEmail,
-        "id" : id,
+        "name" : name,
       })
     );
 
@@ -204,7 +207,7 @@ class _FriendState extends State<Friend> {
                                     Column(
                                       children: [
                                         Slidable(
-                                          key: Key(friendMap[i.toString()]["id"].toString()),
+                                          key: Key(friendMap[i.toString()]["name"].toString()),
                                           endActionPane: ActionPane(
                                             extentRatio: 0.25,
 
@@ -213,7 +216,7 @@ class _FriendState extends State<Friend> {
                                               SlidableAction(
                                                 onPressed: (context) {
                                                   setState(() {
-                                                    deleteFriend(friendMap[i.toString()]["id"]);
+                                                    deleteFriend(friendMap[i.toString()]["nae"]);
                                                     friendMap.remove(i.toString());
                                                   });
                                                 },
@@ -229,13 +232,13 @@ class _FriendState extends State<Friend> {
                                               _showZodiac(
                                                 friendMap[i.toString()]["name"],
                                                 friendMap[i.toString()]["zodiac"],
-                                                friendMap[i.toString()]["ranking"]
+                                                friendMap[i.toString()]["rank"]
                                               );
                                             },
                                             child: Content(
                                               name : friendMap[i.toString()]["name"],
                                               zodiac: changeEnToKo(friendMap[i.toString()]["zodiac"]),
-                                              ranking: friendMap[i.toString()]["ranking"]
+                                              ranking: friendMap[i.toString()]['rank']
                                             ),
                                           ),
                                         ),

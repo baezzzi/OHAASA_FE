@@ -49,14 +49,13 @@ class _HomeState extends State<Home> {
         lucky = "별나라 여행하기";
         ranking = "★";
       });
-    } else {
-      getContentLucky();
     }
   }
 
   Future<void> showInfo() async {
-    getZodiac();
-    getNickname();
+    await getZodiac();
+    await getNickname();
+    getContentLucky();
   }
 
   // 닉네임 가져오기

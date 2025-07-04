@@ -140,33 +140,13 @@ class _MyAppState extends State<MyApp> {
                )
              ],
            );
+          } else {
+            return Home();
           }
 
-          // 3. 로그인 상태 (유저 객체 있음)
-          final user = authSnapshot.data!;
-          final email = user.email;
+          // // 3. 로그인 상태 (유저 객체 있음)
+          // final user = authSnapshot.data!;
 
-          // 4. Firestore에서 nickname 확인
-          return FutureBuilder<DocumentSnapshot>(
-            future: FirebaseFirestore.instance.collection('users').doc(user.uid).get(),
-            builder: (context, userSnapshot) {
-              if (userSnapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              if (!userSnapshot.hasData || !userSnapshot.data!.exists) {
-                // 닉네임 정보가 없으면 SignIn()으로
-                return SignIn();
-              }
-              final data = userSnapshot.data!.data() as Map<String, dynamic>;
-              if (data['nickname'] != null && data['nickname'].toString().isNotEmpty) {
-                // 닉네임이 있으면 Home()으로
-                return Home();
-              } else {
-                // 닉네임이 없으면 SignIn()으로
-                return SignIn();
-              }
-            },
-          );
        },
       )
     );

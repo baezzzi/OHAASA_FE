@@ -75,7 +75,7 @@ class _ContentState extends State<Content> {
               width: 120,
               height: 30,
               decoration: BoxDecoration(
-                color: getByColor(widget.ranking),
+                color: getByColor(widget.ranking.toString()),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
@@ -86,7 +86,7 @@ class _ContentState extends State<Content> {
                     height: 20,
                     child: Center(
                       child: Text(
-                        isReady == true ? "★" : widget.ranking,
+                        isReady == true ? "★" :widget.ranking.toString(),
                         style: TextStyle(
                           color: Colors.white,
                         ),

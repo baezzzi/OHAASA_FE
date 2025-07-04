@@ -172,10 +172,8 @@ class _FriendZodiacState extends State<FriendZodiac> {
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.stars_rounded, color: getByColor(widget.ranking), size: 14),
-                      SizedBox(width: 5,),
                       Text(
                         lucky,
                         style: TextStyle(
