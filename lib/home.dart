@@ -229,7 +229,7 @@ class _HomeState extends State<Home> {
                             height: 400,
                             child: Column(
                               children: [
-                                SizedBox(height: 10),
+                                SizedBox(height: 20),
                                 // 별자리 운세 내용
                                 Center(
                                   child: SizedBox(
@@ -272,7 +272,7 @@ class _HomeState extends State<Home> {
                                     )
                                   )
                                 ),
-                                SizedBox(height: 20),
+                                SizedBox(height: 25),
                                 // 행운 행동
                                 Center(
                                   child: SizedBox(

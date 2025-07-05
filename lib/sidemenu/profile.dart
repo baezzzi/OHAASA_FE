@@ -202,7 +202,7 @@ class _ProfileState extends State<Profile> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 120),
+                          SizedBox(height: 80),
                           Text(
                             "닉네임",
                             style: TextStyle(
@@ -280,42 +280,7 @@ class _ProfileState extends State<Profile> {
                 )
               ],
             ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                  ),
-                  Stack(
-                    children: [
-                      Consumer<ProfileProvider>(
-                        builder: (context, provider, child) {
-                          final imagePath = provider.profileImagePath;
-                          return Container(
-                            width: 130,
-                            height: 130,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFFFD4CB),
-                              borderRadius: BorderRadius.circular(100),
-                              border: Border.all(width: 4, color: Colors.white),
-                              image: imagePath.isNotEmpty
-                                  ? DecorationImage(
-                                image: imagePath.startsWith('http')
-                                    ? NetworkImage(imagePath)
-                                    : FileImage(File(imagePath)) as ImageProvider,
-                                fit: BoxFit.cover,
-                              )
-                                  : null,
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  )
-                ],
-              )
-            ),
+
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
