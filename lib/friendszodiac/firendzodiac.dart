@@ -53,8 +53,6 @@ class _FriendZodiacState extends State<FriendZodiac> {
 
     if (response.statusCode == 200) {
       List<dynamic> data = jsonDecode(response.body) as List<dynamic>;
-      print(widget.en);
-      print(data);
       if (data.isNotEmpty) {
         final result = data[0] as Map<String, dynamic>;
         lucky = result["lucky"] ?? "";

@@ -82,8 +82,6 @@ class _FriendState extends State<Friend> {
       List<dynamic> data = jsonDecode(response.body);
       Map<String, dynamic> tempMap = {};
 
-      print(data);
-
       for (var item in data) {
         String name = item["name"];
         tempMap[name] = item;

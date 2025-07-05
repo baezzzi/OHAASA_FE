@@ -18,9 +18,15 @@ class Rank extends StatefulWidget {
   State<Rank> createState() => _RankState();
 }
 
+List<String> zodiacNames = [
+  "aries", "taurus", "gemini", "cancer", "leo", "virgo",
+  "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces"
+];
+
 class _RankState extends State<Rank> {
 
   late String date = "";
+  late String day = "";
   Map<String, dynamic> rankMap = {};
 
   @override
@@ -30,12 +36,16 @@ class _RankState extends State<Rank> {
     initializeDateFormatting("ko", "");
     DateTime now = DateTime.now();
     date = DateFormat('M월 d일 EEEE', 'ko').format(now);
+    day = DateFormat("EE", "ko").format(now);
 
-    getZodiac();
-
+    if ((day == "토") || (day == "일")) {
+      getZodiacWeekend();
+    } else {
+      getZodiacWeek();
+    }
   }
 
-  Future<void> getZodiac() async {
+  Future<void> getZodiacWeek() async {
     final response = await http.get(
         Uri.parse("http://localhost:8080/crawl/horoscope/ranking"),
     );
@@ -47,6 +57,26 @@ class _RankState extends State<Rank> {
       for (var item in data) {
         String rank = item['rank'];
         tempMap[rank] = item;
+      }
+
+      setState(() {
+        rankMap = tempMap; // 상태 업데이트
+      });
+    }
+  }
+
+  Future<void> getZodiacWeekend() async {
+    final response = await http.get(
+        Uri.parse("http://localhost:8080/crawl/horoscope/ranking"),
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body);
+      Map<String, dynamic> tempMap = {};
+
+      for (var item in data) {
+        String name = item['name'];
+        tempMap[name] = item;
       }
 
       setState(() {
@@ -144,7 +174,9 @@ class _RankState extends State<Rank> {
                                   Ready()
                                 ],
                               ),
-                            if (rankMap.isNotEmpty)
+
+                            // 평일 출력
+                            if (rankMap.isNotEmpty && (day != "토" || day != "일"))
                               for (int i = 1; i <= 12; i++)
                                 if (rankMap.containsKey(i.toString()))
                                   Column(
@@ -155,6 +187,7 @@ class _RankState extends State<Rank> {
                                             i.toString(),
                                             rankMap[i.toString()]['name']
                                           );
+                                          print(rankMap[i.toString()]);
                                         },
                                         child: RankBox(
                                           ranking : "$i",
@@ -164,6 +197,30 @@ class _RankState extends State<Rank> {
                                       SizedBox(height: 14),
                                     ],
                                   ),
+
+                            // 주말 출력
+                            if (rankMap.isNotEmpty && (day == "토" || day == "일"))
+                              for (String name in zodiacNames)
+                                if (rankMap.containsKey(name))
+                                  Column(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          openDetail(
+                                            rankMap[name]['rank'].toString(),
+                                            name
+                                          );
+                                        },
+                                        child: RankBox(
+                                          ranking : rankMap[name]['rank'].toString(),
+                                          name : changeEnToKo(name)
+                                        ),
+                                      ),
+                                      SizedBox(height: 14),
+                                    ],
+                                  ),
+
+
                           ],
                         ),
                       ),

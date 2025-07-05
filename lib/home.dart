@@ -1,18 +1,14 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 import 'package:OzO/layout/bottommenu.dart';
 import 'package:OzO/picker/zodiacpicker.dart';
 import 'package:OzO/sidemenu/sidepopup.dart';
 import 'package:OzO/picker/colorpicker.dart';
-import 'package:OzO/sidemenu/profileprovider.dart';
-
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -42,6 +38,7 @@ class _HomeState extends State<Home> {
 
     initializeDateFormatting("ko", "");
     DateTime now = DateTime.now();
+    day = DateFormat("M / d (EE)", "ko").format(now);
 
     if (now.hour >= 0 && now.hour < 7) {
       setState(() {
@@ -114,9 +111,6 @@ class _HomeState extends State<Home> {
     }
   }
 
-  // 주말인 경우에는 이거 써야됨
-  //firestore 하고 하셈
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,7 +125,20 @@ class _HomeState extends State<Home> {
                 color: getByColor(ranking),
               ),
               Image.asset("assets/images/header.png"),
-
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 80),
+                  child: Text(
+                    day,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700
+                    ),
+                  )
+                )
+              )
             ],
           ),
           Column(
@@ -150,7 +157,9 @@ class _HomeState extends State<Home> {
                   ),
                   child: Column(
                     children: [
-                      SizedBox(height: 90,),
+                      SizedBox(height: 30,),
+
+                      SizedBox(height: 15),
                       // 닉네임
                       Text(
                         nickname,
@@ -160,7 +169,7 @@ class _HomeState extends State<Home> {
                           fontWeight: FontWeight.w400
                         ),
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(height: 15,),
                       Container(
                         width: 120,
                         height: 30,
@@ -220,12 +229,12 @@ class _HomeState extends State<Home> {
                             height: 400,
                             child: Column(
                               children: [
-                                SizedBox(height: 30),
+                                SizedBox(height: 10),
                                 // 별자리 운세 내용
                                 Center(
                                   child: SizedBox(
                                     width: 300,
-                                    height: 180,
+                                    height: 150,
                                     child: Stack(
                                       children: [
                                         Container(
@@ -263,7 +272,7 @@ class _HomeState extends State<Home> {
                                     )
                                   )
                                 ),
-                                // SizedBox(height: 5),
+                                SizedBox(height: 20),
                                 // 행운 행동
                                 Center(
                                   child: SizedBox(
@@ -316,6 +325,7 @@ class _HomeState extends State<Home> {
                                     )
                                   ),
                                 ),
+
                               ],
                             ),
                           )
@@ -334,29 +344,6 @@ class _HomeState extends State<Home> {
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.08),
-                Consumer<ProfileProvider>(
-                  builder: (context, provider, child) {
-                    final imagePath = provider.profileImagePath;
-                    return Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFFFD4CB),
-                        borderRadius: BorderRadius.circular(100),
-                        border: Border.all(width: 4, color: Colors.white),
-                        image: imagePath.isNotEmpty
-                            ? DecorationImage(
-                          image: imagePath.startsWith('http')
-                              ? NetworkImage(imagePath)
-                              : FileImage(File(imagePath)) as ImageProvider,
-                          fit: BoxFit.cover,
-                        )
-                            : null,
-                      ),
-                    );
-                  },
-                )
-
               ],
             )
           ),

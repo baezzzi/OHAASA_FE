@@ -24,9 +24,8 @@ class _RankBoxState extends State<RankBox> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(getByColor(widget.ranking));
-    print(getImageLink(widget.name));
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(

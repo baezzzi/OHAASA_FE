@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import 'package:OzO/home.dart';
@@ -300,7 +299,7 @@ class _ProfileState extends State<Profile> {
                               color: Color(0xFFFFD4CB),
                               borderRadius: BorderRadius.circular(100),
                               border: Border.all(width: 4, color: Colors.white),
-                              image: imagePath != null && imagePath.isNotEmpty
+                              image: imagePath.isNotEmpty
                                   ? DecorationImage(
                                 image: imagePath.startsWith('http')
                                     ? NetworkImage(imagePath)
@@ -312,38 +311,6 @@ class _ProfileState extends State<Profile> {
                           );
                         },
                       ),
-
-                      Positioned(
-                        right: 10,
-                        bottom: 10,
-                        child: GestureDetector(
-                          onTap: () async {
-                            final picker = ImagePicker();
-                            final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-                            if (pickedFile != null) {
-                              final profileProvider = Provider.of<ProfileProvider>(context, listen: false);
-                              profileProvider.updateProfileImage(pickedFile.path); // 또는 Firebase Storage에 업로드 후 URL 저장
-                            }
-                          },
-                          child: Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(100),
-                              border: Border.all(
-                                width: 1,
-                                color: Colors.black12
-                              )
-                            ),
-                            child: Icon(
-                              Icons.edit,
-                              color: Color(0xFFFFD4CB),
-                              size: 15,
-                            ),
-                          ),
-                        )
-                      )
                     ],
                   )
                 ],
